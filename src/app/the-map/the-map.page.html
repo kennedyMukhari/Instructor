@@ -46,23 +46,23 @@
       </div>
       <div class="s-list" padding>
   
-        <div class="card">
+        <div class="card" *ngFor = "let obj of NewRequesteWithPictures; let i = index">
   
           <div class="image">
-            <img src="../../assets/Samuel_L._Jackson.jpg" alt="No Image">
+            <img src="{{obj.image}}" alt="No Image">
           </div>
           <div class="details">
             <div class="det">
-              <p style="font-size: 4vw;font-weight: bold">Samuel L Jackson</p>
-              <p style="font-size: 3vw">Dippenaar St, Diepkloof Zone, Johannesburg</p>
-              <p style="font-size: 3vw">Contacts</p>
-              <p style="font-size: 2.5vw">015 325 256</p>
+              <p style="font-size: 4vw;font-weight: bold">{{obj.name}}</p>
+              <p style="font-size: 3vw">{{obj.location}}</p>
+              <p style="font-size: 3vw">Contacts :{{obj.phone}} </p>
+              <p style="font-size: 3vw">Date In: {{obj.datein}}</p>
               
               <div class="butons">
   
   
               <div class="btns">
-                <button class="bt1">
+                <button class="bt1" (click)="Accept(obj, i, obj.docid)">
                   Accept
                 </button>
               </div>

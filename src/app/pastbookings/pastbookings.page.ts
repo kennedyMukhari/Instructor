@@ -77,12 +77,13 @@ export class PastbookingsPage implements OnInit {
   let date;
   this.Booking = [];
   this.Booking = this.data.SavedData;
-  console.log("Customer", this.Customer);
+ 
   this.CheckArrayLength();
  
-  this.Customer.forEach(Customers => { 
-     this.Booking.push(Customers)          
-  })
+  // this.Customer.forEach(Customers => {
+  //   console.log("Customer", Customers); 
+  //    this.Booking.push(Customers)          
+  // })
   this.SortData();
   
  }
