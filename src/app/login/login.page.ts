@@ -130,6 +130,9 @@ loader.dismiss()
   forgetpassword() {
     this.router.navigate(['reset-password']);
   }
+  goToRegister(){
+    this.router.navigate(['register']);
+  }
   handleLogin() {
     // Do your stuff here
 }
