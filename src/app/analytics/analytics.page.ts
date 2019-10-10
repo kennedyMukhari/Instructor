@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import * as Chart from 'chart.js';
 import { Platform } from '@ionic/angular';
+import { DataSavedService } from '../../app/data-saved.service'
 
 @Component({
   selector: 'app-analytics',
@@ -27,14 +28,28 @@ user = {
 
 Data = [];
 NewData = [];
+accepted = {
+  mon: [],
+tue:[],
+wed: [],
+thu: [],
+fri: [],
+sat: [],
+sun: [],
+}
+rejected = {
+  mon: [],
+tue:[],
+wed: [],
+thu: [],
+fri: [],
+sat: [],
+sun: [],
+}
 
-mon = []
-tue = []
-wed = []
-thu = []
-fri = []
-sat = []
-sun = []
+AcceptedData = 0
+RejectedData = 0
+
 //array from database
 // charts =[];
 NewDrivingschool=[];
@@ -46,9 +61,12 @@ charts: any;
      private platform: Platform,
      public renderer: Renderer2, 
      public elementref: ElementRef, 
+     public data : DataSavedService
      ) {
 
+    
      
+
 
     this.db.collection('drivingschools').onSnapshot(snapshot => {
       this.NewDrivingschool = [];
@@ -60,7 +78,7 @@ charts: any;
       this.Drivingschool.forEach(item => {
       
         if(item.schooluid === firebase.auth().currentUser.uid){
-                 this.NewDrivingschool.push(item);
+           this.NewDrivingschool.push(item);
              
                  
               }
@@ -105,16 +123,6 @@ charts: any;
 // }
 
   ionViewWillEnter() {
-   
-
-    this.mon = [];
-    this.tue = [];
-    this.wed = [];
-    this.thu = [];
-    this.fri = [];
-    this.sat = [];
-    this.sun = [];
-    console.log('Monday array',this.mon);
     
     this.platform.ready().then(() => {
       console.log('Core service init');
@@ -146,7 +154,7 @@ charts: any;
   
 //  this.openImage('', 'close');
   this.getRequests();
- 
+  console.log('accpeted data', this.AcceptedData);
 }
 
   
@@ -155,78 +163,154 @@ charts: any;
   getRequests() {
 
     this.db.collection('bookings').where('schooluid', '==',firebase.auth().currentUser.uid).onSnapshot(res => {
+      this.AcceptedData = 0;
+      this.RejectedData = 0;
+      this.rejected.mon = []
+      this.rejected.tue = []
+      this.rejected.wed = []
+      this.rejected.thu = []
+      this.rejected.fri = []
+      this.rejected.sat = []
+      this.rejected.sun = []
+
+      this.accepted.mon = []
+      this.accepted.tue = []
+      this.accepted.wed = []
+      this.accepted.thu = []
+      this.accepted.fri = []
+      this.accepted.sat = []
+      this.accepted.sun = []
     console.log(res);
-    this.mon = [];
-    this.tue = [];
-    this.wed = [];
-    console.log('wednday',  this.wed)
-    this.thu = [];
-    this.fri = [];
-    this.sat = [];
-    this.sun = [];
       res.forEach(doc => {
-       
-        let date = doc.data().datecreated
+        if (doc.data().confirmed == 'rejected') {
+
+          let date = doc.data().datecreated
         let newDate = date.split(" ")
        
         
         if (newDate[0] == "Mon") {
-          this.mon.push(doc.data())
+          this.rejected.mon.push(doc.data())
+          this.RejectedData = this.RejectedData + 1;
         } else if (newDate[0] == "Tue") {
-          this.tue.push(doc.data())
+          this.rejected.tue.push(doc.data())
+          this.RejectedData = this.RejectedData + 1;
         }else if (newDate[0] == "Wed") {
-          this.wed.push(doc.data())
+
+          this.rejected.wed.push(doc.data())
+          this.RejectedData = this.RejectedData + 1;
         }
         else if (newDate[0] == "Thu") {
-          this.thu.push(doc.data())
-          console.log("The new Date is",this.thu.length);
+          this.rejected.thu.push(doc.data())
+          this.RejectedData = this.RejectedData + 1;
         }
         else if (newDate[0] == "Fri") {
-          this.fri.push(doc.data())
+          this.rejected.fri.push(doc.data())
+          this.RejectedData = this.RejectedData + 1;
         }
         else if (newDate[0] == "Sat") {
-          this.sat.push(doc.data())
+          this.rejected.sat.push(doc.data())
+          this.RejectedData = this.RejectedData + 1;
         }
         else if (newDate[0] == "Sun") {
-          this.sun.push(doc.data())
+          this.rejected.sun.push(doc.data())
+          this.RejectedData = this.RejectedData + 1;
         }
-      })
+
+     
+        
+        } else {
+          let date = doc.data().datecreated
+        let newDate = date.split(" ")
+       
+        
+        if (newDate[0] == "Mon") {
+          this.accepted.mon.push(doc.data())
+          this.AcceptedData = this.AcceptedData + 1;
+        } else if (newDate[0] == "Tue") {
+          this.accepted.tue.push(doc.data())
+          this.AcceptedData = this.AcceptedData + 1;
+        }else if (newDate[0] == "Wed") {
+          this.accepted.wed.push(doc.data())
+          this.AcceptedData = this.AcceptedData + 1;
+        }
+        else if (newDate[0] == "Thu") {
+          this.accepted.thu.push(doc.data())
+          this.AcceptedData = this.AcceptedData + 1;
+        }
+        else if (newDate[0] == "Fri") {
+          this.accepted.fri.push(doc.data())
+          this.AcceptedData = this.AcceptedData + 1;
+        }
+        else if (newDate[0] == "Sat") {
+          this.accepted.sat.push(doc.data())
+          this.AcceptedData = this.AcceptedData + 1;
+        }
+        else if (newDate[0] == "Sun") {
+          this.accepted.sun.push(doc.data())
+          this.AcceptedData = this.AcceptedData + 1;
+        }
+        }
+      });
       this.createBarChart();
-      console.log(this.mon);
-      
+      console.log('rejected' ,this.rejected);
+      console.log('accepted' ,this.accepted);
     })
 
   }
 
-  createBarChart() {
+//   createBarChart() {
 
-    this.charts = new Chart(this.barChart.nativeElement, {
-      type: 'line',
-      data: {
-        labels: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
-        datasets: [{
-          label: 'Lessons offered per day',
-          // data: [this.mon.length, this.tue.length, this.wed.length, this.thu.length, this.fri.length, this.sat.length, this.sun.length],
-           data: [this.mon.length, this.tue.length, this.wed.length, this.thu.length, this.fri.length, this.sat.length, this.sun.length],
-          backgroundColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
-          borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
-          borderWidth: 1
-        }]
-      },
+//     this.charts = new Chart(this.barChart.nativeElement, {
+//       type: 'line',
+//       data: {
+//         labels: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+//         datasets: [{
+//           label: 'Lessons offered per day',
+//           // data: [this.mon.length, this.tue.length, this.wed.length, this.thu.length, this.fri.length, this.sat.length, this.sun.length],
+//            data: [this.mon.length, this.tue.length, this.wed.length, this.thu.length, this.fri.length, this.sat.length, this.sun.length],
+//           backgroundColor: 'rgb(38, 194, 129)', // array should have same number of elements as number of dataset
+//           borderColor: 'rgb(38, 194, 129)',// array should have same number of elements as number of dataset
+//           borderWidth: 1
+//         }]
+//       },
       
 
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
+//       options: {
+//         scales: {
+//           yAxes: [{
+//             ticks: {
+//               beginAtZero: true
+//             }
+//           }]
+//         }
+//       }
+//     });
+// }
+createBarChart() {
+  
+  this.charts = new Chart(this.barChart.nativeElement,  {
+    type: 'line',
+    data: {
+      labels: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+      datasets: [{
+        
+        label: 'accepted' ,
+        data: [this.accepted.mon.length, this.accepted.tue.length,this.accepted.wed.length,this.accepted.thu.length, this.accepted.fri.length, this.accepted.sat.length, this.accepted.sun.length],
+        backgroundColor: 'rgba(77, 209, 0, 0.534)',// array should have same number of elements as number of dataset
+        borderColor: 'rgb(156, 255, 98)',// array should have same number of elements as number of dataset
+        borderWidth: 1
+      },
+      {
+        
+        label: 'declined',
+        data: [this.rejected.mon.length, this.rejected.tue.length,this.rejected.wed.length,this.rejected.thu.length,this.rejected.fri.length,this.rejected.sat.length,this.rejected.sun.length],
+        backgroundColor: 'rgba(204, 0, 0, 0.657)', // array should have same number of elements as number of dataset
+        borderColor: '#FF0000',// array should have same number of elements as number of dataset
+        borderWidth: 1
+      }]
+    },
+  });
 }
-
 
 showTab(){
   this.platform.ready().then(() => {
