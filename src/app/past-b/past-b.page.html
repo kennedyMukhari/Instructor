@@ -1,14 +1,13 @@
-<!-- 
-  
+<!-- <ion-content class="no-scroll">
     <div class="container">
       <div class="dSchool" *ngFor="let d of NewDrivingschool">
-
+     
         <div class="viewImage" [ngClass]="{'viewImage': viewImage.open, 'viewImage-inactive': !viewImage.open}">
           <div (click)="openImage(d.image, 'close')" class="close"><p>x</p></div>
           <img *ngIf="d.image" src="{{d.image}}" alt="">
           <img *ngIf="!d.image"  src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d" alt="">
         </div> 
-
+​
       <div class="thumb">
         <ion-avatar (click)="openImage(d.image, 'open')">
           <img *ngIf="d.image" src="{{d.image}}" alt="" >
@@ -37,7 +36,7 @@
               <img src={{item.image}}>
             </ion-avatar>
           </div>
-
+​
           <div class="comments">
             <ion-label>
               <h1>{{item.username}}</h1>
@@ -57,42 +56,47 @@
 
 
   <ion-content>
-      <div class="container">
+      <div class="container"  *ngFor="let d of NewDrivingschool">
+        
         <div class="top">
           <div class="image">
-            <img src="../../assets/Samuel_L._Jackson.jpg" alt="">
+            <img *ngIf="d.image" src="{{d.image}}" alt="">
           </div>
           <div class="name">
             <p>
-                Samuel L.Jackson
+                {{d.schoolname}}
             </p>
           </div>
         </div>
+
+
         <div class="say">
           <p>
             People said
           </p>
         </div>
-        <div class="comments">
-    
+
+        <div class="comments" *ngFor="let item of reviews">
           <div class="first">
             
             <div class="pic">
               <ion-avatar>
-                  <img src="../../assets/Samuel_L._Jackson.jpg" />
+                  <img src={{item.image}} />
               </ion-avatar>
-    
             </div>
             <div class="com">
-                <h1>Nick Fury</h1>
+                <h1>{{item.username}}</h1>
                 <a>23 Jul 2019</a>
                 <p>
-                    Samuel Leroy Jackson is an American actor and film producer.
+                    {{item.text}}
                 </p>
+                <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
+                defaultColor="#D3D3D3" readonly="true" rating="{{item.rating}}" fontSize="32px"
+                (ratingChanged)="logRatingChange($event)">
+              </ionic4-star-rating>
             </div>
             
           </div>
         </div>
       </div>
     </ion-content>
-       

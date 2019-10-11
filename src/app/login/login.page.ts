@@ -127,13 +127,72 @@ loader.dismiss()
     }
   }
 
-  forgetpassword() {
-    this.router.navigate(['reset-password']);
+   async forgetpassword() {
+
+    // this.router.navigate(['reset-password']);
+
+    const alert = await this.alertCtrl.create({
+      header: 'Please enter your E-mail',
+      inputs: [
+        
+        {
+          name: 'name',
+          type: 'text'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            firebase.auth().sendPasswordResetEmail(data.name).then(
+              async () => {
+                const alert = await this.alertCtrl.create({
+                  message: 'Check your email for a password reset link',
+                  buttons: [
+                    {
+                      text: 'Ok',
+                      role: 'cancel',
+                      handler: () => {
+                        this.router.navigateByUrl('login');
+                      }
+                    }
+                  ]
+                });
+                await alert.present();
+              },
+              async error => {
+                const errorAlert = await this.alertCtrl.create({
+                  message: error.message,
+                  buttons: [{ text: 'Ok', role: 'cancel' }]
+                });
+                await errorAlert.present();
+              }
+            );
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
-  goToRegister(){
+
+
+
+  async goToRegister(){
     this.router.navigate(['register']);
   }
+
+
   handleLogin() {
     // Do your stuff here
 }
+
+
 }

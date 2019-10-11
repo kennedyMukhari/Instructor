@@ -27,33 +27,66 @@
               SIGN IN
             </h1>
           </div>
-          <div class="input1">
-            <div class="em">
-                <a>User Email</a>
+
+          <form ng-submit="loginForm()"  [formGroup]= "loginForm" class="login" #form="ngForm">
+
+
+            <div class="input1">
+              <div class="em">
+                  <a>User Email</a>
+              </div>
+              <div class="inp">
+                <input type="email" formControlName="email" [class.invalid]="!loginForm.controls['email'].valid &&
+                loginForm.controls['email'].touched" (keyup.enter)="submit()">
+              </div>
             </div>
-            <div class="inp">
-                <input type="text">
+
+            <div class="error" *ngIf="!loginForm.controls['email'].valid &&
+            loginForm.controls['email'].touched">
+              <div class="messages">
+                Please enter a valid email address.
+              </div>
             </div>
-          </div>
-          <div class="input1">
+
+
+            <div class="input1">
               <div class="em">
                   <a>Password</a>
               </div>
               <div class="inp">
-                  <input type="text">
+                <input   type="email" type="password" formControlName="password"
+                [class.invalid]="!loginForm.controls['password'].valid&& loginForm.controls['password'].touched" (keyup.enter)="submit()" (keyup.enter)="handleLogin()">
               </div>
             </div>
-  
+
+
+            <div *ngIf="!loginForm.controls['password'].valid
+            && loginForm.controls['password'].touched" class="error">
+              <div class="messages">
+                Your password is incorrect.
+              </div>
+            </div>
+
+
             <div class="forget">
-              <button>
+              <button (click)="forgetpassword()">
                 Forgot Password?
               </button>
             </div>
             <div class="btn">
-              <button>
+              <button  type="submit"  (click)="loginUser(loginForm)">
                 Proceed
               </button>
             </div>
+
+
+          </form>
+
+
+          
+          
+  
+           
         </div>
       </div>
   

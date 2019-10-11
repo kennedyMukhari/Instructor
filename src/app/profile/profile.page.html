@@ -1,4 +1,17 @@
 <ion-content fullscreen>
+
+    <div class="viewImage">
+        <div (click)="openImage('', 'close')" class="close"><p>x</p></div>
+        <img  *ngIf="businessdata.image" src="{{businessdata.image}}" alt="">
+        <img *ngIf="!businessdata.image" src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d" alt="">
+  
+        <ion-fab vertical="middle" horizontal=" start" (click)="selectImage()">
+        <ion-fab-button side="top" size="small">
+            <ion-icon name="create"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      </div>
+
     <ion-slides>
   
       <ion-slide>
@@ -33,7 +46,16 @@
             </div>
   
             <div class="pp">
-              <img src="../../assets/imagePlaceholder.svg" alt="">
+              <!-- <img src="../../assets/imagePlaceholder.svg" alt=""> -->
+              
+            <div class="pp" (click)="openImage('', 'open')">
+                <ion-avatar item-left>
+                <img *ngIf="!businessdata.image" src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d"
+                alt="">
+                <img *ngIf="businessdata.image" src="{{businessdata.image}}"
+                alt="">
+              </ion-avatar>
+              </div>
             </div>
   
             <div class="div">
@@ -52,26 +74,63 @@
   
               </div>
               <div class="inputs">
-                <a>
-                  Address
-                </a>
-                <input type="text">
+                  
+                  <a>
+                      Address
+                    </a>
+                    <input type="text" #autocomplete  id="autocomplete"
+                    placeholder="Enter your address"
+                    (onFocus)="geolocate()" type="text" [(ngModel)]="businessdata.address">
+
+                  <form  [formGroup]="loginForm">
+                
                 <a>
                   School name
                 </a>
-                <input type="text">
+                <input type="text" formControlName="schoolname" [(ngModel)]="businessdata.schoolname">
+                <div class="error" *ngFor="let validate of validation_messages.schoolname">
+                    <div class="messages"
+                      *ngIf="loginForm.get('schoolname').hasError(validate.type) && (loginForm.get('schoolname').dirty || loginForm.get('schoolname').touched)">
+                      {{validate.message}}
+                    </div>
+                  </div>
+
+
                 <a>
                   Cell number
                 </a>
-                <input type="text">
+                <input type="text" formControlName="cellnumber" [(ngModel)]="businessdata.cellnumber">
+                <div class="error" *ngFor="let validate of validation_messages.cellnumber">
+                    <div class="messages"
+                      *ngIf="loginForm.get('cellnumber').hasError(validate.type) && (loginForm.get('cellnumber').dirty || loginForm.get('cellnumber').touched)">
+                      {{validate.message}}
+                    </div>
+                  </div>
+
+
                 <a>
                   cOST P/L
                 </a>
-                <input type="text">
+                <input type="text" formControlName="cost" [(ngModel)]="businessdata.cost">
+                <div class="error" *ngFor="let validate of validation_messages.cost">
+                    <div class="messages"
+                      *ngIf="loginForm.get('cost').hasError(validate.type) && (loginForm.get('cost').dirty || loginForm.get('cost').touched)">
+                      {{validate.message}}
+                    </div>
+                  </div>
+
+
                 <a>
                   dESCRIPTION
                 </a>
-                <input type="text">
+                <input type="text" formControlName="desc" [(ngModel)]="businessdata.desc">
+                <div class="error" *ngFor="let validate of validation_messages.schoolname">
+                    <div class="messages"
+                      *ngIf="loginForm.get('desc').hasError(validate.type) && (loginForm.get('desc').dirty || loginForm.get('desc').touched)">
+                      {{validate.message}}
+                    </div>
+                  </div>
+                
                 <div class="next">
                   <div class="btn">
   
@@ -86,7 +145,12 @@
                     </div>
                   </div>
                 </div>
+
+              </form>
+                
               </div>
+
+
             </div>
           </div>
         </div>
@@ -112,8 +176,8 @@
             <div class="time">
               <div class="t1">
                 <a>Opening time</a>
-                <ion-item>
-                  <ion-datetime displayFormat="HH:mm">
+                <ion-item> 
+                  <ion-datetime displayFormat="HH:mm" [(ngModel)]="businessdata.open">
                   </ion-datetime>
                 </ion-item>
               </div>
@@ -124,7 +188,7 @@
               <div class="t1">
                 <a>Closing Time</a>
                 <ion-item>
-                  <ion-datetime displayFormat="HH:mm">
+                  <ion-datetime displayFormat="HH:mm" [(ngModel)]="businessdata.closed">
                   </ion-datetime>
                 </ion-item>
               </div>
@@ -145,9 +209,36 @@
                 <div class="dv2"></div>
               </div>
             </div>
+
+
             <div class="contPacks">
+
+                <!-- <div>
+                    <p text-center *ngIf="!businessdata.packages[0]"><strong>No packages yet</strong></p>
+                    <div class="pack-l" *ngFor="let p of businessdata.packages; let i = index" (click)="editpack(p)">
+                      <p *ngIf="p.code"><b>{{p.code}}</b></p>
+                      <p *ngIf="p.name"><b>{{p.name}}</b></p>
+                      <p *ngIf="p.number"> {{p.number}} Lessons R{{p.amount}}.00</p>
+                      <div class="dele" (click)="deletepack(i)">
+                        <p>x</p>
+                      </div>
+                    </div>
+                  </div> -->
+
+
               <div class="packs">
-                <div class="pack">
+                  <p text-center *ngIf="!businessdata.packages[0]"><strong>No packages yet</strong></p>
+
+                <div class="pack" *ngFor="let p of businessdata.packages; let i = index" (click)="editpack(p)">
+                  <a *ngIf="p.code">{{p.code}}</a>
+                  <a *ngIf="p.name">{{p.name}}</a>
+                  <a *ngIf="p.number">{{p.number}}</a>
+                  <div class="dele" (click)="deletepack(i)">
+                      <a>x</a>
+                    </div>
+                </div>
+  
+                <!-- <div class="pack">
                   <a>Code 08</a>
                   <a>5 lessons</a>
                 </div>
@@ -160,37 +251,48 @@
                 <div class="pack">
                   <a>Code 08</a>
                   <a>5 lessons</a>
-                </div>
-  
-                <div class="pack">
-                  <a>Code 08</a>
-                  <a>5 lessons</a>
-                </div>
+                </div> -->
               </div>
+
+
               <div class="inputs">
                 <a>
-                  cODE
+                  Code
                 </a>
-                <input type="text">
+                <input *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="code">
+                  <input *ngIf="businessdata.packages.length==4" disabled="true" type="text">
                 <a>
-                  nAME
+                  Name
                 </a>
-                <input type="text">
+                <input *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="name">
+                    <input *ngIf="businessdata.packages.length==4" disabled="true" type="text">
                 <a>
-                  dESCRIPTION
+                   Amount
                 </a>
-                <input type="text">
+                <input *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="amount">
+                    <input *ngIf="businessdata.packages.length==4" type="text" disabled="true">
                 <a>
-                  aMOUNT
+                Number
                 </a>
-                <input type="text">
+                <input *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="number">
+                    <input *ngIf="businessdata.packages.length==4" disabled="true" type="text">
               </div>
+
             </div>
-            <div class="addPack">
-              <button>
+
+
+            <div  *ngIf="businessdata.packages.length<3" class="addPack">
+              <button (click)="addPack()">
                 Add Package
               </button>
             </div>
+
+            <div *ngIf="businessdata.packages.length==3" class="addPack">
+                <button (click)="addPack()">
+                  Add Package
+                </button>
+              </div>
+
             <div class="next">
               <div class="btn">
   
