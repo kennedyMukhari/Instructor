@@ -49,7 +49,7 @@
               <!-- <img src="../../assets/imagePlaceholder.svg" alt=""> -->
               
             <div class="pp" (click)="openImage('', 'open')">
-                <ion-avatar item-left>
+              <ion-avatar item-left>
                 <img *ngIf="!businessdata.image" src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d"
                 alt="">
                 <img *ngIf="businessdata.image" src="{{businessdata.image}}"
