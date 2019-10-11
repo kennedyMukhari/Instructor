@@ -1,5 +1,3 @@
-
-
 .viewImage {
     transition: 0.4s;
     position: fixed;
@@ -38,333 +36,345 @@
     }
   }
 
+  
 ion-slides {
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 .container{
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  width: 100%;
-  .road {
-      width: 15%;
-      height: 100%;
-      background: url('../../assets/Group_461.svg');
-      background-size: cover;
-      object-fit: cover;
-  }
-  .prof {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      width: 85%;
-      .top{
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          // border: 1px solid red;
-          // height: 10%;
-          align-items: center;
-          .exit {
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              background: #BF3F33;
-              border-top-left-radius: 15px;
-              border-bottom-left-radius: 15px;
-              color: white;
-              justify-content: center;
-              align-items: center;
-              height: 65%;
-          }
-          .reviews{
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              background: #F29F05;
-              border-top-right-radius: 15px;
-              border-bottom-right-radius: 15px;
-              color: white;
-              justify-content: center;
-              align-items: center;
-              height: 65%; 
-          }
-      }
-  }
-  .pp{
-      // border: 1px solid red;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 30vw;
-  }
-  .div{
-      display: flex;
-      flex-direction: row;
-      // height: 5%;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    // position: fixed;
 
-      .div1{
-          width: 15%;
-          // border: 1px solid green;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          .dv1{
-              border: 1px solid #707070;
-              width:100%;
-          }
-      }
-      .div2 {
+    .road {
+        width: 15%;
+        height: 100%;
+        background: url('../../assets/Group_461.svg');
+        background-size: cover;
+        object-fit: cover;
+    }
+    .prof {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 85%;
+        .top{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            // border: 1px solid red;
+            // height: 10%;
+            align-items: center;
+            .exit {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                background: #BF3F33;
+                border-top-left-radius: 15px;
+                border-bottom-left-radius: 15px;
+                color: white;
+                justify-content: center;
+                align-items: center;
+                height: 65%;
+            }
+            .reviews{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                background: #F29F05;
+                border-top-right-radius: 15px;
+                border-bottom-right-radius: 15px;
+                color: white;
+                justify-content: center;
+                align-items: center;
+                height: 65%; 
+            }
+        }
+    }
+    .pp{
+        // border: 1px solid red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        ion-avatar{
+            height: 60vw;
+            width: 60vw;
+            img{
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+    .div{
+        display: flex;
+        flex-direction: row;
+        // height: 5%;
 
-          // border: 1px solid red;
-          width: 60%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          a{
-              font-size: 5vw;
-              color: black;
-          }
-      }
-      .div3{
-          // border: 1px solid yellow;
-          width: 25%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          .dv2{
-              border: 1px solid #707070;
-              width:100%;
-          }
-      }
-  }
-  .cont {
-      display: flex;
-      flex-direction: row;
-      // height: 63%;
-      overflow: scroll;
-      .blank{
-          width:20%;
-          height: 100%;
+        .div1{
+            width: 15%;
+            // border: 1px solid green;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .dv1{
+                border: 1px solid #707070;
+                width:100%;
+            }
+        }
+        .div2 {
 
-      }
-      .inputs{
-          width: 80%;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          a{
-              color: black;
-              font-size: 5vw;
-          }
-          
-          input {
-              outline: none;
-              background: #752323;
-              border-top-left-radius: 20px;
-              border-bottom-left-radius: 20px;
-              color: white;
-              width: 100%;
-              height: 12vw;
-              border: none;
-          }
-          .next {
-              display: flex;
-              flex-direction: row;
-              width: 100%;
-              align-items: center;
-              justify-content: flex-end;
-              .btn{
-                  display: flex;
-                  flex-direction: row;
-                  justify-content: center;
-                  align-items: center;
-                  height: 65%;
-                  width: 40%;
-                  background: #BF3F33;
-                  color: white;
-                  border-top-left-radius: 100px;
-                  border-bottom-left-radius: 100px;
+            // border: 1px solid red;
+            width: 60%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            a{
+                font-size: 5vw;
+                color: black;
+            }
+        }
+        .div3{
+            // border: 1px solid yellow;
+            width: 25%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .dv2{
+                border: 1px solid #707070;
+                width:100%;
+            }
+        }
+    }
+    .cont {
+        display: flex;
+        flex-direction: row;
+        // height: 63%;
+        overflow: scroll;
+        .blank{
+            width:20%;
+            height: 100%;
 
-              }
-          }
+        }
+        .inputs{
+            width: 80%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            a{
+                color: black;
+                font-size: 5vw;
+            }
+            
+            input {
+                outline: none;
+                background: #752323;
+                border-top-left-radius: 20px;
+                border-bottom-left-radius: 20px;
+                color: white;
+                width: 100%;
+                height: 12vw;
+                border: none;
+            }
+            .next {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                align-items: center;
+                justify-content: flex-end;
+                .btn{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    height: 65%;
+                    width: 40%;
+                    background: #BF3F33;
+                    color: white;
+                    border-top-left-radius: 100px;
+                    border-bottom-left-radius: 100px;
 
-      }
-  }
+                }
+            }
+
+        }
+    }
 }
 .container2{
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  .road2{
-      width: 15%;
-      height: 100%;
-      background: url('../../assets/Group_461.svg');
-      background-size: cover;
-      object-fit: cover;
-  }
-  .prof2{
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      width: 85%;
-      .operate{
-          display: flex;
-          flex-direction: row;
-          // border: 1px solid red;
-          margin-bottom: 5vw;
-          .d1{
-              width: 15%;
-              // border: 1px solid green;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              .dv1{
-                  border: 1px solid #707070;
-                  width:100%;
-              }
-          }
-          .d2{
-              width: 60%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              a{
-                  font-size: 5vw;
-                  color: black;
-              }
-          }
-          .d3{
-              width: 25%;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              .dv2{
-                  border: 1px solid #707070;
-                  width:100%;
-              }
-          }
-      }
-      .time{
-          display: flex;
-          flex-direction: column;
-          justify-content: end;
-          align-items: flex-end;
-          // height: 25%;
-          .t1{
-
-              width: 80%;
-              display: flex;
-              flex-direction: column;
-              justify-content: flex-start;
-              a{
-                  text-align: start;
-                  color: black;
-              }
-              ion-item{
-                  margin: 0;
-                  padding: 0;
-                  width: 100%;
-                  height: 50%;
-                  text-align: center;
-                  --background:#752323;
-                  border-bottom-left-radius: 20px;
-                  border-top-left-radius: 20px;
-                  color: white;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    .road2{
+        width: 15%;
+        height: 100%;
+        background: url('../../assets/Group_461.svg');
+        background-size: cover;
+        object-fit: cover;
+    }
+    .prof2{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 85%;
+        .operate{
+            display: flex;
+            flex-direction: row;
+            // border: 1px solid red;
+            margin-bottom: 5vw;
+            .d1{
+                width: 15%;
+                // border: 1px solid green;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .dv1{
+                    border: 1px solid #707070;
+                    width:100%;
                 }
-          }
-      }
-      .contPacks{
-          display: flex;
-          flex-direction: row;
-          // height: 55%;
-          .packs{
-              flex: 1;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              // border: 1px solid red;
-              height: 100%;
-              // padding-top: 8vw;
-              .pack{
-                  display: flex;
-                  flex-direction: column;
-                  width: 80%;
-                  border-radius: 10px;
-                  box-shadow: 1px 1px 1px 1px rgba(59, 59, 59, 0.4);
-                  margin-bottom: 5px;
-                  a{
-                      color: black;
+            }
+            .d2{
+                width: 60%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                a{
+                    font-size: 5vw;
+                    color: black;
+                }
+            }
+            .d3{
+                width: 25%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .dv2{
+                    border: 1px solid #707070;
+                    width:100%;
+                }
+            }
+        }
+        .time{
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            align-items: flex-end;
+            // height: 25%;
+            .t1{
+
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                a{
+                    text-align: start;
+                    color: black;
+                }
+                ion-item{
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    height: 50%;
+                    text-align: center;
+                    --background:#752323;
+                    border-bottom-left-radius: 20px;
+                    border-top-left-radius: 20px;
+                    color: white;
                   }
+            }
+        }
+        .contPacks{
+            display: flex;
+            flex-direction: row;
+            // height: 55%;
+            .packs{
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                // border: 1px solid red;
+                height: 100%;
+                // padding-top: 8vw;
+                .pack{
+                    display: flex;
+                    flex-direction: column;
+                    width: 80%;
+                    border-radius: 10px;
+                    box-shadow: 1px 1px 1px 1px rgba(59, 59, 59, 0.4);
+                    margin-bottom: 5px;
+                    a{
+                        color: black;
+                    }
 
-              }
-          }
-          .inputs{
-              width: 80%;
-              flex: 1;
-              display: flex;
-              flex-direction: column;
-              align-items: flex-start;
-              // border: 1px solid;
-              a{
-                  color: black;
-                  font-size: 5vw;
-              }
-              
-              input {
-                  outline: none;
-                  background: #752323;
-                  border-top-left-radius: 20px;
-                  border-bottom-left-radius: 20px;
-                  color: white;
-                  width: 100%;
-                  height: 12vw;
-                  border: none;
-              }
-  
-          }
-      }
-      .addPack{
-          height: 10%;
-          // border: 1px solid;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          // margin-bottom: 5vw;
-          button{
-              height: 60%;
-              width: 50%;
-              border-radius: 100px;
-              background: #F29F05;
-              color: white;
-          }
-      }
-      .next {
-          display: flex;
-          flex-direction: row;
-          width: 100%;
-          // height: 10%;
-          align-items: center;
-          justify-content: flex-end;
-          // border: 1px solid blue;
-          .btn{
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              align-items: center;
-              height: 80%;
-              width: 40%;
-              background: #BF3F33;
-              color: white;
-              border-top-left-radius: 100px;
-              border-bottom-left-radius: 100px;
+                }
+            }
+            .inputs{
+                width: 80%;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                // border: 1px solid;
+                a{
+                    color: black;
+                    font-size: 5vw;
+                }
+                
+                input {
+                    outline: none;
+                    background: #752323;
+                    border-top-left-radius: 20px;
+                    border-bottom-left-radius: 20px;
+                    color: white;
+                    width: 100%;
+                    height: 12vw;
+                    border: none;
+                }
+    
+            }
+        }
+        .addPack{
+            height: 10%;
+            // border: 1px solid;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // margin-bottom: 5vw;
+            button{
+                height: 60%;
+                width: 50%;
+                border-radius: 100px;
+                background: #F29F05;
+                color: white;
+            }
+        }
+        .next {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            // height: 10%;
+            align-items: center;
+            justify-content: flex-end;
+            // border: 1px solid blue;
+            .btn{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                height: 80%;
+                width: 40%;
+                background: #BF3F33;
+                color: white;
+                border-top-left-radius: 100px;
+                border-bottom-left-radius: 100px;
 
-          }
-      }
-  }
+            }
+        }
+    }
 }
+

@@ -154,6 +154,7 @@ export class TheMapPage implements OnInit {
 
     });
 
+  
    
 
     // this.NewRequeste.forEach(element => {
@@ -179,11 +180,17 @@ export class TheMapPage implements OnInit {
 
     this.db.collection('users').onSnapshot(snapshots => {
       snapshots.forEach(data => {
+        
         this.tempUsersArray.push(data.data());
+
         this.NewRequeste.forEach(element => {
+         
       if( element.doc.uid === data.data().uid ){
+        
         let obj = {
           image : data.data().image,
+          name : data.data().name,
+          phone : data.data().phone,
           datein : element.doc.datein,
           dateout : element.doc.dateout,
           book :  element.doc.book,
@@ -193,13 +200,15 @@ export class TheMapPage implements OnInit {
           docid : element.docid
         }
         this.NewRequesteWithPictures = []
-       this.NewRequesteWithPictures.push(obj)
+       this.NewRequesteWithPictures.push(obj);
+       console.log("This is my array ", this.NewRequesteWithPictures );
       }
     })
       
       })
     })
 
+    
   }
 
 

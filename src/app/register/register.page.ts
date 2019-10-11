@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class RegisterPage implements OnInit {
   public signupForm: FormGroup;
   public loading: any;
+  public loginForm: FormGroup;
   constructor(
     public platform : Platform,
     public authService: AuthService,
@@ -20,13 +21,14 @@ export class RegisterPage implements OnInit {
     public formBuilder: FormBuilder,
     public router: Router
     ) { 
-      this.signupForm = this.formBuilder.group({
+      this.loginForm = this.formBuilder.group({
         email: ['', Validators.compose([Validators.required, Validators.email])],
         password: [
           '',
-          Validators.compose([Validators.minLength(6), Validators.required])
+          Validators.compose([Validators.required, Validators.minLength(6)])
         ]
       });
+  
     }
 
   ngOnInit() {}
@@ -48,7 +50,7 @@ export class RegisterPage implements OnInit {
         () => {
           this.loading.dismiss().then(() => {
             // this.router.navigateByUrl('profile');
-            this.router.navigateByUrl('main/profile');
+            this.router.navigateByUrl('profile');
           });
         },
         error => {

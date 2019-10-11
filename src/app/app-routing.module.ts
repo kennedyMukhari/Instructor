@@ -22,7 +22,8 @@ const routes: Routes = [
   { path: 'onboarding', loadChildren: './onboarding/onboarding.module#OnboardingPageModule' },
   { path: 'reset-password', loadChildren: './reset-password/reset-password.module#ResetPasswordPageModule' },
   { path: 'prof', loadChildren: './prof/prof.module#ProfPageModule' },
-  {path: 'main', loadChildren: './main/main.module#MainPageModule'}
+  {path: 'main', loadChildren: './main/main.module#MainPageModule'},  { path: 'about', loadChildren: './about/about.module#AboutPageModule' }
+
 
 
 ];

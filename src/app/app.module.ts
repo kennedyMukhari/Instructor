@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { InstructorPipe } from './instructor.pipe';
 
 
 
@@ -29,7 +30,7 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
 firebase.initializeApp(FIREBASE_CONFIG);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, InstructorPipe],
   entryComponents: [],
 
   imports: [
