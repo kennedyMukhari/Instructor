@@ -275,6 +275,13 @@ options2={
 
 
   ngOnInit() {
+    let viewimage = this.elementref.nativeElement.children[0].children[0]
+    console.log('ggg',viewimage);
+    this.renderer.setStyle(viewimage, 'overflow', '0vh');
+    this.renderer.setStyle(viewimage, 'opacity', '0');
+    this.renderer.setStyle(viewimage, 'transform', 'scale(0)');
+    this.renderer.setStyle(viewimage, 'height', '0vh');
+    console.log('view', viewimage);
           // let viewimage = this.elementref.nativeElement.children[0].children[0]
           // console.log('ggg',viewimage);
           // this.renderer.setStyle(viewimage, 'opacity', '0');
@@ -282,6 +289,8 @@ options2={
   }
   
   ionViewDidLoad(){
+
+          
     this.initializeBackButtonCustomHandler();
   }
 
@@ -867,6 +876,7 @@ options2={
           console.log('ggg',viewimage);
           this.renderer.setStyle(viewimage, 'opacity', '1');
           this.renderer.setStyle(viewimage, 'transform', 'scale(1)');
+          this.renderer.setStyle(viewimage, 'height', '100vh');
         } else {
           
           this.viewImage.open = false;
@@ -874,6 +884,7 @@ options2={
           console.log('ggg',viewimage);
           this.renderer.setStyle(viewimage, 'opacity', '0');
           this.renderer.setStyle(viewimage, 'transform', 'scale(0)');
+          this.renderer.setStyle(viewimage, 'height', '0vh');
         }
       }
 
