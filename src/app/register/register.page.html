@@ -44,7 +44,7 @@
 
                 <div *ngIf="!loginForm.controls['email'].valid
                 && loginForm.controls['email'].touched" class="error">
-                  <div class="messages">
+                  <div class="messages" style="text-align: center;">
                     Please enter a valid email.
                   </div>
                 </div>
@@ -64,7 +64,7 @@
 
                   <div *ngIf="!loginForm.controls['password'].valid  &&
                   loginForm.controls['password'].touched" class="error">
-                    <div class="messages">
+                    <div class="messages" style="text-align: center;">
                       Password needs more than 6 characters long.
                     </div>
                   </div>

@@ -44,8 +44,10 @@
 
             <div class="error" *ngIf="!loginForm.controls['email'].valid &&
             loginForm.controls['email'].touched">
-              <div class="messages">
-                Please enter a valid email address.
+              <div class="messages" style="text-align: center;">
+                <a style="color: red">
+                  Please enter a valid email address.
+                </a>
               </div>
             </div>
 
@@ -63,8 +65,10 @@
 
             <div *ngIf="!loginForm.controls['password'].valid
             && loginForm.controls['password'].touched" class="error">
-              <div class="messages">
-                Your password is incorrect.
+              <div class="messages" style="text-align: center;">
+                <a style="color: red;">
+                  Your password is incorrect.
+                </a>
               </div>
             </div>
 

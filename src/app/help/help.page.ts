@@ -62,23 +62,58 @@ instruct(){
 
 activate(cmd) {
   switch (cmd) {
+  
+
+    
     case 'about':
-      this.tsProperty = 'about';
+      if (this.tsProperty == 'about'){
+        this.tsProperty = ""
+      }else{
+        this.tsProperty = 'about';
+
+      }
+      
       break;
+
       case 'terms':
-        this.tsProperty = 'terms';
+if (this.tsProperty =='terms'){
+  this.tsProperty =""
+}else{
+
+  this.tsProperty = 'terms';
+}
+        
         break;
         case 'contact':
-          this.tsProperty = 'contact';
+          if (this.tsProperty =='contact'){
+            this.tsProperty =''
+          }else{
+            this.tsProperty = 'contact';
+          }
+         
       break;
       case 'disclaimer':
-        this.tsProperty = 'disclaimer';
+        if (this.tsProperty == 'disclaimer'){
+          this.tsProperty =''
+        }else{
+          this.tsProperty = 'disclaimer';
+        }
+        
       break;
       case 'safety':
-        this.tsProperty = 'safety';
+        if (this.tsProperty =='safety'){
+          this.tsProperty =''
+        }else{
+          this.tsProperty = '';
+        }
+  
       break;
     default:
       break;
   }
 }
+
+
+
+
 }
