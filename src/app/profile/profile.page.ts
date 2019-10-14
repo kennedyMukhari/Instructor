@@ -346,7 +346,7 @@ options2={
         this.businessdata.packages = doc.data().packages
       })
 
-      this.DisplayPackages = this.businessdata.packages[2].code10;
+    this.DisplayPackages = this.businessdata.packages[2].code10;
      this.pack = this.businessdata.packages[0];
      this.tempData = this.businessdata.schoolname;
      if(this.tempData === ''){
@@ -430,7 +430,7 @@ options2={
     if(this.code !== '' && this.name !== '' && this.amount !== '' && this.number !== ''){
     
       if(this.code === 'Code 1'){
-        this.packages[0].code01.push({name : this.name, amount : this.amount, number : this.number})
+        this.packages[0].code01.push({name : this.name, amount : this.amount, number : this.number, code : 'Code 01'})
 
         const alert = await this.alertController.create({
           message: 'Package added',
@@ -439,7 +439,7 @@ options2={
         await alert.present();
     
       }else if(this.code === 'Code 8'){
-        this.packages[1].code08.push({name : this.name, amount : this.amount, number : this.number})
+        this.packages[1].code08.push({name : this.name, amount : this.amount, number : this.number,  code : 'Code 08'})
 
         const alert = await this.alertController.create({
           message: 'Package added',
@@ -448,7 +448,7 @@ options2={
         await alert.present();
        
       }else   if(this.code === 'Code 10'){
-        this.packages[2].code10.push({name : this.name, amount : this.amount, number : this.number})
+        this.packages[2].code10.push({name : this.name, amount : this.amount, number : this.number,  code : 'Code 10'})
 
         const alert = await this.alertController.create({
           message: 'Package added',
@@ -458,7 +458,7 @@ options2={
 
       
       }else  if(this.code === 'Code 14'){
-        this.packages[3].code14.push({name : this.name, amount : this.amount, number : this.number})
+        this.packages[3].code14.push({name : this.name, amount : this.amount, number : this.number,  code : 'Code 14'})
 
         const alert = await this.alertController.create({
           message: 'Package added',
@@ -689,12 +689,24 @@ options2={
      
 }
 
-  deletepack(index, code) {
-    console.log("code", this.DisplayPackages);
-    
-    this.businessdata.packages.splice(index, 1);
-    this.counter -= 1;
-    console.log("Your value is", this.counter);
+ async deletepack(index, code) {
+    // console.log("code", code);
+    // console.log("index", index);
+
+    console.log("Your value is", this.DisplayPackages);
+    this.DisplayPackages.splice(index, 1);
+
+
+    const alert = await this.alertController.create({
+      // header: 'Alert',
+      // subHeader: 'Subtitle',
+      message: 'Package deleted successfully',
+      buttons: ['OK']
+    });
+    await alert.present();
+
+    // this.counter -= 1;
+   
   }
 
   editpack(pack) {
@@ -968,8 +980,6 @@ options2={
                
                this.router.navigateByUrl('main');
                }else{
-
-                console.log("ddddddddddddddddddddddddddddddddddddddddd");
                 
                 this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({
                   address: this.MyAddress,

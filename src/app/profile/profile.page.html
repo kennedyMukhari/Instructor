@@ -228,7 +228,7 @@
 
 
             <div class="myPackages">
-                      <p text-center *ngIf="!businessdata.packages"><strong>No packages yet</strong></p>
+                      <!-- <p text-center *ngIf="!businessdata.packages"><strong>No packages yet</strong></p> -->
 
                       <ion-slides  #slides  pager loop slidesPerView =  DisplayPackages.length >
 
@@ -239,7 +239,7 @@
                                 <a *ngIf="p.name">{{p.name}}</a><br/>
                                 <a *ngIf="p.number">{{p.number}}</a>
                                 <div class="dele" (click)="deletepack(i, p.code)">
-                                    <a>x</a>
+                                    <a class="red">x</a>
                                 </div>
 
                                </div>
