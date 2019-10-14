@@ -48,7 +48,12 @@ export class LoginPage implements OnInit {
   async ngOnInit() {
 
     let loader = await this.loadingCtrl.create({
-      message: 'Just a sec'
+      message: '<ion-img src="../../assets/StepLogo.svg" alt="loading..."></ion-img>',
+      cssClass: 'scale-down-center',
+      translucent: true,
+      showBackdrop: false,
+      spinner: null,
+      duration: 2000
     })
     // loader.present()
     firebase.auth().onAuthStateChanged(user => {
