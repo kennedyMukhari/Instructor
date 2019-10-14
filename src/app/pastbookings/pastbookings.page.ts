@@ -91,9 +91,9 @@ export class PastbookingsPage implements OnInit {
  CheckArrayLength(){
 
   if(this.Booking.length > 0){
-    this.value = "Booking List"
+    this.value = "REQUESTS LIST"
 }else{
-  this.value = "List is currently empty"
+  this.value = "LIST IS CURRENTLY EMPTY"
 }
 
  }

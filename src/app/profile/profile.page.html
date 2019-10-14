@@ -12,7 +12,7 @@
       </ion-fab>
       </div>
 
-    <ion-slides>
+    <ion-slides #slides (ionSlideWillChange)="doCheck()">
   
       <ion-slide>
         <div class="container">
@@ -54,7 +54,7 @@
                 alt="">
                 <img *ngIf="businessdata.image" src="{{businessdata.image}}"
                 alt="">
-              </ion-avatar>
+                </ion-avatar>
               </div>
             </div>
   
@@ -63,7 +63,7 @@
                 <div class="dv1"></div>
               </div>
               <div class="div2">
-                <a>bUSINESS pROFILE</a>
+                <a>BUSINESS PROFILE</a>
               </div>
               <div class="div3">
                 <div class="dv2"></div>
@@ -75,12 +75,12 @@
               </div>
               <div class="inputs">
                   
-                  <a>
+                  <a class="a">
                       Address
                     </a>
                     <input type="text" #autocomplete  id="autocomplete"
                     placeholder="Enter your address"
-                    (onFocus)="geolocate()" type="text" [(ngModel)]="businessdata.address">
+                    (onFocus)="initAutocomplete()" type="text" [(ngModel)]="businessdata.address">
 
                   <form  [formGroup]="loginForm">
                 
@@ -109,7 +109,8 @@
 
 
                 <a>
-                  cOST P/L
+                 <!-- Cost P/L -->
+                   Cost 
                 </a>
                 <input type="text" formControlName="cost" [(ngModel)]="businessdata.cost">
                 <div class="error" *ngFor="let validate of validation_messages.cost">
@@ -120,8 +121,8 @@
                   </div>
 
 
-                <a>
-                  dESCRIPTION
+              <a>
+                  Description
                 </a>
                 <input type="text" formControlName="desc" [(ngModel)]="businessdata.desc">
                 <div class="error" *ngFor="let validate of validation_messages.schoolname">
@@ -131,9 +132,12 @@
                     </div>
                   </div>
                 
-                <div class="next">
+                  <div class="next">
+
+                   
+
                   <div class="btn">
-  
+                  
   
                     <div class="cout">
                       Next
@@ -143,8 +147,14 @@
                         <ion-icon name="arrow-round-forward"></ion-icon>
                       </ion-fab-button>
                     </div>
+
+                 
+
+
                   </div>
-                </div>
+                </div> 
+
+               
 
               </form>
                 
@@ -203,7 +213,7 @@
                 <div class="dv1"></div>
               </div>
               <div class="d2">
-                <a>pACKAGES</a>
+                <a>PACKAGES</a>
               </div>
               <div class="d3">
                 <div class="dv2"></div>
@@ -211,87 +221,137 @@
             </div>
 
 
-            <div class="contPacks">
+            <div class="myPackages">
+                      <p text-center *ngIf="!businessdata.packages"><strong>No packages yet</strong></p>
 
-                <!-- <div>
-                    <p text-center *ngIf="!businessdata.packages[0]"><strong>No packages yet</strong></p>
-                    <div class="pack-l" *ngFor="let p of businessdata.packages; let i = index" (click)="editpack(p)">
-                      <p *ngIf="p.code"><b>{{p.code}}</b></p>
-                      <p *ngIf="p.name"><b>{{p.name}}</b></p>
-                      <p *ngIf="p.number"> {{p.number}} Lessons R{{p.amount}}.00</p>
-                      <div class="dele" (click)="deletepack(i)">
-                        <p>x</p>
-                      </div>
-                    </div>
-                  </div> -->
+                      <ion-slides  #slides  pager loop slidesPerView =  DisplayPackages.length >
 
+                          <ion-slide  class="packa" *ngFor="let p of DisplayPackages; let i = index" (click)="editpack(p)">
+                            <div class="carde" >
+                               
+                                <a *ngIf="p.code">{{p.code}}</a><br/>
+                                <a *ngIf="p.name">{{p.name}}</a><br/>
+                                <a *ngIf="p.number">{{p.number}}</a>
+                                <div class="dele" (click)="deletepack(i, p.code)">
+                                    <a>x</a>
+                                </div>
 
-              <div class="packs">
-                  <p text-center *ngIf="!businessdata.packages[0]"><strong>No packages yet</strong></p>
-
-                <div class="pack" *ngFor="let p of businessdata.packages; let i = index" (click)="editpack(p)">
-                  <a *ngIf="p.code">{{p.code}}</a>
-                  <a *ngIf="p.name">{{p.name}}</a>
-                  <a *ngIf="p.number">{{p.number}}</a>
-                  <div class="dele" (click)="deletepack(i)">
-                      <a>x</a>
-                    </div>
-                </div>
-  
-                <!-- <div class="pack">
-                  <a>Code 08</a>
-                  <a>5 lessons</a>
-                </div>
-  
-                <div class="pack">
-                  <a>Code 08</a>
-                  <a>5 lessons</a>
-                </div>
-  
-                <div class="pack">
-                  <a>Code 08</a>
-                  <a>5 lessons</a>
-                </div> -->
-              </div>
-
-
-              <div class="inputs">
-                <a>
-                  Code
-                </a>
-                <input *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="code">
-                  <input *ngIf="businessdata.packages.length==4" disabled="true" type="text">
-                <a>
-                  Name
-                </a>
-                <input *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="name">
-                    <input *ngIf="businessdata.packages.length==4" disabled="true" type="text">
-                <a>
-                   Amount
-                </a>
-                <input *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="amount">
-                    <input *ngIf="businessdata.packages.length==4" type="text" disabled="true">
-                <a>
-                Number
-                </a>
-                <input *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="number">
-                    <input *ngIf="businessdata.packages.length==4" disabled="true" type="text">
-              </div>
-
+                               </div>
+                       </ion-slide>                   
+                       </ion-slides>
+                                 
             </div>
 
 
-            <div  *ngIf="businessdata.packages.length<3" class="addPack">
+
+            <!-- <div class="myPackages">
+                <p text-center *ngIf="!businessdata.packages"><strong>No packages yet</strong></p>
+
+                <ion-slides  #slides  pager loop slidesPerView = businessdata.length >
+
+                    <ion-slide  class="packa" *ngFor="let p of businessdata.packages[0]; let i = index" (click)="editpack(p)">
+                      <div class="carde" >
+                         
+                          <a *ngIf="p.code">{{p.code}}</a>
+                          <a *ngIf="p.name">{{p.name}}</a>
+                          <a *ngIf="p.number">{{p.number}}</a>
+                          <div class="dele" (click)="deletepack(i)">
+                              <a>x</a>
+                            </div>
+
+                         </div>
+                 </ion-slide>                   
+                 </ion-slides>
+                           
+      </div> -->
+
+
+            <div class="Myinputs">
+
+              <div class="code1">
+
+                  <a>
+                      Code
+                    </a>
+                    
+                    <!-- <input class="I" *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="code">
+                      <input class="I" *ngIf="businessdata.packages.length==4" disabled="true" type="text"> -->
+
+                      <!-- <select class="I" name="cars" *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="code">
+                          <option value="Code 8">Code 8</option>
+                          <option value="Code 10">Code 10</option>
+                          <option value="Code 14">Code 14</option>                    
+                      </select> -->
+
+
+                      <!-- <select *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="code" class="I" id="codes" name="codes" >
+                          <option *ngFor = "let code of codes" [value]="code" (ngClick)="Console(code)">
+                            {{code}}
+                          </option>                    
+                      </select> -->
+                      <ion-list class="I"  >             
+                          <ion-select  [(ngModel)]="code" (ionChange)="Console(code)">
+                              <ion-select-option value="Code 1">{{codes[0]}}</ion-select-option>
+                              <ion-select-option value="Code 8">{{codes[1]}}</ion-select-option>
+                              <ion-select-option value="Code 10">{{codes[2]}}</ion-select-option>
+                              <ion-select-option value="Code 14">{{codes[3]}}</ion-select-option>                        
+                            </ion-select>
+                        </ion-list>
+
+
+                        <!-- <ion-list class="I" *ngIf="businessdata.packages.length==4" disabled="true" >             
+                            <ion-select  [(ngModel)]="code" (ionChange)="Console(code)">
+                                <ion-select-option value="Code 1">{{codes[0]}}</ion-select-option>
+                                <ion-select-option value="Code 8">{{codes[1]}}</ion-select-option>
+                                <ion-select-option value="Code 10">{{codes[2]}}</ion-select-option>
+                                <ion-select-option value="Code 14">{{codes[3]}}</ion-select-option>                        
+                              </ion-select>
+                          </ion-list> -->
+
+
+                   
+
+                   
+
+                      <a>
+                          Name
+                        </a>
+                        <input class="I" type="text" [(ngModel)]="name">
+                        <!-- *ngIf="businessdata.packages.length<4"  -->
+                            <!-- <input class="I" *ngIf="businessdata.packages.length==4" disabled="true" type="text"> -->
+              </div>
+
+              <div class="code2">
+
+                  <a>
+                      Amount
+                   </a>
+                   <input  class="I" type="text" [(ngModel)]="amount">
+                       <!-- <input class="I" *ngIf="businessdata.packages.length==4" type="text" disabled="true"> -->
+                   <a>
+                   Number
+                   </a>
+                   <input class="I" type="text" [(ngModel)]="number">
+                       <!-- <input class="I" *ngIf="businessdata.packages.length==4" disabled="true" type="text"> -->
+
+              </div>
+              
+                
+               
+              </div>
+
+
+            <div   class="addPack">
               <button (click)="addPack()">
                 Add Package
               </button>
             </div>
 
-            <div *ngIf="businessdata.packages.length==3" class="addPack">
+            <!-- <div *ngIf="businessdata.packages.length==3" class="addPack">
                 <button (click)="addPack()">
                   Add Package
                 </button>
-              </div>
+              </div> -->
 
             <div class="next">
               <div class="btn">
@@ -301,7 +361,7 @@
                   Finish
                 </div>
                 <div class="fab">
-                  <ion-fab-button color="light" size="small">
+                  <ion-fab-button  (click)="createMyAccount(loginForm)" color="light" size="small">
                     <ion-icon name="arrow-round-forward"></ion-icon>
                   </ion-fab-button>
                 </div>

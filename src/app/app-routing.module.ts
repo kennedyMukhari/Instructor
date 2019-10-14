@@ -7,7 +7,6 @@ const routes: Routes = [
   { path: 'the-map', loadChildren: './the-map/the-map.module#TheMapPageModule' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
   
-
   { path: 'viewdetails', loadChildren: './viewdetails/viewdetails.module#ViewdetailsPageModule' },
   { path: 'map', loadChildren: './map/map.module#MapPageModule' },
   { path: 'analytics', loadChildren: './analytics/analytics.module#AnalyticsPageModule' },
