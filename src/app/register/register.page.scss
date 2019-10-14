@@ -1,155 +1,160 @@
 .background{
-  display:flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  background: url('../../assets/LoginBackG.svg');
-  object-fit: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: -0vw;
-  position: fixed;
-  .logo{
-      height: 20%;
-      // border: 1px solid black;
-      display: flex;
-      align-items: center;
-      img{
-          height: 30vw;
-          width: 30vw;
-          padding-left:4vw;
-      }
+    display:flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: url('../../assets/LoginBackG.svg');
+    object-fit: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: -0vw;
+    position: fixed;
+    
+    .logo{
+        height: 20%;
+        // border: 1px solid black;
+        display: flex;
+        align-items: center;
+        img{
+            height: 30vw;
+            width: 30vw;
+            padding-left:4vw;
+        }
+    }
+    .body{
+        height: 60%;
+        display: flex;
+        flex-direction: row;
+        .sign{
+            width: 30%;
+            height: 100%;
+            // border: 1px solid red;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .bSign{
+                margin-bottom:1vw ;
+                button{
+                    background: #480B0B;
+                    color: white;
+                    height: 10vw;
+                    width: 25vw;
+                    text-align: left;
+                    border-top-right-radius: 20px;
+                    border-bottom-right-radius: 20px;
+                    outline: none;
+                }
+            }
+            .bReg{
+                button{
+                    background: #A57E7A;
+                    color: #480B0B;
+                    height: 10vw;
+                    width: 25vw;
+                    text-align: left;
+                    border-top-right-radius: 20px;
+                    border-bottom-right-radius: 20px;
+                    outline: none;
+                }
+            }
+        }
+        .cont{
+            width: 70%;
+            // border: 1px solid blue;
+            .login{
+                background: #480B0B;
+                margin-top: 8vw;
+                height: 90%;
+                border-top-left-radius: 20px;
+                border-bottom-left-radius: 20px;
+                position: relative;
+                .title{
+                    height:15%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    color: white;
+                    h1{
+                        font-size: 7vw;
+                    }
+                }
+                .input1{
+                    display: flex;
+                    height: 30%;
+                    flex-direction: column;
+                    // border: 1px solid blue;
+                    justify-content: center;
+                    .em{
+                        width: 90%;
+  
+                        // border: 1px solid yellow;
+                        display: flex;
+                        margin-left: 10%;
+                        a{
+                            color: white;
+                        }
+                    }
+                    .inp{
+                        width: 100%;
+                        display: flex;
+                        justify-content: flex-end;
+                        // border: 1px solid red;
+                        input{
+                            width: 90%;
+                            height: 45px;
+                            border-top-left-radius: 50px;
+                            border-bottom-left-radius: 50px;
+                            border: none;
+                            background: linear-gradient(to right,#632727,#480B0B);
+                            outline: none;
+                            color: white;
+                            padding-left: 3vw;
+                        }
+                    }
+                }
+                .forget{
+                    height: 10%;
+                    // border: 1px solid white;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    button{
+                        height: 100%;
+                        background: transparent;
+                        color: white;
+                        outline: none;
+                    }
+                }
+                .btn{
+                    position: absolute;
+                    left: 0%;
+                    right: 0%;
+                    bottom: -5.5vw;
+                    height: 15%;
+                    // border: 1px solid white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: visible;
+                    button{
+                        height: 70%;
+                        width: 70%;
+                        border-radius: 100px;
+                        background: #BF3F33;
+                        color: white;
+                      //   margin-top: 10vw;
+                        outline: none;
+                    }
+                }
+            }
+        }
+    }
+  
   }
-  .body{
-      height: 60%;
-      display: flex;
-      flex-direction: row;
-      .sign{
-          width: 30%;
-          height: 100%;
-          // border: 1px solid red;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          .bSign{
-              margin-bottom:1vw ;
-              button{
-                  
-                  background: #A57E7A;
-                  color: #480B0B;
-                  height: 10vw;
-                  width: 25vw;
-                  text-align: left;
-                  border-top-right-radius: 20px;
-                  border-bottom-right-radius: 20px;
-                  outline: none;
-              }
-          }
-          .bReg{
-              button{
-                  background: #480B0B;
-                  color: white;
-                  height: 10vw;
-                  width: 25vw;
-                  text-align: left;
-                  border-top-right-radius: 20px;
-                  border-bottom-right-radius: 20px;
-                  outline: none;
-              }
-          }
-      }
-      .cont{
-          width: 70%;
-          // border: 1px solid blue;
-          .login{
-              background: #480B0B;
-              margin-top: 8vw;
-              height: 90%;
-              border-top-left-radius: 20px;
-              border-bottom-left-radius: 20px;
-              .title{
-                  height:15%;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  text-align: center;
-                  color: white;
-                  h1{
-                      font-size: 7vw;
-                  }
-              }
-              .input1{
-                  display: flex;
-                  height: 30%;
-                  flex-direction: column;
-                  // border: 1px solid blue;
-                  justify-content: center;
-                  .em{
-                      width: 90%;
-
-                      // border: 1px solid yellow;
-                      display: flex;
-                      margin-left: 10%;
-                      a{
-                          color: white;
-                      }
-                  }
-                  .inp{
-                      width: 100%;
-                      display: flex;
-                      justify-content: flex-end;
-                      // border: 1px solid red;
-                      input{
-                          width: 90%;
-                          height: 45px;
-                          border-top-left-radius: 50px;
-                          border-bottom-left-radius: 50px;
-                          border: none;
-                          background: linear-gradient(to right,#632727,#480B0B);
-                          outline: none;
-                          color: white;
-                          padding-left: 3vw;
-                      }
-                  }
-              }
-              .forget{
-                  height: 10%;
-                  // border: 1px solid white;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  button{
-                      height: 100%;
-                      background: transparent;
-                      color: white;
-                      outline: none;
-                  }
-              }
-              .btn{
-                  height: 15%;
-                  // border: 1px solid white;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  overflow: visible;
-                  button{
-                      height: 70%;
-                      width: 70%;
-                      border-radius: 100px;
-                      background: #BF3F33;
-                      color: white;
-                      margin-top: 10vw;
-                      outline: none;
-                  }
-              }
-          }
-      }
+  
+  
+  .error{
+      color: red;
   }
-
-}
-
-
-.error{
-    color: red;
-}

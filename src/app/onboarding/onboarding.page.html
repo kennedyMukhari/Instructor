@@ -1,5 +1,5 @@
 <ion-content>
-  <ion-slides pager>
+  <ion-slides #mySlider pager>
     <ion-slide>
       <div class="container">
         <div class="backG">
@@ -26,7 +26,7 @@
             <div class="div1">
               <div class="div2">
                   <p>Show me</p>
-                  <ion-fab-button size="small" color="light">
+                  <ion-fab-button (click)="swipeNext()" size="small" color="light">
                       <ion-icon name="arrow-round-forward"></ion-icon>
                   </ion-fab-button>
               </div>
@@ -34,7 +34,7 @@
             <div class="d1">
               <div class="d2">
                   <p>Not now</p>
-                  <ion-fab-button size="small" color="light">
+                  <ion-fab-button (click)="goToLogin()" size="small" color="light">
                       <ion-icon name="fastforward"></ion-icon>
                   </ion-fab-button>
               </div>
@@ -71,7 +71,7 @@
                 <div class="div11">
                   <div class="div22">
                       <p>Next</p>
-                      <ion-fab-button size="small" color="light">
+                      <ion-fab-button (click)="swipeNext()" size="small" color="light">
                           <ion-icon name="arrow-round-forward"></ion-icon>
                       </ion-fab-button>
                   </div>
@@ -110,7 +110,7 @@
                 <div class="div11">
                   <div class="div22">
                       <p>Next</p>
-                      <ion-fab-button size="small" color="light">
+                      <ion-fab-button (click)="swipeNext()" size="small" color="light">
                           <ion-icon name="arrow-round-forward"></ion-icon>
                       </ion-fab-button>
                   </div>

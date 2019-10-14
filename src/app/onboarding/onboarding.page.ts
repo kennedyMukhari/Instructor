@@ -32,6 +32,8 @@ export class OnboardingPage implements OnInit {
   }
 
   swipeNext() {
+    console.log("Clicked");
+    
     this.slides.slideNext();
   }
   goToLogin() {

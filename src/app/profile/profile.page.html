@@ -11,7 +11,7 @@
       </ion-fab>
       </div>
 
-    <ion-slides #slides (ionSlideWillChange)="doCheck()">
+    <ion-slides #mySlider (ionSlideWillChange)="doCheck()">
   
       <ion-slide>
         <div class="container">
@@ -84,8 +84,8 @@
                   <a class="a">
                       Address
                     </a>
-                    <input type="text" #autocomplete  id="autocomplete"
-                    placeholder="Enter your address"
+                    <input type="text" style="height: 45vw;" #autocomplete  id="autocomplete"
+                    placeholder="Enter your address" 
                     (onFocus)="initAutocomplete()" type="text" [(ngModel)]="businessdata.address">
 
                   <form  [formGroup]="loginForm">
@@ -149,7 +149,7 @@
                       Next
                     </div>
                     <div class="fab">
-                      <ion-fab-button color="light" size="small">
+                      <ion-fab-button (click)="swipeNext()" color="light" size="small">
                         <ion-icon name="arrow-round-forward"></ion-icon>
                       </ion-fab-button>
                     </div>

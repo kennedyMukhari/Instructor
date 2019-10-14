@@ -35,7 +35,7 @@ import { IonSlides } from '@ionic/angular';
 export class ProfilePage implements OnInit {
 
   public unsubscribeBackEvent: any;
-  @ViewChild('slides',  {static: true}) ionSlides: IonSlides;
+  @ViewChild('mySlider', { static: false }) slides: IonSlides;
   @ViewChild('inputs', {static: true}) input:ElementRef;
   // @ViewChild("placesRef", {static: true}) placesRef : GooglePlaceDirective;
   autocomplete : any;
@@ -319,7 +319,9 @@ options2={
     // Unregister the custom back button action for this page
     this.unsubscribeBackEvent && this.unsubscribeBackEvent();
   }
-
+  swipeNext(){
+    this.slides.slideNext();
+  }
   ionViewWillEnter(){
 
     this.initAutocomplete();
@@ -482,8 +484,8 @@ options2={
 
   doCheck() {
  
-    let prom1 = this.ionSlides.isBeginning();
-    let prom2 = this.ionSlides.isEnd();
+    let prom1 = this.slides.isBeginning();
+    let prom2 = this.slides.isEnd();
   
     Promise.all([prom1, prom2]).then((data) => {
       data[0] ? this.disablePrevBtn = true : this.disablePrevBtn = false;
