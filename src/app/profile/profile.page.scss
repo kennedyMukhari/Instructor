@@ -100,8 +100,8 @@ ion-slides {
         align-items: center;
         border-radius: 50%;
         ion-avatar{
-            height: 60vw;
-            width: 60vw;
+            height: 40vw;
+            width: 40vw;
             img{
                 height: 100%;
                 width: 100%;
@@ -178,6 +178,7 @@ ion-slides {
                 width: 100%;
                 height: 12vw;
                 border: none;
+                padding-left: 2vw;
             }
             .next {
                 display: flex;
@@ -208,7 +209,7 @@ ion-slides {
     flex-direction: row;
     height: 100%;
     width: 100%;
-    position: fixed;
+    // position: fixed;
     .road2{
         width: 15%;
         height: 100%;
@@ -398,6 +399,10 @@ ion-slides {
     padding-right: 5px;
     margin-bottom: 20px;
     width: 100%;
+    color: white;
+    input{
+        padding-left: 2vw;
+    }
 }
 
 .code1{

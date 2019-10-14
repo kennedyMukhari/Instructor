@@ -53,10 +53,8 @@ firbase_id:string='580007341136';
     this.initializeApp();
     // let status bar overlay webview
     // this.statusBar.overlaysWebView(true);
-    statusBar.styleBlackOpaque();
-    this.statusBar.styleLightContent();
-    // set status bar to white
-    this.statusBar.backgroundColorByHexString('#2E020C');
+    // statusBar.styleBlackOpaque();
+
   }
 
 
@@ -93,7 +91,9 @@ initializeApp() {
     this.backButton()
     this.statusBar.styleDefault();
 
-   
+    this.statusBar.styleLightContent();
+    // set status bar to white
+    this.statusBar.backgroundColorByHexString('#2E020C');
 
 
     if (this.platform.is('cordova')) {
