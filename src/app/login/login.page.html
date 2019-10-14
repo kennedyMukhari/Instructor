@@ -68,6 +68,13 @@
             </div>
 
 
+
+            
+           <button  type="submit"  (click)="loginUser(loginForm)" 
+         
+           [disabled]="!loginForm.valid" class="thato"></button>
+           
+
             <div class="forget">
               <button (click)="forgetpassword()">
                 Forgot Password?
