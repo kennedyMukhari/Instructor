@@ -36,6 +36,18 @@ firbase_id:string='580007341136';
   
   {
 
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      console.log("User", user === null);
+      
+      if (user === null) {
+       this.router.navigate(['/onboarding']);
+       unsubscribe();
+      } else {
+       console.log('The user email is',user.email);
+       this.router.navigate(['/main/profile']);
+       unsubscribe();
+      }
+      });
 
 
     this.initializeApp();
