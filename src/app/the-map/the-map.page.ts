@@ -236,7 +236,6 @@ export class TheMapPage implements OnInit {
   
       let marker = new google.maps.Marker({
         map: this.map,
-        animation: google.maps.Animation.DROP,
         position: new google.maps.LatLng(lat, lng),
         icon: icon
       });
@@ -285,9 +284,19 @@ export class TheMapPage implements OnInit {
   // //   // this.add()
   // }
 
-  Decline(docid, i) {
+  async Decline(docid, i) {
+
     this.db.collection('bookings').doc(docid).set({ confirmed: 'rejected' }, { merge: true });
     this.NewRequesteWithPictures.splice(i, 1)
+
+    const alert = await this.alertController.create({
+      header: 'Declined Successfully.',
+      subHeader: '',
+      message: '',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 
