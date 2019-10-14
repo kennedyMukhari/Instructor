@@ -1,36 +1,59 @@
-ion-content {
-      background:linear-gradient(rgba(255, 255, 255, 0.925)),url(../../assets/coverbg.jpg);
-      height: 100%;
-      background-size: cover;
-}
+
 .header {
       text-align: center;
       padding: 10px;
-      img{
-            width: 40%;
+      .img{
+            width: 25%;
       }
-      p{
-            margin: 0;
-            padding: 0;
-      }
+      
 }
-.contacts {
-      width: 90%;
+
+.divtop{
+ border-radius: 0px 0px 30px 30px;
+
+ height: 25%; 
+ background: linear-gradient(#4C0A0A, #790B0B);
+ 
+}
+
+
+
+  
+  .con{
+        display: flex;
+        flex-direction: column;
+        margin:  5 auto;
+  }
+  .aboutus1 {
+      height: auto;
+      border: solid linear-gradient(#4C0A0A, #790B0B);
       overflow: hidden;
-      margin: 20px auto;
-      // display:  flex;
-      .number{
-            float: left;
-            p{
-                  margin: 0;
-                  padding: 0;
-            }
+      margin:  5px auto;
+      width: 70%; 
       }
-      .link {
-            float: right;
+  .aboutus2 {
+      height: 60px;
+      border: black;
+      overflow: hidden;
+      margin:  5px auto;
+      width: 70%;
+      border-radius: 10px 10px 10px 10px;
       }
-}
-.information {
-      width: 90%;
-      margin: auto;
-}
+      .aboutus{
+            height: 40px;
+                border: solid linear-gradient(#4C0A0A, #790B0B);
+            width: 100%;
+            border-radius: 10px 10px 10px 10px; 
+            background: linear-gradient(#4C0A0A, #790B0B);
+      }
+      .inform{
+      height: 75%;
+      background:linear-gradient(rgb(255, 255, 255),rgba(255, 255, 255, 0)),url('../../assets/dims\ \(1\).jpg');
+        background-size: 100% auto;
+        background-repeat:no-repeat;
+        background-position:center 45vh ;
+     
+      }
+      h4{
+            color: white;
+      }

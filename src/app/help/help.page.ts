@@ -9,7 +9,7 @@ import { OnboardingPage } from '../onboarding/onboarding.page';
   styleUrls: ['./help.page.scss'],
 })
 export class HelpPage implements OnInit {
-
+  tsProperty = '';
   public unsubscribeBackEvent: any;
 
   constructor( private platform: Platform,  private router: Router, ) { }
@@ -56,5 +56,29 @@ export class HelpPage implements OnInit {
   }
 instruct(){
   this.router.navigateByUrl('Onboarding');
+}
+
+
+
+activate(cmd) {
+  switch (cmd) {
+    case 'about':
+      this.tsProperty = 'about';
+      break;
+      case 'terms':
+        this.tsProperty = 'terms';
+        break;
+        case 'contact':
+          this.tsProperty = 'contact';
+      break;
+      case 'disclaimer':
+        this.tsProperty = 'disclaimer';
+      break;
+      case 'safety':
+        this.tsProperty = 'safety';
+      break;
+    default:
+      break;
+  }
 }
 }

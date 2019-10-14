@@ -40,7 +40,7 @@ firbase_id:string='580007341136';
       console.log("User", user === null);
       
       if (user === null) {
-       this.router.navigate([]);
+       this.router.navigate(['/onboarding']);
        unsubscribe();
       } else {
        console.log('The user email is',user.email);

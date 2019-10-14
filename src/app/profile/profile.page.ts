@@ -1144,6 +1144,7 @@ console.log('My value from the profile is ', this.tempData);
           console.log('ggg',viewimage);
           this.renderer.setStyle(viewimage, 'opacity', '1');
           this.renderer.setStyle(viewimage, 'transform', 'scale(1)');
+          this.renderer.setStyle(viewimage, 'height', '100vh');
         } else {
           
           this.viewImage.open = false;
@@ -1151,6 +1152,7 @@ console.log('My value from the profile is ', this.tempData);
           console.log('ggg',viewimage);
           this.renderer.setStyle(viewimage, 'opacity', '0');
           this.renderer.setStyle(viewimage, 'transform', 'scale(0)');
+          this.renderer.setStyle(viewimage, 'height', '0vh');
         }
       }
 
