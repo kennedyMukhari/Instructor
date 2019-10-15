@@ -349,7 +349,6 @@ export class TheMapPage implements OnInit {
 
   getUserPosition() {
 
-
     let count  = 0
     this.options = {
       enableHighAccuracy: false
@@ -359,7 +358,6 @@ export class TheMapPage implements OnInit {
       count = count + 1;
       console.log(count);
       
-
       this.currentPos = pos;
       // console.log(pos);
       // this.addMap(pos.coords.latitude, pos.coords.longitude);
@@ -370,8 +368,54 @@ export class TheMapPage implements OnInit {
       console.log("error : " + err.message);
     });
 
-  
   }
+
+
+
+
+
+    //addMarker method adds the marker on the on the current location of the device
+    addMarker(lat, lng) {
+
+      // let marker = new google.maps.Marker({
+      //   map: this.map,
+      //   position: new google.maps.LatLng(lat, lng),
+      //   icon: icon
+      // });
+  
+      let myLatLng = { lat, lng };
+      this.map.setCenter(myLatLng);
+      // position: new google.maps.LatLng(lat, lng),
+      //here
+      let marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: myLatLng,
+        
+      });
+  
+      let content = "<p>You!</p>";
+      let infoWindow = new google.maps.InfoWindow({
+        content: content
+      });
+  
+      google.maps.event.addListener(marker, 'click', () => {
+        infoWindow.open(this.map, marker);
+      });
+      //Add a radius on the map
+      // new google.maps.Circle({
+      //   strokeColor: '#FF0000',
+      //   strokeOpacity: 0.8,
+      //   strokeWeight: 2,
+      //   fillColor: '#FF0000',
+      //   fillOpacity: 0.35,
+      //   map: this.map,
+      //   center: new google.maps.LatLng(-26.2601316, 27.9495796),
+      //   radius: 25000
+      // });
+  
+  
+    }
 
 
 
@@ -698,47 +742,7 @@ export class TheMapPage implements OnInit {
 
   }
 
-  //addMarker method adds the marker on the on the current location of the device
-  addMarker(lat, lng) {
 
-    // let marker = new google.maps.Marker({
-    //   map: this.map,
-    //   position: new google.maps.LatLng(lat, lng),
-    //   icon: icon
-    // });
-
-
-    
-    //here
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: new google.maps.LatLng(lat, lng),
-      
-    });
-
-    let content = "<p>You!</p>";
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    });
-
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    });
-    //Add a radius on the map
-    // new google.maps.Circle({
-    //   strokeColor: '#FF0000',
-    //   strokeOpacity: 0.8,
-    //   strokeWeight: 2,
-    //   fillColor: '#FF0000',
-    //   fillOpacity: 0.35,
-    //   map: this.map,
-    //   center: new google.maps.LatLng(-26.2601316, 27.9495796),
-    //   radius: 25000
-    // });
-
-
-  }
 
 
   openImage(image, cmd) {

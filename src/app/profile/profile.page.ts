@@ -537,7 +537,7 @@ options2={
   // Get the place details from the autocomplete object.
   let place = this.autocomplete.getPlace();
  this.MyAddress = place.formatted_address;
-  this.town_1 = place.address_components[2].long_name;
+  this.town_1 = place.address_components[3].long_name;
   this.myLatitude =  place.geometry.location.lat();
   this.myLongitude =  place.geometry.location.lng();
 }

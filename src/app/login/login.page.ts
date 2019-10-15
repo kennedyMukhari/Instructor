@@ -83,7 +83,10 @@ loader.dismiss()
       console.log('Form is not valid yet, current value:', loginForm.value);
     } else {
       
-      let loading = await this.loadingCtrl.create();
+      let loading = await this.loadingCtrl.create({
+
+        
+      });
       await loading.present();
       setTimeout(() => {
         loading.dismiss();
