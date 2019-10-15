@@ -25,7 +25,8 @@
             <h4>about us</h4>
               </div>
         
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae minima autem debitis quis, quidem fugiat neque laboriosam suscipit facere deserunt dolore nobis voluptatum dolorem eveniet ipsam iusto nostrum illo doloribus.</p>
+        <p *ngIf = "value" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae minima autem debitis quis, quidem fugiat neque laboriosam suscipit facere deserunt dolore nobis voluptatum dolorem eveniet ipsam iusto nostrum illo doloribus.</p>
+
     </div>
    
     <div [ngClass]="{'aboutus1': tsProperty=='terms' , 'aboutus2': tsProperty!='terms'}">

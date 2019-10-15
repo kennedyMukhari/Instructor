@@ -75,7 +75,8 @@ export class TheMapPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getUserPosition();
+  
+    
     // this.initializeBackButtonCustomHandler();
   }
 
@@ -103,6 +104,10 @@ export class TheMapPage implements OnInit {
 
   async ionViewDidEnter() {
     
+    this.getUserPosition();
+    this.addMap();
+    
+
      let loading = await this.loadingCtrl.create();
     await loading.present();
     setTimeout(() => {
@@ -343,11 +348,13 @@ export class TheMapPage implements OnInit {
 
 
   getUserPosition() {
+
+
     let count  = 0
     this.options = {
       enableHighAccuracy: false
     };
-
+    
     this.geolocation.getCurrentPosition().then((pos: Geoposition) => {
       count = count + 1;
       console.log(count);
@@ -355,20 +362,23 @@ export class TheMapPage implements OnInit {
 
       this.currentPos = pos;
       // console.log(pos);
-      this.addMap(pos.coords.latitude, pos.coords.longitude);
+      // this.addMap(pos.coords.latitude, pos.coords.longitude);
+     
       // console.log('Current Location', pos);
-      this.addMarker();
+      this.addMarker(pos.coords.latitude, pos.coords.longitude);
     }, (err: PositionError) => {
       console.log("error : " + err.message);
     });
+
+  
   }
 
 
 
-  addMap(lat: number, long: number) {
+  addMap() {
     console.log('Map Loader');
     
-    let latLng = new google.maps.LatLng(lat, long);
+    let latLng = new google.maps.LatLng(-26.1711459, 27.9002824);
 
     var grayStyles = [
       {
@@ -689,13 +699,22 @@ export class TheMapPage implements OnInit {
   }
 
   //addMarker method adds the marker on the on the current location of the device
-  addMarker() {
+  addMarker(lat, lng) {
 
+    // let marker = new google.maps.Marker({
+    //   map: this.map,
+    //   position: new google.maps.LatLng(lat, lng),
+    //   icon: icon
+    // });
+
+
+    
     //here
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
+      position: new google.maps.LatLng(lat, lng),
+      
     });
 
     let content = "<p>You!</p>";

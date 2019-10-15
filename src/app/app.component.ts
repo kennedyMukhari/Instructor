@@ -44,7 +44,7 @@ firbase_id:string='580007341136';
        unsubscribe();
       } else {
        console.log('The user email is',user.email);
-       this.router.navigate(['/main/profile']);
+       this.router.navigate(['/main/the-map']);
        unsubscribe();
       }
       });

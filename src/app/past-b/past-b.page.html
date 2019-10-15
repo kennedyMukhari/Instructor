@@ -1,7 +1,7 @@
 <ion-content>
-  <div class="container"  *ngFor="let d of NewDrivingschool">
+  <div class="container"  >
     
-    <div class="top">
+    <div class="top"  *ngFor="let d of NewDrivingschool">
       <div class="image">
         <img *ngIf="d.image" src="{{d.image}}" alt="">
       </div>
@@ -19,7 +19,42 @@
       </p>
     </div>
 
-    <div class="comments" *ngFor="let item of reviews">
+    <!-- <ion-list *ngFor="let item of reviews">
+      <ion-item>
+        <img src={{item.image}}  class="img"/>
+        <div>
+            <h1>{{item.username}}</h1>
+            {{item.text}}
+            <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
+            defaultColor="#D3D3D3" readonly="true" rating="{{item.rating}}" fontSize="32px"
+            (ratingChanged)="logRatingChange($event)">
+          </ionic4-star-rating>
+        </div>
+       
+      </ion-item>   
+    <br /> 
+    </ion-list> -->
+
+      
+
+    <div class="comments">
+        <div class="first" *ngFor="let item of reviews">           
+                  <img src={{item.image}}  class="img"/>
+                  <div>
+                      <h1>{{item.username}}</h1>
+                      {{item.text}}
+                      <ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#FFD700"
+                      defaultColor="#D3D3D3" readonly="true" rating="{{item.rating}}" fontSize="32px"
+                      (ratingChanged)="logRatingChange($event)">
+                    </ionic4-star-rating>
+                  </div>             
+              <br />     
+        </div>
+    </div>
+
+
+
+    <!-- <div class="comments" *ngFor="let item of reviews">
       <div class="first">
         
         <div class="pic">
@@ -40,6 +75,7 @@
         </div>
         
       </div>
-    </div>
+    </div> -->
+    
   </div>
 </ion-content>
