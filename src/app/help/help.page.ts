@@ -104,7 +104,7 @@ if (this.tsProperty =='terms'){
         if (this.tsProperty =='safety'){
           this.tsProperty =''
         }else{
-          this.tsProperty = '';
+          this.tsProperty = 'safety';
         }
   
       break;

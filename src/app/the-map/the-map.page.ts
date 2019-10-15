@@ -27,7 +27,8 @@ declare var google;
 })
 
 export class TheMapPage implements OnInit {
-
+  loaderAnimate = true;
+  
   public unsubscribeBackEvent: any;
   // toggles the div, goes up if true, goes down if false
   display = false;
@@ -103,11 +104,7 @@ export class TheMapPage implements OnInit {
 
   async ionViewDidEnter() {
     
-     let loading = await this.loadingCtrl.create();
-    await loading.present();
-    setTimeout(() => {
-      loading.dismiss();
-    }, 1000)
+  
 
     this.platform.ready().then(() => {
       console.log('Core service init');
@@ -141,6 +138,7 @@ export class TheMapPage implements OnInit {
           this.NewRequeste.push({ docid: doc.id, doc: doc.data()});  
         }
       });
+      this.loaderAnimate = false;
 
       this.NewRequeste.forEach(Customers => {
         console.log('Owners UID logged in', firebase.auth().currentUser.uid);

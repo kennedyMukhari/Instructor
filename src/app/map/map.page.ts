@@ -10,6 +10,7 @@ declare var google;
   styleUrls: ['./map.page.scss'],
 })
 export class MapPage implements OnInit {
+  loaderAnimate = false;
   // CSS properties ****************
   booking = {
     active: false,
@@ -148,9 +149,12 @@ export class MapPage implements OnInit {
     })
   }
   async acceptRequest(person) {
+ 
     const loading = await this.loadingCtrl.create({
+      
       message: 'Working',
       spinner: 'lines'
+      
     })
     loading.present();
     //copy the document from 'users' to 'accepted'
