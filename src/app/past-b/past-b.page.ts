@@ -27,7 +27,7 @@ export class PastBPage implements OnInit {
 ​
   constructor(private router: Router, public platform : Platform) { 
     this.db.collection('drivingschools').onSnapshot(snapshot => {
-      this.NewDrivingschool = [];
+    this.NewDrivingschool = [];
      
       snapshot.forEach(Element => {
        

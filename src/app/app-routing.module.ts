@@ -23,7 +23,8 @@ const routes: Routes = [
   { path: 'reset-password', loadChildren: './reset-password/reset-password.module#ResetPasswordPageModule' },
   { path: 'prof', loadChildren: './prof/prof.module#ProfPageModule' },
   {path: 'main', loadChildren: './main/main.module#MainPageModule'},
-  { path: 'about', loadChildren: './about/about.module#AboutPageModule' }
+  { path: 'about', loadChildren: './about/about.module#AboutPageModule' },  { path: 'viewprofile', loadChildren: './viewprofile/viewprofile.module#ViewprofilePageModule' }
+
 
 
 

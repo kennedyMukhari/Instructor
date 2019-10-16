@@ -13,12 +13,6 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
-
-
-
-
-
-
 declare var google;
 @Component({
   selector: 'app-the-map',

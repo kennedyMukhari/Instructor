@@ -1108,7 +1108,9 @@ options2={
       profile() {
         this.router.navigate(['the-map']);
       } 
-
+      view() {
+        this.router.navigate(['viewprofile']);
+      } 
 
      async Logout() {
 

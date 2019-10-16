@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
+  loaderAnimate = false;
   public signupForm: FormGroup;
   public loading: any;
   public loginForm: FormGroup;
@@ -35,6 +36,7 @@ export class RegisterPage implements OnInit {
 
   
   async signupUser(signupForm: FormGroup): Promise<void> {
+    this.loaderAnimate = true;
     console.log('Method is called');
 
     if (!signupForm.valid) {
@@ -42,6 +44,7 @@ export class RegisterPage implements OnInit {
         'Need to complete the form, current value: ',
         signupForm.value
       );
+      this.loaderAnimate = false;
     } else {
       const email: string = signupForm.value.email;
       const password: string = signupForm.value.password;
@@ -49,22 +52,25 @@ export class RegisterPage implements OnInit {
       this.authService.signupUser(email, password).then(
         () => {
           this.loading.dismiss().then(() => {
+            this.loaderAnimate = false;
             // this.router.navigateByUrl('profile');
             this.router.navigateByUrl('profile');
           });
         },
         error => {
           this.loading.dismiss().then(async () => {
+            this.loaderAnimate = false;
             const alert = await this.alertCtrl.create({
               message: error.message,
               buttons: [{ text: 'Ok', role: 'cancel' }]
             });
-            await alert.present();
+            // await alert.present();
           });
         }
       );
       this.loading = await this.loadingCtrl.create();
-      await this.loading.present();
+      // await this.loading.present();
+       this.loaderAnimate = false;
     }
   }
 
