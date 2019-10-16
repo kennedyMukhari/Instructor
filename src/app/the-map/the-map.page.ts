@@ -27,7 +27,8 @@ declare var google;
 })
 
 export class TheMapPage implements OnInit {
-
+  loaderAnimate = true;
+  
   public unsubscribeBackEvent: any;
   // toggles the div, goes up if true, goes down if false
   display = false;
@@ -108,11 +109,11 @@ export class TheMapPage implements OnInit {
     this.addMap();
     
 
-     let loading = await this.loadingCtrl.create();
-    await loading.present();
-    setTimeout(() => {
-      loading.dismiss();
-    }, 1000)
+    //  let loading = await this.loadingCtrl.create();
+    // await loading.present();
+    // setTimeout(() => {
+    //   loading.dismiss();
+    // }, 1000)
 
     this.platform.ready().then(() => {
       console.log('Core service init');
@@ -146,6 +147,7 @@ export class TheMapPage implements OnInit {
           this.NewRequeste.push({ docid: doc.id, doc: doc.data()});  
         }
       });
+      this.loaderAnimate = false;
 
       this.NewRequeste.forEach(Customers => {
         console.log('Owners UID logged in', firebase.auth().currentUser.uid);
@@ -202,7 +204,8 @@ export class TheMapPage implements OnInit {
           location :  element.doc.location.address,
           time : element.doc.time,
           packageName : element.doc.package.name,
-          docid : element.docid
+          docid : element.docid,
+          placeid : data.data().placeid
         }
         this.NewRequesteWithPictures = []
        this.NewRequesteWithPictures.push(obj);
@@ -265,6 +268,9 @@ export class TheMapPage implements OnInit {
 
   Accept(Customer, i, docid) {
  
+
+    console.log("rrrrrrrrrrrr", Customer);
+    
     this.db.collection('bookings').doc(docid).set(
       { confirmed: 'accepted' }, { merge: true }
       );

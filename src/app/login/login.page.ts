@@ -14,7 +14,7 @@ import { Directive, HostListener, Output, EventEmitter, ElementRef, Input } from
   selector: '[br-data-dependency]' // Attribute selector
 })
 export class LoginPage implements OnInit {
-
+  loaderAnimate = false;
   public onSubmit(): void {
     // ...
     // ... // ...
@@ -78,18 +78,19 @@ loader.dismiss()
   }
 
   async loginUser(loginForm: FormGroup): Promise<void> {
-
+    this.loaderAnimate = true;
     if (!loginForm.valid) {
       console.log('Form is not valid yet, current value:', loginForm.value);
+      this.loaderAnimate = false;
     } else {
       
       let loading = await this.loadingCtrl.create({
 
         
       });
-      await loading.present();
+      // await loading.present();
       setTimeout(() => {
-        loading.dismiss();
+        // loading.dismiss();
       }, 4000)
 
 
@@ -105,11 +106,13 @@ loader.dismiss()
             if (user.uid) {
               this.db.collection('drivingschools').where('schooluid', '==', user.uid).get().then(res => {
                 if (res.empty) {
-                  // this.loading.dismiss();
+                  // this.loading.dismiss();\
+                  this.loaderAnimate = false;
                   this.router.navigate(['profile']);
                   
                 } else {
                   // this.loading.dismiss()
+                  this.loaderAnimate = false;
                   this.router.navigate(['main/the-map']);
                 }
               })
@@ -124,7 +127,7 @@ loader.dismiss()
           //   });
           //   await alert.present();
           // });
-
+          this.loaderAnimate = false;
           const alert = await this.alertCtrl.create({
             message: error.message,
             buttons: [{ text: 'Ok', role: 'cancel' }]

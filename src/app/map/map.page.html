@@ -1,4 +1,13 @@
 <ion-content>
+
+    <div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
+        <!-- <div class="loader"> -->
+          <div class="load-ctrl">
+              <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+          </div>
+           
+      
+        </div>
   <div #map class="map"></div>
   <div [ngClass]="{'booking-active': booking.active, 'booking-inactive':booking.inactive}">
     <div class="toggler" (click)="togglePanel()">

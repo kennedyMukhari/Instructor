@@ -1,7 +1,15 @@
 
 
 <ion-content>
-    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div> 
+  <div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
+  <!-- <div class="loader"> -->
+    <div class="load-ctrl">
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </div>
+     
+
+  </div>
+ 
   <div class="background">
     <div class="logo">
       <img src="../../assets/StepLogo.svg" alt="">

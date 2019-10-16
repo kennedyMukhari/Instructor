@@ -16,8 +16,8 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-signal_app_id:string ='d0d13732-1fec-4508-b72b-86eaa0c62aa4';
-firbase_id:string='580007341136';
+// signal_app_id:string ='d0d13732-1fec-4508-b72b-86eaa0c62aa4';
+// firbase_id:string='580007341136';
 
   public unsubscribeBackEvent: any;
 
