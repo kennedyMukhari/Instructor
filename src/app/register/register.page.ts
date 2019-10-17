@@ -70,7 +70,7 @@ export class RegisterPage implements OnInit {
       );
       this.loading = await this.loadingCtrl.create();
       // await this.loading.present();
-       this.loaderAnimate = false;
+      
     }
   }
 

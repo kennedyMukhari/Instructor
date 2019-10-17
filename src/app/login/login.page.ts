@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormsModule } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../app/user/auth.service';
@@ -23,14 +23,20 @@ export class LoginPage implements OnInit {
   db = firebase.firestore()
   public loginForm: FormGroup;
   public loading: HTMLIonLoadingElement;
-
+  formSwitcher = 'signin';
+  // form containers
+  signUpForm = document.getElementsByClassName('signup')
+  signInForm = document.getElementsByClassName('login')
+  // switcher buttons
+  signUpB = document.getElementsByClassName('bReg')
+  signInB = document.getElementsByClassName('bSign')
   constructor(
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,
-    
+    private renderer: Renderer2,
     private FormsModule: FormsModule,
   ) {
     this.loginForm = this.formBuilder.group({
@@ -41,7 +47,27 @@ export class LoginPage implements OnInit {
       ]
     });
 
+    if (this.formSwitcher=='signin') {
+      
+      setTimeout(()=> {
+        // console.log(this.signInB[0].children[0]);
+        this.renderer.setStyle(this.signInB[0].children[0], 'background', '#480B0B');
+        this.renderer.setStyle(this.signInB[0].children[0], 'color', 'white');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'background', 'gray');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'color', '#480B0B');
 
+        this.renderer.setStyle(this.signInForm[0], 'transform', 'translateX(0)');
+      this.renderer.setStyle(this.signUpForm[0], 'transform', 'translateX(100vw)');
+      }, 500)
+    } else {
+      this.renderer.setStyle(this.signInB[0].children[0], 'background', 'gray');
+      this.renderer.setStyle(this.signInB[0].children[0], 'color', '#480B0B');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'background', '#480B0B');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'color', 'white');
+
+      this.renderer.setStyle(this.signInForm[0], 'transform', 'translateX(100vw)');
+      this.renderer.setStyle(this.signUpForm[0], 'transform', 'translateX(0vw)');
+    }
     
   }
 
@@ -205,5 +231,31 @@ loader.dismiss()
     // Do your stuff here
 }
 
+switchForms(cmd) {
+  
+  
+  this.formSwitcher = cmd;
+  console.log('clicked', this.formSwitcher);
+  if (this.formSwitcher=='signin') {
+    
+    setTimeout(()=> {
+      this.renderer.setStyle(this.signInB[0].children[0], 'background', '#480B0B');
+        this.renderer.setStyle(this.signInB[0].children[0], 'color', 'white');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'background', 'gray');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'color', '#480B0B');
 
+      // console.log(this.signInForm[0]);
+      this.renderer.setStyle(this.signInForm[0], 'transform', 'translateX(0)');
+    this.renderer.setStyle(this.signUpForm[0], 'transform', 'translateX(100vw)');
+    })
+  } else {
+    this.renderer.setStyle(this.signInB[0].children[0], 'background', 'gray');
+        this.renderer.setStyle(this.signInB[0].children[0], 'color', '#480B0B');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'background', '#480B0B');
+        this.renderer.setStyle(this.signUpB[0].children[0], 'color', 'white');
+    // console.log(this.signUpForm);
+    this.renderer.setStyle(this.signInForm[0], 'transform', 'translateX(100vw)');
+    this.renderer.setStyle(this.signUpForm[0], 'transform', 'translateX(0vw)');
+  }
+}
 }

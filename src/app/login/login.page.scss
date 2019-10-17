@@ -1,3 +1,7 @@
+* {
+  transition: 0.3s;
+  transition-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);;
+}
 .loader{
     transition: 0.3s;
     transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
@@ -190,9 +194,14 @@
       }
   }
   .body{
-      height: 60%;
+      height: 80vw !important;
       display: flex;
       flex-direction: row;
+      position: absolute;
+      width: 100vw;
+      margin-top: 55vh;
+      transform: translateY(-50%);
+      z-index: 10;
       .sign{
           width: 30%;
           height: 100%;
@@ -201,16 +210,22 @@
           flex-direction: column;
           justify-content: center;
           .bSign{
-              margin-bottom:1vw ;
+              margin:0vw ;
               button{
                   background: #480B0B;
                   color: white;
                   height: 10vw;
                   width: 25vw;
                   text-align: left;
-                  border-top-right-radius: 20px;
-                  border-bottom-right-radius: 20px;
+                  border-top-right-radius: 200px;
+                  border-bottom-right-radius: 200px;
                   outline: none;
+                  text-transform: uppercase;;
+                  padding: 3vw 2vw 3vw 5vw;
+                  margin: 5px 0px;
+                  font-size: 4vw;
+                  // letter-spacing: 2px;
+                  box-shadow: 0px 3px 3px #1717176b;
               }
           }
           .bReg{
@@ -220,22 +235,36 @@
                   height: 10vw;
                   width: 25vw;
                   text-align: left;
-                  border-top-right-radius: 20px;
-                  border-bottom-right-radius: 20px;
+                  border-top-right-radius: 200px;
+                  border-bottom-right-radius: 200px;
                   outline: none;
+                  text-transform: uppercase;;
+                  padding: 3vw 2vw 3vw 5vw;
+                  margin: 5px 0px;
+                  font-size: 4vw;
+                  box-shadow: 0px 3px 3px #1717176b;
               }
           }
       }
       .cont{
           width: 70%;
+          position: relative;
           // border: 1px solid blue;
           .login{
+            position: absolute;
+            top: 0;
+            left: 0px;
+            box-shadow: 0px 3px 3px #1717177e;
+            right: 0;
+            bottom: 0;;
+            z-index: 10;
               background: #480B0B;
-              margin-top: 8vw;
-              height: 90%;
+              // margin-top: 8vw;
+              height: auto;
+              padding-bottom: 3vw;;
               border-top-left-radius: 20px;
               border-bottom-left-radius: 20px;
-              position: relative;
+              // position: relative;
               .title{
                   height:15%;
                   display: flex;
@@ -245,6 +274,7 @@
                   color: white;
                   h1{
                       font-size: 7vw;
+                      letter-spacing: 3px;
                   }
               }
               .input1{
@@ -261,6 +291,9 @@
                       margin-left: 10%;
                       a{
                           color: white;
+                          text-transform: uppercase;
+                          font-size: 3vw;
+                          margin: 6px 5px 5px 6vw;
                       }
                   }
                   .inp{
@@ -270,7 +303,9 @@
                       // border: 1px solid red;
                       input{
                           width: 90%;
-                          height: 45px;
+                          height: 10vw;
+                          font-size: 3vw;
+                          letter-spacing: 5px;
                           border-top-left-radius: 50px;
                           border-bottom-left-radius: 50px;
                           border: none;
@@ -285,37 +320,149 @@
                   height: 10%;
                   // border: 1px solid white;
                   display: flex;
-                  justify-content: center;
-                  align-items: center;
+                  text-align: end;
+                  width: 100%;
                   button{
                       height: 100%;
                       background: transparent;
                       color: white;
                       outline: none;
+                      font-size: 3vw;
+                      margin-right: 10px;
+                      width: 100%;
+                      text-align: right;
                   }
               }
               .btn{
                   position: absolute;
                   left: 0%;
                   right: 0%;
-                  bottom: -5.5vw;
+                  bottom: -4vw;
                   height: 15%;
+                  width: 100%;
                   // border: 1px solid white;
                   display: flex;
                   align-items: center;
                   justify-content: center;
                   overflow: visible;
+                  text-align: center;
                   button{
-                      height: 70%;
+                      height: 10vw;
                       width: 70%;
                       border-radius: 100px;
                       background: #BF3F33;
                       color: white;
                     //   margin-top: 10vw;
+                    font-size: 3vw;
+                    text-transform: uppercase;
+
                       outline: none;
                   }
               }
           }
+          .signup{
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 5;
+            position: absolute;
+            background: #480B0B;
+            // margin-top: 8vw;
+            height: 90%;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            // position: relative;
+            .title{
+                height:15%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: white;
+                h1{
+                    font-size: 7vw;
+                    letter-spacing: 3px;
+                }
+            }
+            .input1{
+                display: flex;
+                height: 30%;
+                flex-direction: column;
+                // border: 1px solid blue;
+                justify-content: center;
+                .em{
+                    width: 90%;
+
+                    // border: 1px solid yellow;
+                    display: flex;
+                    margin-left: 10%;
+                    a{
+                        color: white;
+                        text-transform: uppercase;
+                        font-size: 3vw;
+                        margin: 6px 5px 5px 6vw;
+                    }
+                }
+                .inp{
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                    // border: 1px solid red;
+                    input{
+                        width: 90%;
+                        height: 10vw;
+                        font-size: 3vw;
+                        letter-spacing: 5px;
+                        border-top-left-radius: 50px;
+                        border-bottom-left-radius: 50px;
+                        border: none;
+                        background: linear-gradient(to right,#632727,#480B0B);
+                        outline: none;
+                        color: white;
+                        padding-left: 3vw;
+                    }
+                }
+            }
+            .forget{
+                height: 10%;
+                // border: 1px solid white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                button{
+                    height: 100%;
+                    background: transparent;
+                    color: white;
+                    outline: none;
+                    font-size: 3vw;
+                }
+            }
+            .btn{
+                position: absolute;
+                left: 0%;
+                right: 0%;
+                bottom: -4vw;
+                height: 15%;
+                // border: 1px solid white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: visible;
+                text-align: center;
+                button{
+                    height: 10vw;
+                    width: 70%;
+                    border-radius: 100px;
+                    background: #BF3F33;
+                    color: white;
+                  //   margin-top: 10vw;
+                  font-size: 3vw;
+                  text-transform: uppercase;
+
+                    outline: none;
+                }
+            }
+        }
       }
   }
 
@@ -326,4 +473,6 @@
 
 .error{
     color: red;
+    font-size: 3vw;
+    padding: 2vw 0px;
 }
