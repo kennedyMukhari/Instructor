@@ -21,7 +21,7 @@ declare var google;
 })
 
 export class TheMapPage implements OnInit {
-  loaderAnimate = true;
+  loaderAnimate = false;
   
   public unsubscribeBackEvent: any;
   // toggles the div, goes up if true, goes down if false
@@ -71,7 +71,10 @@ export class TheMapPage implements OnInit {
 
   ngOnInit() {
   
-    
+    this.getUserPosition();
+    this.loaderAnimate = true;
+   
+    this.loaderAnimate = false;
     // this.initializeBackButtonCustomHandler();
   }
 
@@ -97,11 +100,11 @@ export class TheMapPage implements OnInit {
 // }
 
 
+
+
   async ionViewDidEnter() {
     
-    this.getUserPosition();
-    this.addMap();
-    
+ 
 
     //  let loading = await this.loadingCtrl.create();
     // await loading.present();
@@ -141,7 +144,7 @@ export class TheMapPage implements OnInit {
           this.NewRequeste.push({ docid: doc.id, doc: doc.data()});  
         }
       });
-      this.loaderAnimate = false;
+      // this.loaderAnimate = false;
 
       this.NewRequeste.forEach(Customers => {
         console.log('Owners UID logged in', firebase.auth().currentUser.uid);
