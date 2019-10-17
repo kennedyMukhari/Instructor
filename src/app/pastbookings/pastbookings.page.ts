@@ -27,6 +27,7 @@ export class PastbookingsPage implements OnInit {
  pic : string;
  public unsubscribeBackEvent: any;
  value : string = '';
+ placeid : string = 'https://www.google.com/maps/place/?q=place_id:ChIJz61BHrUJlR4RieDxkSG75mE';
 
   constructor(public data : DataSavedService, public alertController: AlertController, public platform : Platform) { 
 
@@ -88,6 +89,11 @@ export class PastbookingsPage implements OnInit {
   this.SortData();
   
  }
+
+
+ GoTo(placeid){
+  return window.location.href = 'https://www.google.com/maps/place/?q=place_id:'+placeid;
+}
 
  CheckArrayLength(){
 
@@ -168,7 +174,7 @@ SortData(){
    
     
      this.SortedBookings = this.bubbleSort(this.Booking);   
-     console.log('iiiiiiiiiii', this.SortedBookings);
+     console.log('iiiiiiiiiii', this.SortedBookings[0].placeid);
        
 }
 

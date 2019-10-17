@@ -17,6 +17,7 @@ import { NgZone } from '@angular/core';
 // import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { LoadingController } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
+import { log } from 'util';
 
 
 
@@ -522,7 +523,7 @@ options2={
   this.autocomplete = new google.maps.places.Autocomplete(
     <HTMLInputElement>document.getElementById('autocomplete'), {types: ['geocode']});
    
-   
+    
   // Avoid paying for data that you don't need by restricting the set of
   // place fields that are returned to just the address components.
   // this.autocomplete.setFields(['address_component']);
@@ -540,6 +541,7 @@ options2={
   this.town_1 = place.address_components[3].long_name;
   this.myLatitude =  place.geometry.location.lat();
   this.myLongitude =  place.geometry.location.lng();
+  console.log('eeeeeeeeeeeeeeeeee', place)
 }
 
 // Bias the autocomplete object to the user's geographical location,

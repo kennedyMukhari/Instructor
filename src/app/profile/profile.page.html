@@ -81,12 +81,14 @@
               </div>
               <div class="inputs">
                   
+                  <br />
                   <a class="a">
                       Address
                     </a>
-                    <input type="text" style="height: 45vw;" #autocomplete  id="autocomplete"
+                    <input class="ion-text-nowrap" type="text" style="height: 45vw;" #autocomplete  id="autocomplete"
                     placeholder="Enter your address" 
                     (onFocus)="initAutocomplete()" type="text" [(ngModel)]="businessdata.address">
+                    <br />
 
                   <form  [formGroup]="loginForm">
                 
@@ -102,45 +104,10 @@
                   </div>
 
 
-                <a>
-                  Cell number
-                </a>
-                <input type="text" formControlName="cellnumber" [(ngModel)]="businessdata.cellnumber">
-                <div class="error" *ngFor="let validate of validation_messages.cellnumber">
-                    <div class="messages"
-                      *ngIf="loginForm.get('cellnumber').hasError(validate.type) && (loginForm.get('cellnumber').dirty || loginForm.get('cellnumber').touched)">
-                      {{validate.message}}
-                    </div>
-                  </div>
-
-
-                <a>
-                 <!-- Cost P/L -->
-                   Cost 
-                </a>
-                <input type="text" formControlName="cost" [(ngModel)]="businessdata.cost">
-                <div class="error" *ngFor="let validate of validation_messages.cost">
-                    <div class="messages"
-                      *ngIf="loginForm.get('cost').hasError(validate.type) && (loginForm.get('cost').dirty || loginForm.get('cost').touched)">
-                      {{validate.message}}
-                    </div>
-                  </div>
-
-
-              <a>
-                  Description
-                </a>
-                <input type="text" formControlName="desc" [(ngModel)]="businessdata.desc">
-                <div class="error" *ngFor="let validate of validation_messages.schoolname">
-                    <div class="messages"
-                      *ngIf="loginForm.get('desc').hasError(validate.type) && (loginForm.get('desc').dirty || loginForm.get('desc').touched)">
-                      {{validate.message}}
-                    </div>
-                  </div>
                 
                   <div class="next">
 
-                   
+                   <br />
 
                   <div class="btn">
                   
@@ -171,6 +138,154 @@
           </div>
         </div>
       </ion-slide>
+
+
+
+
+      <ion-slide>
+          <div class="container">
+            <div class="road">
+            </div>
+            <div class="prof">
+              <div class="top">
+                <div class="reviews">
+    
+                  <div class="fab">
+                    <ion-fab-button (click)="goToRev()" color="light" size="small">
+                      <ion-icon name="star-half"></ion-icon>
+                    </ion-fab-button>
+                  </div>
+                  <div class="">
+                    Reviews
+                  </div>
+                </div>
+                <div class="exit">
+    
+    
+                  <div class="cout" (click)="Logout()">
+                    Sign Out
+                  </div>
+                  <div class="fab">
+                    <ion-fab-button (click)="Logout()" color="light" size="small">
+                      <ion-icon name="arrow-round-forward"></ion-icon>
+                    </ion-fab-button>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="pp">
+                <!-- <img src="../../assets/imagePlaceholder.svg" alt=""> -->
+                
+              <div class="pp" (click)="openImage('', 'open')">
+                <ion-avatar item-left>
+                  <img *ngIf="!businessdata.image" src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d"
+                  alt="">
+                  <img *ngIf="businessdata.image" src="{{businessdata.image}}"
+                  alt="">
+                  </ion-avatar>
+                </div>
+              </div>
+  
+  
+  
+  
+  
+  
+              
+    
+              <div class="div">
+                <div class="div1">
+                  <div class="dv1"></div>
+                </div>
+                <div class="div2">
+                  <a>BUSINESS PROFILE</a>
+                </div>
+                <div class="div3">
+                  <div class="dv2"></div>
+                </div>
+              </div>
+              <div class="cont">
+                <div class="blank">
+    
+                </div>
+                <div class="inputs">
+                    
+                   
+  
+                    <form  [formGroup]="loginForm">
+                  
+  
+                  <a>
+                    Cell number
+                  </a>
+                  <input type="text" formControlName="cellnumber" [(ngModel)]="businessdata.cellnumber">
+                  <div class="error" *ngFor="let validate of validation_messages.cellnumber">
+                      <div class="messages"
+                        *ngIf="loginForm.get('cellnumber').hasError(validate.type) && (loginForm.get('cellnumber').dirty || loginForm.get('cellnumber').touched)">
+                        {{validate.message}}
+                      </div>
+                    </div>
+  
+  
+                  <a>
+                   <!-- Cost P/L -->
+                     Cost 
+                  </a>
+                  <input type="text" formControlName="cost" [(ngModel)]="businessdata.cost">
+                  <div class="error" *ngFor="let validate of validation_messages.cost">
+                      <div class="messages"
+                        *ngIf="loginForm.get('cost').hasError(validate.type) && (loginForm.get('cost').dirty || loginForm.get('cost').touched)">
+                        {{validate.message}}
+                      </div>
+                    </div>
+  
+  
+                <a>
+                    Description
+                  </a>
+                  <input type="text" formControlName="desc" [(ngModel)]="businessdata.desc">
+                  <div class="error" *ngFor="let validate of validation_messages.schoolname">
+                      <div class="messages"
+                        *ngIf="loginForm.get('desc').hasError(validate.type) && (loginForm.get('desc').dirty || loginForm.get('desc').touched)">
+                        {{validate.message}}
+                      </div>
+                    </div>
+                  
+                    <div class="next">
+  
+                     
+  
+                    <div class="btn">
+                    
+    
+                      <div class="cout">
+                        Next
+                      </div>
+                      <div class="fab">
+                        <ion-fab-button (click)="swipeNext()" color="light" size="small">
+                          <ion-icon name="arrow-round-forward"></ion-icon>
+                        </ion-fab-button>
+                      </div>
+  
+                   
+  
+  
+                    </div>
+                  </div> 
+  
+                 
+  
+                </form>
+                  
+                </div>
+  
+  
+              </div>
+            </div>
+          </div>
+        </ion-slide>
+
+
   
       <ion-slide>
         <div class="container2">
@@ -361,7 +476,10 @@
 
             <div class="next">
               <div class="btn">
-  
+                
+                <!-- <ion-fab-button  (click)=" view()" color="light" size="small">
+                  <ion-icon name="arrow-round-forward"></ion-icon>
+                </ion-fab-button> -->
   
                 <div class="cout">
                   Finish
@@ -378,7 +496,5 @@
       </ion-slide>
   
     </ion-slides>
-    <ion-fab-button  (click)=" view()" color="light" size="small">
-        <ion-icon name="arrow-round-forward"></ion-icon>
-      </ion-fab-button>
+    
   </ion-content>

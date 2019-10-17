@@ -12,10 +12,11 @@
           <div class="image">
             <img src="{{obj.image}}" alt="No Image">
           </div>
-          <div class="details">
+          <div class="details" >
             <div class="det">
               <p style="font-size: 4vw;font-weight: bold">{{obj.name}}</p>
-              <p style="font-size: 3vw">{{obj.location}}</p>
+              
+              <p (click)="GoTo(obj.placeid)"style="font-size: 3vw">{{obj.location}}</p>
               <p style="font-size: 3vw">Contacts: {{obj.phone}}</p>
               <!-- <p style="font-size: 2.5vw">{{obj.phone}}</p> -->
             </div>

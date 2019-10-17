@@ -1,0 +1,63 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.image{
+    width: 100%;
+    height: 200px;
+}
+
+
+
+.name{
+    width: 100%;
+    height: 10%;
+    background-color: rgb(247, 244, 244);
+    text-align: center;
+}
+
+.one{
+    width: 100%;
+}
+
+.address{
+    display: flex;
+    width: 100%;
+}
+
+.email{
+    display: flex;
+}
+
+.time{
+    display: flex;
+  
+}
+
+.two{
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+    width: 100%;
+    background-color: red;
+    padding: 30px;
+    border-bottom: 2px solid grey;
+    
+
+}
+.round{
+    height: 40px;
+    width: 50%;
+    margin: auto;
+    border: 2px solid grey;
+    border-radius: 10px ;
+    z-index: 1;
+    position: relative;
+    top:10px;
+    background-color: white;
+    text-align: center;
+
+}

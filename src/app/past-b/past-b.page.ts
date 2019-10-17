@@ -48,6 +48,7 @@ export class PastBPage implements OnInit {
       //  this.avgRating=this.ratingTotal / this.reviews.length;
        
   }
+
   ionViewWillEnter(){
  this.openImage('', 'close');
     // this.platform.ready().then(() => {
@@ -71,6 +72,9 @@ export class PastBPage implements OnInit {
         console.log('reViews', this.reviews);
       })
     })
+    
+
+    console.log('ssssssssssss', this.reviews);
     
    
   }

@@ -44,7 +44,7 @@ export class AppComponent {
        unsubscribe();
       } else {
        console.log('The user email is',user.email);
-       this.router.navigate(['/main/profile']);
+       this.router.navigate(['/main/the-map']);
        unsubscribe();
       }
       });
@@ -97,7 +97,7 @@ initializeApp() {
 
 
     if (this.platform.is('cordova')) {
-      this.setupPush();
+      // this.setupPush();
     }
   });
 }
@@ -168,30 +168,30 @@ initializeBackButtonCustomHandler(): void {
 if we have registerBackButtonAction in app.component.ts */
 }
 
-setupPush() {
+// setupPush() {
  
-  this.oneSignal.startInit('d0d13732-1fec-4508-b72b-86eaa0c62aa4', '580007341136');
+//   this.oneSignal.startInit('d0d13732-1fec-4508-b72b-86eaa0c62aa4', '580007341136');
 
-  this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
+//   this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
 
 
-  this.oneSignal.handleNotificationReceived().subscribe(data => {
-    let msg = data.payload.body;
-    let title = data.payload.title;
-    let additionalData = data.payload.additionalData;
-    this.showAlert(title, msg, additionalData.task);
-  });
+//   this.oneSignal.handleNotificationReceived().subscribe(data => {
+//     let msg = data.payload.body;
+//     let title = data.payload.title;
+//     let additionalData = data.payload.additionalData;
+//     this.showAlert(title, msg, additionalData.task);
+//   });
 
-  this.oneSignal.handleNotificationOpened().subscribe(data => {
-    console.log(data)
+//   this.oneSignal.handleNotificationOpened().subscribe(data => {
+//     console.log(data)
    
-    let additionalData = data.notification.payload.additionalData;
+//     let additionalData = data.notification.payload.additionalData;
 
-    this.showAlert('Notification opened', 'You already read this before', additionalData.task);
-  });
+//     this.showAlert('Notification opened', 'You already read this before', additionalData.task);
+//   });
 
-  this.oneSignal.endInit();
-}
+//   this.oneSignal.endInit();
+// }
 
 async showAlert(title, msg, task) {
   const alert = await this.alertCtrl.create({
