@@ -31,10 +31,12 @@ h6{
       border: solid linear-gradient(#4C0A0A, #790B0B);
       overflow: hidden;
       margin:  5px auto;
-      width: 70%; 
+      width: 70%;
+      text-align: center;
+      padding: 5vw;
       }
   .aboutus2 {
-      height: 60px;
+      height: 50px;
       border: black;
       overflow: hidden;
       margin:  5px auto;
@@ -47,6 +49,13 @@ h6{
             width: 100%;
             border-radius: 10px 10px 10px 10px; 
             background: linear-gradient(#4C0A0A, #790B0B);
+            display: grid;
+            align-content: center;
+            text-align: center;
+            padding: 20px;
+            h4 {
+                  text-transform: uppercase;
+            }
       }
       .inform{
       height: 75%;
@@ -54,6 +63,7 @@ h6{
         background-size: 100% auto;
         background-repeat:no-repeat;
         background-position:center 45vh ;
+        overflow-y: auto;
      
       }
       h4{

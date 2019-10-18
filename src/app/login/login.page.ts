@@ -21,7 +21,8 @@ export class LoginPage implements OnInit {
     // ...
   }
   db = firebase.firestore()
-  public loginForm: FormGroup;
+  public signinForm: FormGroup;
+  public signupForm: FormGroup;
   public loading: HTMLIonLoadingElement;
   formSwitcher = 'signin';
   // form containers
@@ -39,14 +40,20 @@ export class LoginPage implements OnInit {
     private renderer: Renderer2,
     private FormsModule: FormsModule,
   ) {
-    this.loginForm = this.formBuilder.group({
+    this.signinForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: [
         '',
         Validators.compose([Validators.required, Validators.minLength(6)])
       ]
     });
-
+    this.signupForm = this.formBuilder.group({
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(6)])
+      ]
+    });
     if (this.formSwitcher=='signin') {
       
       setTimeout(()=> {
@@ -103,10 +110,10 @@ loader.dismiss()
     })
   }
 
-  async loginUser(loginForm: FormGroup): Promise<void> {
+  async loginUser(signinForm: FormGroup): Promise<void> {
     this.loaderAnimate = true;
-    if (!loginForm.valid) {
-      console.log('Form is not valid yet, current value:', loginForm.value);
+    if (!signinForm.valid) {
+      console.log('Form is not valid yet, current value:', signinForm.value);
       this.loaderAnimate = false;
     } else {
       
@@ -120,8 +127,8 @@ loader.dismiss()
       }, 4000)
 
 
-      const email = loginForm.value.email;
-      const password = loginForm.value.password;
+      const email = signinForm.value.email;
+      const password = signinForm.value.password;
 
       this.authService.loginUser(email, password).then(
         (user) => {
@@ -163,7 +170,44 @@ loader.dismiss()
       );
     }
   }
+  async signupUser(signupForm: FormGroup): Promise<void> {
+    this.loaderAnimate = true;
+    console.log('Method is called');
 
+    if (!signupForm.valid) {
+      console.log(
+        'Need to complete the form, current value: ',
+        signupForm.value
+      );
+      this.loaderAnimate = false;
+    } else {
+      const email: string = signupForm.value.email;
+      const password: string = signupForm.value.password;
+
+      this.authService.signupUser(email, password).then(
+        () => {
+          this.loading.dismiss().then(() => {
+            this.loaderAnimate = false;
+            // this.router.navigateByUrl('profile');
+            this.router.navigateByUrl('profile');
+          });
+        },
+        error => {
+          this.loading.dismiss().then(async () => {
+            this.loaderAnimate = false;
+            const alert = await this.alertCtrl.create({
+              message: error.message,
+              buttons: [{ text: 'Ok', role: 'cancel' }]
+            });
+            // await alert.present();
+          });
+        }
+      );
+      this.loading = await this.loadingCtrl.create();
+      // await this.loading.present();
+      
+    }
+  }
    async forgetpassword() {
 
     // this.router.navigate(['reset-password']);

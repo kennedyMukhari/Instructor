@@ -2,6 +2,9 @@ ion-slides {
     height: 100%;
     width: 100%;
 }
+h6 {
+    font-size: 3vw !important;
+}
 .container{
     display: flex;
     flex: 100%;
@@ -38,52 +41,80 @@ ion-slides {
         border-left: 1px solid #A87575;
         border-bottom-left-radius: 20px;
         .mess{
-            height: 50%;
+            height: 30vw;
             // border: 1px solid red;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 2vw 0px;
             .tex{
                 width: 80%;
                 // border: 1px solid red;
                 h6{
-                    font-size: 5vw;
+                    font-size: 3vw;
                 }
             }
         }
         .btns{
-            height: 50%;
+            height: 100%;
             // border: 1px solid green;
             .div1{
-                height: 50%;
+                height: 100%;
                 display: flex;
                 align-items: center;
+                position: relative;
                 // border: 1px solid;
                 .div2{
-                    width: 50%;
-                    margin-left: 50%;
+                    position: absolute;
+                    right: 0;
+                    top: 25%;
+                    // width: 70%;
+                    // margin-left: 30%;
                     background: #BF3F33;
-                    height: 80%;
+                    height: auto;
                     display: flex;
                     flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
+                    justify-content: right;
+                    align-items: right;
                     border-top-left-radius: 100px;
                     border-bottom-left-radius: 100px;
                     color: white;
-                    
+                    .text {
+                        flex-basis: 60%;
+                        padding: 0px 10px;
+                        p {
+                            // font-size: 4vw;;
+                        }
+                        // background: blue;
+                        h6 {
+                            font-size: 3vw;
+                        }
+                    }
+                    .fabButto {
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-content: center;;
+                    }
                 }
             }
             .d1{
                 display: flex;
                 height: 50%;
+                // position: relative;
+                margin: 5px 0px;
                 .d2{
+                    position: absolute;
+                    right: 0;
                     display: flex;
                     flex-direction: row;
-                    color: black;
-                    width: 40%;
-                    font-size: 5vw;
-                    margin-left: 60%;
+                    color: black;     
+                    // width: 40%;
+                    // font-size: 5vw;
+                    margin-left: 30%;
+                    p {
+                        // font-size: 4vw;;
+                    }
                 }
                 .d22{
                     width: 50%;
@@ -141,11 +172,14 @@ ion-slides {
                 h3{
                     font-size: 6vw;
                     letter-spacing: 1vw;
-
                 }
             }
             .texx{
                 width: 80%;
+                h6 {
+                    font-size: 3vw;
+                    
+                }
             }
         }
         .btnss{
@@ -153,17 +187,20 @@ ion-slides {
             
             .div11{
                 height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                // display: flex;
+                // align-items: center;
+                // justify-content: center;
                 // border: 1px solid;
                 // border: 1px solid green;
+                position: relative;
                 .div22{
-                   
-                    width: 50%;
-                    margin-left: 50%;
+                   position: absolute;
+                   top: 25%;
+                   right: 0;
+                    // width: 50%;
+                    // margin-left: 50%;
                     background: #BF3F33;
-                    height: 45%;
+                    // height: 45%;
                     display: flex;
                     flex-direction: row;
                     justify-content: center;
@@ -171,7 +208,9 @@ ion-slides {
                     border-top-left-radius: 100px;
                     border-bottom-left-radius: 100px;
                     color: white;
-                    
+                    .text {
+                        padding: 0px 10px;
+                    }
                 }
             }
         }

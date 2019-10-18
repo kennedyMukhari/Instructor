@@ -1,36 +1,169 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>viewprofile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="viewImage">
+    <div (click)="openImage('', 'close')" class="close">
+      <p>x</p>
+    </div>
+    <img *ngIf="businessdata.image" src="{{businessdata.image}}" alt="">
+    <img *ngIf="!businessdata.image"
+      src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d"
+      alt="">
+    <ion-fab vertical="middle" horizontal=" start" (click)="selectImage()">
+      <ion-fab-button side="top" size="small">
+        <ion-icon name="create"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <ion-slides #mySlider (ionSlideWillChange)="doCheck()">
+    <ion-slide>
+      <div class="container">
+        <div class="road">
+        </div>
+        <div class="prof">
+          <div class="top">
+            <div class="reviews">
+              <div class="fab">
+                <ion-fab-button (click)="goToRev()" color="light" size="small">
+                  <ion-icon name="star-half"></ion-icon>
+                </ion-fab-button>
+              </div>
+              <div class="cout">
+                <p>Reviews</p>
+              </div>
+            </div>
+            <div class="exit">
+              <div class="cout" (click)="Logout()">
+                <p>Sign Out</p>
+              </div>
+              <div class="fab">
+                <ion-fab-button (click)="Logout()" color="light" size="small">
+                  <ion-icon name="arrow-round-forward"></ion-icon>
+                </ion-fab-button>
+              </div>
+            </div>
+          </div>
+          <div class="pp">
+            <div class="pp" (click)="openImage('', 'open')">
+              <ion-avatar item-left>
+                <img *ngIf="!businessdata.image"
+                  src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d"
+                  alt="">
+                <img *ngIf="businessdata.image" src="{{businessdata.image}}">
+              </ion-avatar>
+            </div>
+          </div>
+          <div class="div">
+            <div class="div1">
+              <div class="dv1"></div>
+            </div>
+            <div class="div2">
+              <a>BUSINESS PROFILE</a>
+            </div>
+            <div class="div3">
+              <div class="dv2"></div>
+            </div>
+          </div>
+          <div class="cont">
+            <div class="blank">
+            </div>
+            <div class="inputs">
+              <a>Address</a>
+              <input type="text" #autocomplete id="autocomplete"
+                (onFocus)="initAutocomplete()" type="text" [(ngModel)]="businessdata.address">
+                <a>School name</a>
+                <input type="text" [(ngModel)]="businessdata.schoolname">
+                <a>Cell number</a>
+                <input type="text" [(ngModel)]="businessdata.cellnumber">
+                <a>Cost</a>
+                <input type="text"  [(ngModel)]="businessdata.cost">
+                <a>Description</a>
+                <input type="text"  [(ngModel)]="businessdata.desc">
+                <div class="next">
+                  <div class="btn">
+                    <div class="cout">
+                      <p>Next</p>
+                    </div>
+                    <div class="fab">
+                      <ion-fab-button style="margin: 0px !important;" (click)="swipeNext()" color="light" size="small">
+                        <ion-icon name="arrow-round-forward"></ion-icon>
+                      </ion-fab-button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="container2">
+        <div class="road2">
+        </div>
+        <div class="prof2">
+          <div class="operate">
+            <div class="d1">
+              <div class="dv1"></div>
+            </div>
+            <div class="d2">
+              <a>Operating Hours</a>
+            </div>
+            <div class="d3">
+              <div class="dv2"></div>
+            </div>
+          </div>
 
-<div class="view" >
+          <div class="time">
+            <div class="t1">
+              <a>Opening time</a>
+              <ion-item>
+                <ion-datetime displayFormat="HH:mm" [(ngModel)]="businessdata.open">
+                </ion-datetime>
+              </ion-item>
+            </div>
+            <div class="t2">
 
-  
+            </div>
 
+            <div class="t1">
+              <a>Closing Time</a>
+              <ion-item>
+                <ion-datetime displayFormat="HH:mm" [(ngModel)]="businessdata.closed">
+                </ion-datetime>
+              </ion-item>
+            </div>
+            <div class="t2">
+              <div class="code01">
+                <p>Code 01 Price</p>
+                <input type="tel">
+              </div>
+              <div class="code08">
+                  <p>Code 08 Price</p>
+                <input type="tel">
+                </div>
+                <div class="code10">
+                    <p>Code 14 Price</p>
+                    <input type="tel">
+                  </div>
+                  <div class="code14">
+                      <p>Code 14 Price</p>
+                      <input type="tel">
+                    </div>
+            </div>
 
-<!-- 
-    address: {{d.address}}<br><br>
-    cellnumber: {{d.cellnumber}}<br><br>
-
-    schoolname: {{d.schoolname}}<br><br>
-    desc: {{d.desc}}<br><br>
-    email: {{d.email}}<br><br>
-    open: {{d.open}}<br><br>
-    packages: {{d.schoolname}}<br><br>
-    schoolname: {{d.schoolname}}<br><br>
-   schoolname: {{d.schoolname}}<br><br> -->
-
-
-</div>
-
-
-
-
-
-
-
-
+          </div>
+          <div class="next">
+            <div class="btn">
+              <div class="cout">
+                <p>Finish</p>
+              </div>
+              <div class="fab">
+                <ion-fab-button (click)="createMyAccount(loginForm)" color="light" size="small">
+                  <ion-icon name="arrow-round-forward"></ion-icon>
+                </ion-fab-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
 </ion-content>

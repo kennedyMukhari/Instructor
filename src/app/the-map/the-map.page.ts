@@ -26,9 +26,11 @@ export class TheMapPage implements OnInit {
   public unsubscribeBackEvent: any;
   // toggles the div, goes up if true, goes down if false
   display = false;
-  swipeUp() {
-    this.display = !this.display;
-    console.log('Clicked');
+  SOUTH_AFRICAN_BOUNDS = {
+    north: -21.914461,
+    south: -35.800139,
+    west: 15.905430,
+    east: 34.899504
   }
   options : GeolocationOptions;
   currentPos : Geoposition;
@@ -166,7 +168,10 @@ export class TheMapPage implements OnInit {
     // })
 
   }
-  
+  swipeUp() {
+    this.display = !this.display;
+    console.log('Clicked');
+  }
 
   fillArrayWithData(){
 
@@ -351,8 +356,12 @@ export class TheMapPage implements OnInit {
       // console.log('Current Location', pos);
       this.addMarker();
     }, (err: PositionError) => {
+      this.loadMap()
       console.log("error : " + err.message);
-    });
+      this.addMap(-29.465306,-24.741967);
+    }).catch(err => {
+      this.loadMap()
+    })
   }
 
 
@@ -377,6 +386,10 @@ export class TheMapPage implements OnInit {
       zoom: 10,
       disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
+      restriction: {
+        latLngBounds: this.SOUTH_AFRICAN_BOUNDS,
+        strictBounds: true
+      },
       styles: [
         {
           "elementType": "geometry",
@@ -651,6 +664,7 @@ export class TheMapPage implements OnInit {
       // this.geoAccuracy = resp.coords.accuracy; 
       // this.getGeoencoder(this.geoLatitude,this.geoLongitude);
     }).catch((error) => {
+      this.loadMap()
       alert('Error getting location' + JSON.stringify(error));
     });
   }

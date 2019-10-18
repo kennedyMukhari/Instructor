@@ -1,384 +1,118 @@
-<ion-content fullscreen>
-    <div class="viewImage">
-        <div (click)="openImage('', 'close')" class="close"><p>x</p></div>
-        <img  *ngIf="businessdata.image" src="{{businessdata.image}}" alt="">
-        <img *ngIf="!businessdata.image" src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d" alt="">
-  
-        <ion-fab vertical="middle" horizontal=" start" (click)="selectImage()">
-        <ion-fab-button side="top" size="small">
-            <ion-icon name="create"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
+<ion-content>
+  <div [ngClass]="{'packEdit': editPacks, 'packEdit-inactive': !editPacks}" >
+    <div class="packForm">
+      <h4>{{segmentVal}}</h4>
+      <div class="amountInput">
+        <div class="inp">
+            <ion-item>
+                <ion-label position="stacked" [(ngModel)]="singlePackAmount">Amount for 1 lesson</ion-label>
+                <ion-input  type="tel"></ion-input>
+              </ion-item>
+        </div>
+        <div class="desc">
+          
+        </div>
       </div>
+      <div class="pInputs">
+          
+        <p>Name</p>
+        <input [(ngModel)]="packstoEdit.name" type="text">
+        <p>Amount</p>
+        <input [(ngModel)]="packstoEdit.amount" type="tel">
+        <p>Number</p>
+        <input [(ngModel)]="packstoEdit.number" type="text">
+      </div>
+      <div class="buttons">
+        <ion-button (click)="addPackage()" shape="round">
+         Done
+        </ion-button>
+      </div>
+    </div>
+  </div>
+  <div class="profileimage">
+    <div class="editB">
+        <ion-fab-button (click)="toedit()" size="small">
+          <ion-icon name="create"></ion-icon>
+        </ion-fab-button>
+    </div>
+    <img src="{{schoolDetails.image}}" alt="">
+  </div>
+  <div class="schoolN">
+    <h4>{{schoolDetails.schoolname}}</h4>
+  </div>
+  <div class="schoolAddress">
+    <div class="businessIcon">
+        <ion-icon name="business"></ion-icon>
+    </div>
+    <div class="addressName">
+      <p>{{schoolDetails.address}}</p>
+      <p style="font-weight: normal;">{{schoolDetails.desc}}</p>
+    </div>
+  </div>
+  <div class="schoolE">
+    <div class="Eicon">
+      <ion-icon slot="start" name="at"></ion-icon>
+    </div>
+    <div class="Etext">
+      <p>{{schoolDetails.email}}</p>
+    </div>
+  </div>
+  <div class="schoolT">
+    <div class="Ticon">
+      <ion-icon slot="start" name="time"></ion-icon>
+    </div>
+    <div class="Ttext">
+      <p>Open from {{schoolDetails.open | date:'shortTime' }} to {{schoolDetails.closed | date:'shortTime'}}</p>
+    </div>
+  </div>
+  <div class="pCont">
+    <div class="line">
 
-    <ion-slides #mySlider (ionSlideWillChange)="doCheck()">
-  
-      <ion-slide>
-        <div class="container">
-          <div class="road">
+    </div>
+    <div class="pTitle">
+      <div class="packs">
+          <p>packages</p>
+      </div>
+      <div class="ab">
+        <ion-fab-button (click)="openPackEdit()" size="small">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </div>
+    </div>
+    <div class="line">
+
+    </div>
+  </div>
+
+  <ion-segment style="width: 96vw !important; margin: auto;" [(ngModel)]="segmentVal" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="code01">
+      <ion-label >Code 01</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="code08">
+      <ion-label>Code 08</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="code10">
+        <ion-label>Code 10</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="code14">
+          <ion-label>Code 14</ion-label>
+        </ion-segment-button>
+  </ion-segment>
+  <div class="lessonCont">
+      <div class="lessonCard" *ngFor="let p of packsToDisplay; let i = index" (click)="presentActionSheet(i, p)">
+          <div class="title">
+            <div class="lName">
+              <h5>{{p.name}} <sub>{{p.code}}</sub> </h5>
+            </div>
           </div>
-          <div class="prof">
-            <div class="top">
-              <div class="reviews">
-  
-                <div class="fab">
-                  <ion-fab-button (click)="goToRev()" color="light" size="small">
-                    <ion-icon name="star-half"></ion-icon>
-                  </ion-fab-button>
-                </div>
-                <div class="">
-                  Reviews
-                </div>
-              </div>
-              <div class="exit">
-  
-  
-                <div class="cout" (click)="Logout()">
-                  Sign Out
-                </div>
-                <div class="fab">
-                  <ion-fab-button (click)="Logout()" color="light" size="small">
-                    <ion-icon name="arrow-round-forward"></ion-icon>
-                  </ion-fab-button>
-                </div>
-              </div>
+          <div class="lessonCdetails">
+            <div>
+              <p>R {{p.amount}}.00</p>
             </div>
-  
-            <div class="pp">
-              <!-- <img src="../../assets/imagePlaceholder.svg" alt=""> -->
-              
-            <div class="pp" (click)="openImage('', 'open')">
-              <ion-avatar item-left>
-                <img *ngIf="!businessdata.image" src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d"
-                alt="">
-                <img *ngIf="businessdata.image" src="{{businessdata.image}}"
-                alt="">
-                </ion-avatar>
-              </div>
-            </div>
-
-
-
-
-
-
-            
-  
-            <div class="div">
-              <div class="div1">
-                <div class="dv1"></div>
-              </div>
-              <div class="div2">
-                <a>BUSINESS PROFILE</a>
-              </div>
-              <div class="div3">
-                <div class="dv2"></div>
-              </div>
-            </div>
-            <div class="cont">
-              <div class="blank">
-  
-              </div>
-              <div class="inputs">
-                  
-                  <a class="a">
-                      Address
-                    </a>
-                    <input type="text" style="height: 45vw;" #autocomplete  id="autocomplete"
-                    placeholder="Enter your address" 
-                    (onFocus)="initAutocomplete()" type="text" [(ngModel)]="businessdata.address">
-
-                  <form  [formGroup]="loginForm">
-                
-                <a>
-                  School name
-                </a>
-                <input type="text" formControlName="schoolname" [(ngModel)]="businessdata.schoolname">
-                <div class="error" *ngFor="let validate of validation_messages.schoolname">
-                    <div class="messages"
-                      *ngIf="loginForm.get('schoolname').hasError(validate.type) && (loginForm.get('schoolname').dirty || loginForm.get('schoolname').touched)">
-                      {{validate.message}}
-                    </div>
-                  </div>
-
-
-                <a>
-                  Cell number
-                </a>
-                <input type="text" formControlName="cellnumber" [(ngModel)]="businessdata.cellnumber">
-                <div class="error" *ngFor="let validate of validation_messages.cellnumber">
-                    <div class="messages"
-                      *ngIf="loginForm.get('cellnumber').hasError(validate.type) && (loginForm.get('cellnumber').dirty || loginForm.get('cellnumber').touched)">
-                      {{validate.message}}
-                    </div>
-                  </div>
-
-
-                <a>
-                 <!-- Cost P/L -->
-                   Cost 
-                </a>
-                <input type="text" formControlName="cost" [(ngModel)]="businessdata.cost">
-                <div class="error" *ngFor="let validate of validation_messages.cost">
-                    <div class="messages"
-                      *ngIf="loginForm.get('cost').hasError(validate.type) && (loginForm.get('cost').dirty || loginForm.get('cost').touched)">
-                      {{validate.message}}
-                    </div>
-                  </div>
-
-
-              <a>
-                  Description
-                </a>
-                <input type="text" formControlName="desc" [(ngModel)]="businessdata.desc">
-                <div class="error" *ngFor="let validate of validation_messages.schoolname">
-                    <div class="messages"
-                      *ngIf="loginForm.get('desc').hasError(validate.type) && (loginForm.get('desc').dirty || loginForm.get('desc').touched)">
-                      {{validate.message}}
-                    </div>
-                  </div>
-                
-                  <div class="next">
-
-                   
-
-                  <div class="btn">
-                  
-  
-                    <div class="cout">
-                      Next
-                    </div>
-                    <div class="fab">
-                      <ion-fab-button (click)="swipeNext()" color="light" size="small">
-                        <ion-icon name="arrow-round-forward"></ion-icon>
-                      </ion-fab-button>
-                    </div>
-
-                 
-
-
-                  </div>
-                </div> 
-
-               
-
-              </form>
-                
-              </div>
-
-
+            <div>
+              <p>{{p.number}} lessons</p>
             </div>
           </div>
         </div>
-      </ion-slide>
-  
-      <ion-slide>
-        <div class="container2">
-          <div class="road2">
-          </div>
-          <div class="prof2">
-            <div class="operate">
-              <div class="d1">
-                <div class="dv1"></div>
-              </div>
-              <div class="d2">
-                <a>Operating Hours</a>
-              </div>
-              <div class="d3">
-                <div class="dv2"></div>
-              </div>
-            </div>
-  
-            <div class="time">
-              <div class="t1">
-                <a>Opening time</a>
-                <ion-item> 
-                  <ion-datetime displayFormat="HH:mm" [(ngModel)]="businessdata.open">
-                  </ion-datetime>
-                </ion-item>
-              </div>
-              <div class="t2">
-  
-              </div>
-  
-              <div class="t1">
-                <a>Closing Time</a>
-                <ion-item>
-                  <ion-datetime displayFormat="HH:mm" [(ngModel)]="businessdata.closed">
-                  </ion-datetime>
-                </ion-item>
-              </div>
-              <div class="t2">
-  
-              </div>
-  
-            </div>
-  
-            <div class="operate">
-              <div class="d1">
-                <div class="dv1"></div>
-              </div>
-              <div class="d2">
-                <a>PACKAGES</a>
-              </div>
-              <div class="d3">
-                <div class="dv2"></div>
-              </div>
-            </div>
-
-
-            <div class="myPackages">
-                      <!-- <p text-center *ngIf="!businessdata.packages"><strong>No packages yet</strong></p> -->
-
-                      <ion-slides  #slides  pager loop slidesPerView =  DisplayPackages.length >
-
-                          <ion-slide  class="packa" *ngFor="let p of DisplayPackages; let i = index" (click)="editpack(p)">
-                            <div class="carde" >
-                               
-                                <a *ngIf="p.code">{{p.code}}</a><br/>
-                                <a *ngIf="p.name">{{p.name}}</a><br/>
-                                <a *ngIf="p.number">{{p.number}}</a>
-                                <div class="dele" (click)="deletepack(i, p.code)">
-                                    <a class="red">x</a>
-                                </div>
-
-                               </div>
-                       </ion-slide>                   
-                       </ion-slides>
-                                 
-            </div>
-
-
-
-            <!-- <div class="myPackages">
-                <p text-center *ngIf="!businessdata.packages"><strong>No packages yet</strong></p>
-
-                <ion-slides  #slides  pager loop slidesPerView = businessdata.length >
-
-                    <ion-slide  class="packa" *ngFor="let p of businessdata.packages[0]; let i = index" (click)="editpack(p)">
-                      <div class="carde" >
-                         
-                          <a *ngIf="p.code">{{p.code}}</a>
-                          <a *ngIf="p.name">{{p.name}}</a>
-                          <a *ngIf="p.number">{{p.number}}</a>
-                          <div class="dele" (click)="deletepack(i)">
-                              <a>x</a>
-                            </div>
-
-                         </div>
-                 </ion-slide>                   
-                 </ion-slides>
-                           
-      </div> -->
-
-
-            <div class="Myinputs">
-
-              <div class="code1">
-
-                  <a>
-                      Code
-                    </a>
-                    
-                    <!-- <input class="I" *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="code">
-                      <input class="I" *ngIf="businessdata.packages.length==4" disabled="true" type="text"> -->
-
-                      <!-- <select class="I" name="cars" *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="code">
-                          <option value="Code 8">Code 8</option>
-                          <option value="Code 10">Code 10</option>
-                          <option value="Code 14">Code 14</option>                    
-                      </select> -->
-
-
-                      <!-- <select *ngIf="businessdata.packages.length<4" type="text" [(ngModel)]="code" class="I" id="codes" name="codes" >
-                          <option *ngFor = "let code of codes" [value]="code" (ngClick)="Console(code)">
-                            {{code}}
-                          </option>                    
-                      </select> -->
-                      <ion-list class="I"  >             
-                          <ion-select  [(ngModel)]="code" (ionChange)="Console(code)">
-                              <ion-select-option value="Code 1">{{codes[0]}}</ion-select-option>
-                              <ion-select-option value="Code 8">{{codes[1]}}</ion-select-option>
-                              <ion-select-option value="Code 10">{{codes[2]}}</ion-select-option>
-                              <ion-select-option value="Code 14">{{codes[3]}}</ion-select-option>                        
-                            </ion-select>
-                        </ion-list>
-
-
-                        <!-- <ion-list class="I" *ngIf="businessdata.packages.length==4" disabled="true" >             
-                            <ion-select  [(ngModel)]="code" (ionChange)="Console(code)">
-                                <ion-select-option value="Code 1">{{codes[0]}}</ion-select-option>
-                                <ion-select-option value="Code 8">{{codes[1]}}</ion-select-option>
-                                <ion-select-option value="Code 10">{{codes[2]}}</ion-select-option>
-                                <ion-select-option value="Code 14">{{codes[3]}}</ion-select-option>                        
-                              </ion-select>
-                          </ion-list> -->
-
-
-                   
-
-                   
-
-                      <a>
-                          Name
-                        </a>
-                        <input class="I" type="text" [(ngModel)]="name">
-                        <!-- *ngIf="businessdata.packages.length<4"  -->
-                            <!-- <input class="I" *ngIf="businessdata.packages.length==4" disabled="true" type="text"> -->
-              </div>
-
-              <div class="code2">
-
-                  <a>
-                      Amount
-                   </a>
-                   <input  class="I" type="text" [(ngModel)]="amount">
-                       <!-- <input class="I" *ngIf="businessdata.packages.length==4" type="text" disabled="true"> -->
-                   <a>
-                   Number
-                   </a>
-                   <input class="I" type="text" [(ngModel)]="number">
-                       <!-- <input class="I" *ngIf="businessdata.packages.length==4" disabled="true" type="text"> -->
-
-              </div>
-              
-                
-               
-              </div>
-
-
-            <div   class="addPack">
-              <button (click)="addPack()">
-                Add Package
-              </button>
-            </div>
-
-            <!-- <div *ngIf="businessdata.packages.length==3" class="addPack">
-                <button (click)="addPack()">
-                  Add Package
-                </button>
-              </div> -->
-
-            <div class="next">
-              <div class="btn">
-  
-  
-                <div class="cout">
-                  Finish
-                </div>
-                <div class="fab">
-                  <ion-fab-button  (click)="createMyAccount(loginForm)" color="light" size="small">
-                    <ion-icon name="arrow-round-forward"></ion-icon>
-                  </ion-fab-button>
-                </div>
-              </div>
-            </div> 
-          </div>
-        </div>
-      </ion-slide>
-  
-    </ion-slides>
-    <ion-fab-button  (click)=" view()" color="light" size="small">
-        <ion-icon name="arrow-round-forward"></ion-icon>
-      </ion-fab-button>
+  </div>
   </ion-content>
