@@ -44,7 +44,7 @@ export class AppComponent {
        unsubscribe();
       } else {
        console.log('The user email is',user.email);
-       this.router.navigate(['/main/profile']);
+       this.router.navigate(['/main/the-map']);
        unsubscribe();
       }
       });

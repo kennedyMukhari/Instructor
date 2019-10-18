@@ -11,6 +11,7 @@ import { OnboardingPage } from '../onboarding/onboarding.page';
 export class HelpPage implements OnInit {
   tsProperty = '';
   public unsubscribeBackEvent: any;
+  value : boolean = true;
 
   constructor( private platform: Platform,  private router: Router, ) { }
 
@@ -61,6 +62,7 @@ instruct(){
 
 
 activate(cmd) {
+
   switch (cmd) {
   
 

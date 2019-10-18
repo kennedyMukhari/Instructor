@@ -21,7 +21,7 @@ declare var google;
 })
 
 export class TheMapPage implements OnInit {
-  loaderAnimate = true;
+  loaderAnimate = false;
   
   public unsubscribeBackEvent: any;
   // toggles the div, goes up if true, goes down if false
@@ -72,7 +72,11 @@ export class TheMapPage implements OnInit {
   }
 
   ngOnInit() {
+  
     this.getUserPosition();
+    this.loaderAnimate = true;
+   
+    this.loaderAnimate = false;
     // this.initializeBackButtonCustomHandler();
   }
 
@@ -98,9 +102,17 @@ export class TheMapPage implements OnInit {
 // }
 
 
+
+
   async ionViewDidEnter() {
     
-  
+ 
+
+    //  let loading = await this.loadingCtrl.create();
+    // await loading.present();
+    // setTimeout(() => {
+    //   loading.dismiss();
+    // }, 1000)
 
     this.platform.ready().then(() => {
       console.log('Core service init');
@@ -134,7 +146,7 @@ export class TheMapPage implements OnInit {
           this.NewRequeste.push({ docid: doc.id, doc: doc.data()});  
         }
       });
-      this.loaderAnimate = false;
+      // this.loaderAnimate = false;
 
       this.NewRequeste.forEach(Customers => {
         console.log('Owners UID logged in', firebase.auth().currentUser.uid);
@@ -194,7 +206,8 @@ export class TheMapPage implements OnInit {
           location :  element.doc.location.address,
           time : element.doc.time,
           packageName : element.doc.package.name,
-          docid : element.docid
+          docid : element.docid,
+          placeid : data.data().placeid
         }
         this.NewRequesteWithPictures = []
        this.NewRequesteWithPictures.push(obj);
@@ -257,6 +270,9 @@ export class TheMapPage implements OnInit {
 
   Accept(Customer, i, docid) {
  
+
+    console.log("rrrrrrrrrrrr", Customer);
+    
     this.db.collection('bookings').doc(docid).set(
       { confirmed: 'accepted' }, { merge: true }
       );
@@ -340,36 +356,85 @@ export class TheMapPage implements OnInit {
 
 
   getUserPosition() {
+
     let count  = 0
     this.options = {
       enableHighAccuracy: false
     };
-
+    
     this.geolocation.getCurrentPosition().then((pos: Geoposition) => {
       count = count + 1;
       console.log(count);
       
-
       this.currentPos = pos;
       // console.log(pos);
-      this.addMap(pos.coords.latitude, pos.coords.longitude);
+      // this.addMap(pos.coords.latitude, pos.coords.longitude);
+     
       // console.log('Current Location', pos);
-      this.addMarker();
+      this.addMarker(pos.coords.latitude, pos.coords.longitude);
     }, (err: PositionError) => {
       this.loadMap()
       console.log("error : " + err.message);
-      this.addMap(-29.465306,-24.741967);
+      // this.addMap(-29.465306,-24.741967);
+      // this.addMap(pos.coords.latitude, pos.coords.longitude);
     }).catch(err => {
-      this.loadMap()
+      this.addMap(-29.465306,-24.741967);
     })
   }
 
 
 
-  addMap(lat: number, long: number) {
+
+
+    //addMarker method adds the marker on the on the current location of the device
+    addMarker(lat, lng) {
+
+      // let marker = new google.maps.Marker({
+      //   map: this.map,
+      //   position: new google.maps.LatLng(lat, lng),
+      //   icon: icon
+      // });
+  
+      let myLatLng = { lat, lng };
+      this.map.setCenter(myLatLng);
+      // position: new google.maps.LatLng(lat, lng),
+      //here
+      let marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: myLatLng,
+        
+      });
+  
+      let content = "<p>You!</p>";
+      let infoWindow = new google.maps.InfoWindow({
+        content: content
+      });
+  
+      google.maps.event.addListener(marker, 'click', () => {
+        infoWindow.open(this.map, marker);
+      });
+      //Add a radius on the map
+      // new google.maps.Circle({
+      //   strokeColor: '#FF0000',
+      //   strokeOpacity: 0.8,
+      //   strokeWeight: 2,
+      //   fillColor: '#FF0000',
+      //   fillOpacity: 0.35,
+      //   map: this.map,
+      //   center: new google.maps.LatLng(-26.2601316, 27.9495796),
+      //   radius: 25000
+      // });
+  
+  
+    }
+
+
+
+  addMap(lat,lng) {
     console.log('Map Loader');
     
-    let latLng = new google.maps.LatLng(lat, long);
+    let latLng = new google.maps.LatLng(-26.1711459, 27.9002824);
 
     var grayStyles = [
       {
@@ -614,8 +679,7 @@ export class TheMapPage implements OnInit {
 
   loadMap() {
     console.log('Map loader');
-    
-    let latLng = new google.maps.LatLng(48.8513735, 2.3861292);
+    let latLng = new google.maps.LatLng(-29.465306,-24.741967);
 
     let mapOptions = {
       center: latLng,
@@ -694,38 +758,7 @@ export class TheMapPage implements OnInit {
 
   }
 
-  //addMarker method adds the marker on the on the current location of the device
-  addMarker() {
 
-    //here
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
-    });
-
-    let content = "<p>You!</p>";
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    });
-
-    google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    });
-    //Add a radius on the map
-    // new google.maps.Circle({
-    //   strokeColor: '#FF0000',
-    //   strokeOpacity: 0.8,
-    //   strokeWeight: 2,
-    //   fillColor: '#FF0000',
-    //   fillOpacity: 0.35,
-    //   map: this.map,
-    //   center: new google.maps.LatLng(-26.2601316, 27.9495796),
-    //   radius: 25000
-    // });
-
-
-  }
 
 
   openImage(image, cmd) {
