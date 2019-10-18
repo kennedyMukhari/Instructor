@@ -96,11 +96,9 @@ export class LoginPage implements OnInit {
 
         loader.dismiss()
         this.db.collection('drivingschools').where('schooluid', '==', user.uid).get().then(res => {
-          if (res.empty) {
-            
+          if (res.empty) {    
             this.router.navigateByUrl('profile');
           } else {
-            
             this.router.navigate(['main']);
           }
         })
@@ -110,7 +108,10 @@ loader.dismiss()
     })
   }
 
+
+
   async loginUser(signinForm: FormGroup): Promise<void> {
+
     this.loaderAnimate = true;
     if (!signinForm.valid) {
       console.log('Form is not valid yet, current value:', signinForm.value);
@@ -169,7 +170,10 @@ loader.dismiss()
         }
       );
     }
+
   }
+
+
   async signupUser(signupForm: FormGroup): Promise<void> {
     this.loaderAnimate = true;
     console.log('Method is called');
@@ -301,5 +305,9 @@ switchForms(cmd) {
     this.renderer.setStyle(this.signInForm[0], 'transform', 'translateX(100vw)');
     this.renderer.setStyle(this.signUpForm[0], 'transform', 'translateX(0vw)');
   }
+
+
 }
+
+
 }

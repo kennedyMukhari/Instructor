@@ -34,10 +34,14 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {}
 
+  Log(signupForm: FormGroup){
+   console.log("My method is called");
+   
+  }
   
   async signupUser(signupForm: FormGroup): Promise<void> {
     this.loaderAnimate = true;
-    console.log('Method is called');
+    console.log('Method is called', signupForm.valid );
 
     if (!signupForm.valid) {
       console.log(

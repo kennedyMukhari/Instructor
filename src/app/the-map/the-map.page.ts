@@ -368,12 +368,12 @@ export class TheMapPage implements OnInit {
       
       this.currentPos = pos;
       // console.log(pos);
-      // this.addMap(pos.coords.latitude, pos.coords.longitude);
+      this.addMap(pos.coords.latitude, pos.coords.longitude);
      
       // console.log('Current Location', pos);
       this.addMarker(pos.coords.latitude, pos.coords.longitude);
     }, (err: PositionError) => {
-      this.loadMap()
+      // this.loadMap()
       console.log("error : " + err.message);
       // this.addMap(-29.465306,-24.741967);
       // this.addMap(pos.coords.latitude, pos.coords.longitude);

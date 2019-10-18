@@ -1062,10 +1062,8 @@ options2={
 
      async Logout() {
 
-console.log('My value from the profile is ', this.tempData);
       this.tempData = '';
-      console.log('My value from the profile is ', this.tempData);
-
+     
         const alert = await this.alertController.create({
           header: '',
           message: 'Do you want to Logout?',
@@ -1083,7 +1081,7 @@ console.log('My value from the profile is ', this.tempData);
                 console.log('You are logged out');
                 firebase.auth().signOut().then((res) => {
                  console.log(res);
-                  this.router.navigateByUrl('/login');
+                  this.router.navigateByUrl('login');
                 })
               }
             }
@@ -1091,6 +1089,7 @@ console.log('My value from the profile is ', this.tempData);
         });
     
         await alert.present();
+
     }
 
 

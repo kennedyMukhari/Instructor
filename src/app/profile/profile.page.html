@@ -3,25 +3,27 @@
     <div class="packForm">
       <h4>{{segmentVal}}</h4>
       <div class="amountInput">
-        <div class="inp">
+        <div class="inp" *ngIf="showPrice">
             <ion-item>
-                <ion-label position="stacked" [(ngModel)]="singlePackAmount">Amount for 1 lesson</ion-label>
-                <ion-input  type="tel"></ion-input>
+                <ion-label position="stacked" >Amount for 1 lesson</ion-label>
+                <ion-input  [(ngModel)]="singlePackAmount"  type="tel"></ion-input>
               </ion-item>
         </div>
         <div class="desc">
           
         </div>
       </div>
+
       <div class="pInputs">
-          
         <p>Name</p>
         <input [(ngModel)]="packstoEdit.name" type="text">
         <p>Amount</p>
         <input [(ngModel)]="packstoEdit.amount" type="tel">
         <p>Number</p>
-        <input [(ngModel)]="packstoEdit.number" type="text">
+        <input [(ngModel)]="packstoEdit.number" type="tel">
       </div>
+
+
       <div class="buttons">
         <ion-button (click)="addPackage()" shape="round">
          Done
@@ -98,6 +100,9 @@
           <ion-label>Code 14</ion-label>
         </ion-segment-button>
   </ion-segment>
+
+ 
+
   <div class="lessonCont">
       <div class="lessonCard" *ngFor="let p of packsToDisplay; let i = index" (click)="presentActionSheet(i, p)">
           <div class="title">
@@ -115,4 +120,6 @@
           </div>
         </div>
   </div>
+
+ 
   </ion-content>

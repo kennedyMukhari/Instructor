@@ -36,12 +36,16 @@ export class OnboardingPage implements OnInit {
     
     this.slides.slideNext();
   }
+
   goToLogin() {
+    console.log("Went to the login page");
+    
     this.router.navigate(['login']);
     this.storage.set('onboarding', 'checked');
   }
-  goToRegister() {
-    this.router.navigate(['register']);
-    this.storage.set('onboarding', 'checked');
-  }
+
+  // goToRegister() {
+  //   this.router.navigate(['register']);
+  //   this.storage.set('onboarding', 'checked');
+  // }
 }
