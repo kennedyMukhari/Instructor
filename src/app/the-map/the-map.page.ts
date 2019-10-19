@@ -1,3 +1,4 @@
+import { UserService } from './../user.service';
 import { Component, OnInit } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { GeolocationOptions, Geoposition, PositionError } from '@ionic-native/geolocation';
@@ -18,6 +19,7 @@ declare var google;
   selector: 'app-the-map',
   templateUrl: './the-map.page.html',
   styleUrls: ['./the-map.page.scss'],
+  providers: [UserService]
 })
 
 export class TheMapPage implements OnInit {
@@ -53,7 +55,7 @@ export class TheMapPage implements OnInit {
     open: false
   }
 
-  constructor(private geolocation: Geolocation, private platform: Platform, public alertController: AlertController, public AuthService: AuthService, public data: DataSavedService, public router: Router, private nativeGeocoder: NativeGeocoder, public elementref: ElementRef, public renderer: Renderer2, private localNot: LocalNotifications,
+  constructor(private geolocation: Geolocation, private platform: Platform, public alertController: AlertController, public AuthService: AuthService, public data: DataSavedService, public router: Router, private nativeGeocoder: NativeGeocoder, public elementref: ElementRef, public renderer: Renderer2, private localNot: LocalNotifications, private userService: UserService,
     public loadingCtrl: LoadingController) {
     // this.pushNotification();
     console.log('notification' ,this.pushNotification)
@@ -106,8 +108,6 @@ export class TheMapPage implements OnInit {
 
   async ionViewDidEnter() {
     
- 
-
     //  let loading = await this.loadingCtrl.create();
     // await loading.present();
     // setTimeout(() => {
@@ -179,6 +179,10 @@ export class TheMapPage implements OnInit {
     //   })
     // })
 
+  }
+  checkBookingProfile(profile) {
+    this.userService.storeUserProfile(profile)
+    this.router.navigateByUrl('viewdetails');
   }
   swipeUp() {
     this.display = !this.display;
@@ -269,33 +273,16 @@ export class TheMapPage implements OnInit {
 
 
   Accept(Customer, i, docid) {
- 
-
     console.log("rrrrrrrrrrrr", Customer);
-    
     this.db.collection('bookings').doc(docid).set(
       { confirmed: 'accepted' }, { merge: true }
       );
-
       this.data.SavedData.push(Customer)
 
-      // this.db.collection('users').onSnapshot(SnapShots => {
-      //   SnapShots.forEach(doc => {
-      //     if(doc.data().uid === Customer.doc.uid){
-      //       this.data.SavedData.push({Customer : Customer, image : doc.data().image});
-      //       console.log('Core service init', this.data.SavedData, i);
-      //     }
-      //   })
-      // })
     
     this.NewRequesteWithPictures.splice(i, 1);
     this.presentAlert();
   }
-
-  // ngOnInit() {
-
-  // //   // this.add()
-  // }
 
   async Decline(docid, i) {
 

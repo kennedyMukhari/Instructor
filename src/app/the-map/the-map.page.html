@@ -50,21 +50,19 @@
       <div (click)="swipeUp()" class="toggler">
         <ion-icon *ngIf="display" color="dark" class="arrow" name="arrow-dropdown"></ion-icon>
         <ion-icon *ngIf="!display" class="arrow" name="arrow-dropup"></ion-icon>
-        <p *ngIf="!display" color="dark">REQUESTS</p>
+        <p *ngIf="!display" color="dark" style="font-size: 3vw;">REQUESTS</p>
       </div>
       <div class="s-list" padding>
   
-        <div class="card" *ngFor = "let obj of NewRequesteWithPictures; let i = index">
+        <div class="card" *ngFor = "let obj of NewRequesteWithPictures; let i = index" (click)="checkBookingProfile(obj)">
   
           <div class="image">
             <img src="{{obj.image}}" alt="No Image">
           </div>
           <div class="details">
             <div class="det">
-              <p style="font-size: 4vw;font-weight: bold">{{obj.name}}</p>
-              <p style="font-size: 3vw">{{obj.location}}</p>
-              <p style="font-size: 3vw">Contacts :{{obj.phone}} </p>
-              <p style="font-size: 3vw">Date In: {{obj.datein}}</p><br>
+              <p style="font-size: 8vw;font-weight: bold">{{obj.name}}</p>
+              <p style="font-size: 3vw; width: 100%;">{{obj.location}}</p>
               
               <div class="butons">
   

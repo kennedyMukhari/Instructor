@@ -4,9 +4,8 @@ import { Platform, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import * as firebase from 'firebase';
-
+import { Storage } from '@ionic/storage';
 import { TabsService } from './core/tabs.service';
-
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
  
@@ -29,32 +28,17 @@ export class AppComponent {
     private statusBar: StatusBar,
     public router: Router,
     public alertCtrl: AlertController,
-    public oneSignal: OneSignal
+    public oneSignal: OneSignal,private storage: Storage
     
   ) 
   
   
   {
 
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-      console.log("User", user === null);
-      
-      if (user === null) {
-       this.router.navigate(['/onboarding']);
-       unsubscribe();
-      } else {
-       console.log('The user email is',user.email);
-       this.router.navigate(['/main/the-map']);
-       unsubscribe();
-      }
-      });
-
-
     this.initializeApp();
     // let status bar overlay webview
     // this.statusBar.overlaysWebView(true);
     // statusBar.styleBlackOpaque();
-
   }
 
 
@@ -90,10 +74,33 @@ initializeApp() {
   this.platform.ready().then(() => {
     this.backButton()
     this.statusBar.styleDefault();
-
     this.statusBar.styleLightContent();
     // set status bar to white
     this.statusBar.backgroundColorByHexString('#2E020C');
+
+    // check if the user did the onboarding
+    this.storage.get('onboarding').then(val => {
+      if (val == 'checked') {
+        console.log(val);
+        // check if they are signed in
+        firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            // check if user has profile
+            firebase.firestore().collection('users').doc(user.uid).get().then(res => {
+              if (res.exists) {
+                this.router.navigate(['/main/the-map']);
+              } else {
+                this.router.navigate(['/viewprofile']);
+              }
+            })
+          } else {
+            this.router.navigate(['/login']);
+          }
+        })
+      } else {
+        this.router.navigate(['/onboarding']);
+      }
+    });
 
 
     if (this.platform.is('cordova')) {
@@ -193,21 +200,21 @@ if we have registerBackButtonAction in app.component.ts */
 //   this.oneSignal.endInit();
 // }
 
-async showAlert(title, msg, task) {
-  const alert = await this.alertCtrl.create({
-    header: title,
-    subHeader: msg,
-    buttons: [
-      {
-        text: `Action: ${task}`,
-        handler: () => {
-          // E.g: Navigate to a specific screen
-        }
-      }
-    ]
-  })
-  alert.present();
-}
+// async showAlert(title, msg, task) {
+//   const alert = await this.alertCtrl.create({
+//     header: title,
+//     subHeader: msg,
+//     buttons: [
+//       {
+//         text: `Action: ${task}`,
+//         handler: () => {
+//           // E.g: Navigate to a specific screen
+//         }
+//       }
+//     ]
+//   })
+//   alert.present();
+// }
 @HostListener('document:readystatechange', ['$event'])
 onReadyStateChanged(event) {
     if (event.target.readyState === 'complete') {

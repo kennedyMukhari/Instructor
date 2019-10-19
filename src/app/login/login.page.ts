@@ -1,10 +1,11 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, NgZone } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormsModule } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../app/user/auth.service';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { Directive, HostListener, Output, EventEmitter, ElementRef, Input } from '@angular/core';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -22,6 +23,11 @@ export class LoginPage implements OnInit {
   }
   db = firebase.firestore()
   public signinForm: FormGroup;
+  loginError = {
+    code: '',
+    message: ''
+  }
+
   public signupForm: FormGroup;
   public loading: HTMLIonLoadingElement;
   formSwitcher = 'signin';
@@ -39,6 +45,8 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
     private FormsModule: FormsModule,
+    private zone: NgZone,
+    public splashscreen: SplashScreen
   ) {
     this.signinForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -79,99 +87,25 @@ export class LoginPage implements OnInit {
   }
 
   async ngOnInit() {
-
-    let loader = await this.loadingCtrl.create({
-      message: '<ion-img src="../../assets/StepLogo.svg" alt="loading..."></ion-img>',
-      cssClass: 'scale-down-center',
-      translucent: true,
-      showBackdrop: false,
-      spinner: null,
-      duration: 2000
-    })
-    // loader.present()
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-
-        console.log("The current user id is", user.uid);
-
-        loader.dismiss()
-        this.db.collection('drivingschools').where('schooluid', '==', user.uid).get().then(res => {
-          if (res.empty) {
-            
-            this.router.navigateByUrl('profile');
-          } else {
-            
-            this.router.navigate(['main']);
-          }
-        })
-      } else {
-loader.dismiss()
-      }
-    })
+    this.splashscreen.hide()
   }
 
-  async loginUser(signinForm: FormGroup): Promise<void> {
-    this.loaderAnimate = true;
-    if (!signinForm.valid) {
-      console.log('Form is not valid yet, current value:', signinForm.value);
+  async loginUser(signinForm) {
+    this.zone.run(()=> {
+      this.loaderAnimate = true;
+    console.log(signinForm);
+    firebase.auth().signInWithEmailAndPassword(signinForm.email, signinForm.password).then(res => {
       this.loaderAnimate = false;
-    } else {
-      
-      let loading = await this.loadingCtrl.create({
-
-        
-      });
-      // await loading.present();
-      setTimeout(() => {
-        // loading.dismiss();
-      }, 4000)
-
-
-      const email = signinForm.value.email;
-      const password = signinForm.value.password;
-
-      this.authService.loginUser(email, password).then(
-        (user) => {
-          // this.loading.dismiss().then(() => {
-          //   this.router.navigateByUrl('main');
-          // });
-          firebase.auth().onAuthStateChanged(user => {
-            if (user.uid) {
-              this.db.collection('drivingschools').where('schooluid', '==', user.uid).get().then(res => {
-                if (res.empty) {
-                  // this.loading.dismiss();\
-                  this.loaderAnimate = false;
-                  this.router.navigate(['profile']);
-                  
-                } else {
-                  // this.loading.dismiss()
-                  this.loaderAnimate = false;
-                  this.router.navigate(['main/the-map']);
-                }
-              })
-            }
-          })
-        },
-        async (error) => {
-          // this.loading.dismiss().then(async () => {
-          //   const alert = await this.alertCtrl.create({
-          //     message: error.message,
-          //     buttons: [{ text: 'Ok', role: 'cancel' }]
-          //   });
-          //   await alert.present();
-          // });
-          this.loaderAnimate = false;
-          const alert = await this.alertCtrl.create({
-            message: error.message,
-            buttons: [{ text: 'Ok', role: 'cancel' }]
-          });
-          await alert.present();
-        }
-      );
-    }
+      this.router.navigateByUrl('/main/the-map')
+    }).catch(err => {
+      this.loaderAnimate = false;
+      this.loginError.code = err.code,
+      this.loginError.message = err.message;
+    })
+    })
   }
+
   async signupUser(signupForm: FormGroup): Promise<void> {
-    this.loaderAnimate = true;
     console.log('Method is called');
 
     if (!signupForm.valid) {
@@ -179,7 +113,6 @@ loader.dismiss()
         'Need to complete the form, current value: ',
         signupForm.value
       );
-      this.loaderAnimate = false;
     } else {
       const email: string = signupForm.value.email;
       const password: string = signupForm.value.password;
@@ -187,27 +120,26 @@ loader.dismiss()
       this.authService.signupUser(email, password).then(
         () => {
           this.loading.dismiss().then(() => {
-            this.loaderAnimate = false;
             // this.router.navigateByUrl('profile');
-            this.router.navigateByUrl('profile');
+            this.router.navigateByUrl('viewprofile');
           });
+          this.router.navigateByUrl('viewprofile');
         },
         error => {
           this.loading.dismiss().then(async () => {
-            this.loaderAnimate = false;
             const alert = await this.alertCtrl.create({
               message: error.message,
               buttons: [{ text: 'Ok', role: 'cancel' }]
             });
-            // await alert.present();
+            await alert.present();
           });
         }
       );
       this.loading = await this.loadingCtrl.create();
-      // await this.loading.present();
-      
+      await this.loading.present();
     }
   }
+
    async forgetpassword() {
 
     // this.router.navigate(['reset-password']);

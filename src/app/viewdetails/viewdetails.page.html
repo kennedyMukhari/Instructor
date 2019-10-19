@@ -1,9 +1,36 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>viewdetails</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <div class="fab">
+    <ion-fab-button (click)="back()" size="small">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-fab-button>
+  </div>
+<div class="image">
+  <img src="{{user.image}}" alt="">
+</div>
+<div class="details">
+  <div class="uPersonalDet">
+      <h1>{{user.name}}</h1>
+      <p>{{user.location}} </p>
+  </div>
+  <div class="bookingD">
+    <h3>Booking Details</h3>
+    <p>Code 08</p>
+    <p>5 Lesson O ackage</p>
+    <p>R1445.00</p>
+    <p>from {{user.datein}} to {{user.dateout}}</p>
+    <p>at {{user.time}}</p>
+  </div>
+  <div class="contacts">
+    <h3>Contacts</h3>
+    <p>{{user.phone}}</p>
+  </div>
+  <div class="btns">
+    <div class="accept">
+      <button>Accept</button>
+    </div>
+    <div class="reject">
+      <button>Decline</button>
+    </div>
+  </div>
+</div>
 </ion-content>

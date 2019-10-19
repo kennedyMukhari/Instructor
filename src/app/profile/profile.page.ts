@@ -99,12 +99,40 @@ export class ProfilePage implements OnInit {
     })
     
   }
- 
+  async Logout() {
+
+    console.log('My value from the profile is ');
+            const alert = await this.alertController.create({
+              header: '',
+              message: 'Do you want to Logout?',
+              buttons: [
+                {
+                  text: 'No',
+                  role: '',
+                  cssClass: '',
+                  handler: (blah) => {
+                    
+                  }
+                }, {
+                  text: 'Yes',
+                  handler: () => {
+                    console.log('You are logged out');
+                    firebase.auth().signOut().then((res) => {
+                     console.log(res);
+                      this.router.navigateByUrl('/login');
+                    })
+                  }
+                }
+              ]
+            });
+        
+            await alert.present();
+        }
   async presentActionSheet(i, p) {
     let packageIndex = i
     let packge = p
     const actionSheet = await this.actionSteetCtrl.create({
-      header: 'Albums',
+      header: p.name,
       buttons: [{
         text: 'Delete',
         icon: 'trash',

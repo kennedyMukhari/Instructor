@@ -1,21 +1,19 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import * as firebase from 'firebase';
 import { Camera,CameraOptions } from '@ionic-native/Camera/ngx';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router} from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation'; 
-import { PopoverController, IonItemSliding } from '@ionic/angular';
-import { PopOverComponent } from '../pop-over/pop-over.component';
+import { PopoverController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { TabsService } from '../core/tabs.service';
 import { Platform } from '@ionic/angular';
-import { Injectable } from '@angular/core';
-import { filter } from 'rxjs/operators';
 import { NgZone } from '@angular/core';
 // import { GooglePlaceDirective } from 'ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
 // import { Address } from 'ngx-google-places-autocomplete/objects/address';
 import { LoadingController } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 @Component({
   selector: 'app-viewprofile',
@@ -226,6 +224,7 @@ options2={
      public platform : Platform,
      public elementref: ElementRef, 
      public alert : LoadingController,
+     public splashscreen: SplashScreen
 
      ) 
 
@@ -244,11 +243,13 @@ options2={
 
   ngOnInit() {
     
-   
-          let viewimage = this.elementref.nativeElement.children[0].children[0]
+    this.splashscreen.hide()
+          setTimeout(()=>{
+            let viewimage = this.elementref.nativeElement.children[0].children[0]
           console.log('ggg',viewimage);
           this.renderer.setStyle(viewimage, 'opacity', '0');
-          this.renderer.setStyle(viewimage, 'transform', 'scale(0)');    
+          this.renderer.setStyle(viewimage, 'transform', 'scale(0)'); 
+          },500)   
           
           
   }
@@ -1049,7 +1050,7 @@ options2={
       }
 
       goToRev() {
-        this.router.navigate(['past-b']);
+        this.router.navigate(['/main/profile']);
       } 
 
 
@@ -1060,38 +1061,7 @@ options2={
         this.router.navigate(['viewprofile']);
       } 
 
-     async Logout() {
 
-console.log('My value from the profile is ', this.tempData);
-      this.tempData = '';
-      console.log('My value from the profile is ', this.tempData);
-
-        const alert = await this.alertController.create({
-          header: '',
-          message: 'Do you want to Logout?',
-          buttons: [
-            {
-              text: 'No',
-              role: '',
-              cssClass: '',
-              handler: (blah) => {
-                
-              }
-            }, {
-              text: 'Yes',
-              handler: () => {
-                console.log('You are logged out');
-                firebase.auth().signOut().then((res) => {
-                 console.log(res);
-                  this.router.navigateByUrl('/login');
-                })
-              }
-            }
-          ]
-        });
-    
-        await alert.present();
-    }
 
 
       openImage(image, cmd) {

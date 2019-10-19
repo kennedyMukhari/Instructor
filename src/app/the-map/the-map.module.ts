@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-// import { IonicImageViewerModule } from 'ionic-img-viewer';
-import { TheMapPage } from './the-map.page';
 
+import { TheMapPage } from './the-map.page';
+import { UserService } from '../user.service';
 
 const routes: Routes = [
   {
@@ -14,14 +14,16 @@ const routes: Routes = [
     component: TheMapPage
   }
 ];
-
+@Component ({
+  providers: [
+    UserService
+  ]
+})
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    // PhotoViewer,
-    // IonicImageViewerModule,
     RouterModule.forChild(routes)
   ],
   declarations: [TheMapPage]

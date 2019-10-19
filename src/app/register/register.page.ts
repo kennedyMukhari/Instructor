@@ -22,17 +22,26 @@ export class RegisterPage implements OnInit {
     public formBuilder: FormBuilder,
     public router: Router
     ) { 
-      this.loginForm = this.formBuilder.group({
+      
+  
+    }
+
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
         email: ['', Validators.compose([Validators.required, Validators.email])],
         password: [
           '',
           Validators.compose([Validators.required, Validators.minLength(6)])
         ]
       });
-  
-    }
-
-  ngOnInit() {}
+      this.signupForm = this.formBuilder.group({
+        email: ['', Validators.compose([Validators.required, Validators.email])],
+        password: [
+          '',
+          Validators.compose([Validators.required, Validators.minLength(6)])
+        ]
+      });
+  }
 
   
   async signupUser(signupForm: FormGroup): Promise<void> {

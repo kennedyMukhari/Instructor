@@ -137,6 +137,29 @@ ion-segment-button {
     }
     
 }
+.exit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-top-left-radius: 200px;
+    border-bottom-left-radius: 200px;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    // height: 65%;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 200;
+    .cout {
+        
+    }
+    .fab {
+        ion-fab-button {
+            margin: 0;
+        }
+    }
+}
 .schoolAddress {
         width: 100%;
         display: flex;

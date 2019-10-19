@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 @Component({
   selector: 'app-onboarding',
   templateUrl: './onboarding.page.html',
@@ -13,22 +13,14 @@ export class OnboardingPage implements OnInit {
   @ViewChild('mySlider', { static: false }) slides: IonSlides;
 
   constructor(private router: Router,
-    private storage: Storage) {
+    private storage: Storage,
+    public splashscreen: SplashScreen) {
     //constructor code
-    this.storage.get('onboarding').then(val => {
-      if (val == 'checked') {
-        console.log(val);
-        this.router.navigate(['login']);
-
-      } else {
-        console.log('on-boarding now');
-
-      }
-
-    });
+    
   }
 
   ngOnInit() {
+    this.splashscreen.hide()
   }
 
   swipeNext() {
@@ -41,7 +33,7 @@ export class OnboardingPage implements OnInit {
     this.storage.set('onboarding', 'checked');
   }
   goToRegister() {
-    this.router.navigate(['register']);
+    this.router.navigate(['login']);
     this.storage.set('onboarding', 'checked');
   }
 }

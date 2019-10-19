@@ -100,7 +100,7 @@ export class PastbookingsPage implements OnInit {
   if(this.Booking.length > 0){
     this.value = "REQUESTS LIST"
 }else{
-  this.value = "LIST IS CURRENTLY EMPTY"
+  this.value = "No bookings accepted yet."
 }
 
  }

@@ -1,0 +1,77 @@
+p {
+    font-size: 3vw;
+}
+.fab {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+.image {
+    width: 100%;
+    height: 30vh;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.details {
+    width: 100%;
+    
+    // height: 70vh;
+    .uPersonalDet {
+        padding: 4px 10px;
+        text-align: right;
+        h6: {
+            margin: 0;
+            padding: 0px;
+        }
+    }
+    .bookingD {
+        padding: 4px 10px;
+        background: rgb(236, 236, 236);
+        h3 {
+            color: rgb(85, 85, 85);
+        }
+    }
+    .contacts {
+        padding: 4px 10px;
+        h3 {
+            color: rgb(85, 85, 85);
+        }
+    }
+    .btns {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        height: 30vw;
+        button {
+            width: 30vw;
+            padding:10px 20px;
+            color: white;
+        }
+        .accept {
+            position: absolute;
+            left: 0;;
+            bottom: 0;
+            button {
+                background: orange;
+                border-radius: 0px 200px 200px 0px;
+                outline: none !important;
+            }
+        }
+        .reject {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            button {
+                background: rgb(224, 46, 46);
+                border-radius: 200px 0px 0px 200px;
+                outline: none !important;
+            }
+        }
+
+    }
+}

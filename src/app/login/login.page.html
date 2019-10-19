@@ -29,7 +29,7 @@
       <div class="cont">
         <div class="login">
           <!-- LOGIN FORM -->
-          <form (ngSubmit)="loginUser(signinForm)" [formGroup]= "signinForm">
+          <form #signinForm="ngForm" (ngSubmit)="loginUser(signinForm.value)" >
               <div class="title">
                   <h1>
                     SIGN IN
@@ -41,18 +41,11 @@
                   <a>User Email</a>
               </div>
               <div class="inp">
-                <input type="email" formControlName="email" [class.invalid]="!signinForm.controls['email'].valid &&
-                signinForm.controls['email'].touched" (keyup.enter)="submit()">
+                <input type="email" ngModel name="email" (keyup.enter)="submit()">
               </div>
             </div>
-
-            <div class="error" *ngIf="!signinForm.controls['email'].valid &&
-            signinForm.controls['email'].touched">
-              <div class="messages" style="text-align: center;">
-                <a style="color: red">
-                  Please enter a valid email address.
-                </a>
-              </div>
+            <div class="error"  style="text-align: right; width: 100%;"  *ngIf="loginError.code=='auth/invalid-email'">
+              {{loginError.message}}
             </div>
 
             <div class="input1">
@@ -60,18 +53,11 @@
                   <a>Password</a>
               </div>
               <div class="inp">
-                <input type="password" formControlName="password"
-                [class.invalid]="!signinForm.controls['password'].valid&& signinForm.controls['password'].touched" (keyup.enter)="submit()" (keyup.enter)="handleLogin()">
+                <input type="password" ngModel name="password" (keyup.enter)="submit()">
               </div>
             </div>
-
-            <div *ngIf="!signinForm.controls['password'].valid
-            && loginForm.controls['password'].touched" class="error">
-              <div class="messages" style="text-align: center;">
-                <a style="color: red;">
-                  Your password is incorrect.
-                </a>
-              </div>
+            <div class="error" style="text-align: right; width: 100%;" *ngIf="loginError.code=='auth/wrong-password'">
+              {{loginError.message}}
             </div>
 
             <div class="forget">
@@ -86,54 +72,59 @@
             </div>
           </form>
         </div>
+        
         <div class="signup">
-          <!-- SIGN UP FORM -->
-          <form  (ngSubmit)="signupUser(signUpForm)" [formGroup]= "signUpForm" >
-            <div class="title">
-            <h1>
-              SIGN UP
-            </h1>
-          </div>
+          <form (ngSubmit)="signupUser(signupForm)" [formGroup]= "signupForm" class="login">
+              <div class="title">
+                  <h1>
+                    SIGN UP
+                  </h1>
+                </div>
             <div class="input1">
-              <div class="em">
-                  <a>User Email</a>
+                <div class="em">
+                    <a>User Email</a>
+                </div>
+                <div class="inp">
+                    <input formControlName="email" type="email" 
+        [class.invalid]="!signupForm.controls['email'].valid && signupForm.controls['email'].touched">
+                </div>
               </div>
-              <div class="inp">
-                <input type="email" formControlName="email" [class.invalid]="!signUpForm.controls['email'].valid &&
-                signUpForm.controls['email'].touched" (keyup.enter)="submit()">
+
+              <div *ngIf="!signupForm.controls['email'].valid
+              && signupForm.controls['email'].touched" class="error">
+                <div class="messages" style="text-align: center;">
+                  Please enter a valid email.
+                </div>
               </div>
-            </div>
-            <div class="error" *ngIf="!signUpForm.controls['email'].valid &&
-            signUpForm.controls['email'].touched">
-              <div class="messages" style="text-align: center;">
-                <a style="color: red">
-                  Please enter a valid email address.
-                </a>
-              </div>
-            </div>
-            <div class="input1">
-              <div class="em">
-                  <a>Password</a>
-              </div>
-              <div class="inp">
-                <input   type="email" type="password" formControlName="password"
-                [class.invalid]="!signUpForm.controls['password'].valid&& signUpForm.controls['password'].touched" (keyup.enter)="submit()" (keyup.enter)="handleLogin()">
-              </div>
-            </div>
-            <div *ngIf="!signUpForm.controls['password'].valid
-            && signUpForm.controls['password'].touched" class="error">
-              <div class="messages" style="text-align: center;">
-                <a style="color: red;">
-                  Your password is incorrect.
-                </a>
-              </div>
-            </div>
-            <div class="btn">
-              <button  type="submit">
-                Proceed
-              </button>
-            </div>
-          </form>
+
+
+
+              <div class="input1">
+                  <div class="em">
+                      <a>Password</a>
+                  </div>
+                  <div class="inp">
+                      <input formControlName="password" type="email" type="password" 
+                      [class.invalid]="!signupForm.controls['password'].valid && signupForm.controls['password'].touched">
+                  </div>
+                </div>
+
+                <div *ngIf="!signupForm.controls['password'].valid  &&
+                signupForm.controls['password'].touched" class="error">
+                  <div class="messages" style="text-align: center;">
+                    Password needs more than 6 characters long.
+                  </div>
+                </div>
+
+                  <div class="btn">
+                    <button  type="submit">
+                      Proceed
+                    </button>
+                  </div>
+        </form>
+       
+
+
         </div>
       </div>
     </div>

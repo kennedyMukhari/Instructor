@@ -23,23 +23,14 @@
             <div class="reviews">
               <div class="fab">
                 <ion-fab-button (click)="goToRev()" color="light" size="small">
-                  <ion-icon name="star-half"></ion-icon>
+                  <ion-icon name="arrow-back"></ion-icon>
                 </ion-fab-button>
               </div>
               <div class="cout">
-                <p>Reviews</p>
+                <p>Back</p>
               </div>
             </div>
-            <div class="exit">
-              <div class="cout" (click)="Logout()">
-                <p>Sign Out</p>
-              </div>
-              <div class="fab">
-                <ion-fab-button (click)="Logout()" color="light" size="small">
-                  <ion-icon name="arrow-round-forward"></ion-icon>
-                </ion-fab-button>
-              </div>
-            </div>
+            
           </div>
           <div class="pp">
             <div class="pp" (click)="openImage('', 'open')">
@@ -130,24 +121,6 @@
                 </ion-datetime>
               </ion-item>
             </div>
-            <div class="t2">
-              <div class="code01">
-                <p>Code 01 Price</p>
-                <input type="tel">
-              </div>
-              <div class="code08">
-                  <p>Code 08 Price</p>
-                <input type="tel">
-                </div>
-                <div class="code10">
-                    <p>Code 14 Price</p>
-                    <input type="tel">
-                  </div>
-                  <div class="code14">
-                      <p>Code 14 Price</p>
-                      <input type="tel">
-                    </div>
-            </div>
 
           </div>
           <div class="next">
@@ -156,7 +129,7 @@
                 <p>Finish</p>
               </div>
               <div class="fab">
-                <ion-fab-button (click)="createMyAccount(loginForm)" color="light" size="small">
+                <ion-fab-button (click)="createMyAccount()" color="light" size="small">
                   <ion-icon name="arrow-round-forward"></ion-icon>
                 </ion-fab-button>
               </div>
