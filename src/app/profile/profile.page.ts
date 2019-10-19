@@ -33,14 +33,17 @@ export class ProfilePage implements OnInit {
   schoolDetails: any = {}
   packsToDisplay = []
   editPacks = false;
+  DrivingSchoolOwnerDetails = [];
   packstoEdit = {
-    amount: null,
-    code: null,
-    name: null,
-    number: null
+    amount: '',
+    code: '',
+    name: '',
+    number: ''
   }
+  
   singlePackAmount = 0;
-  segmentVal = 'code01'
+  segmentVal = 'code01';
+
   packages = [
 
     {code01: [ //3
@@ -58,7 +61,11 @@ export class ProfilePage implements OnInit {
     ],
     price: 0}
    
-  ]
+  ];
+
+  showPrice : boolean = false;
+
+
   constructor(
      public zone: NgZone,
      public formBuilder: FormBuilder ,
@@ -89,6 +96,7 @@ export class ProfilePage implements OnInit {
         this.db.collection('drivingschools').doc(user.uid).get().then(res => {
           this.schoolDetails = res.data();
           this.packages = res.data().packages
+          this.packsToDisplay = []
           this.packsToDisplay =  this.packages[0].code01
           this.singlePackAmount = this.packages[0].price
           console.log(this.packages);
@@ -97,7 +105,24 @@ export class ProfilePage implements OnInit {
         })
       })
     })
+
+    this.db.collection('drivingschools').onSnapshot(snapshot => {
+      this.DrivingSchoolOwnerDetails = [];
+      snapshot.forEach(doc => {
     
+       
+        if (doc.data().schooluid === firebase.auth().currentUser.uid) {
+          console.log("Data data", doc.data());
+          this.DrivingSchoolOwnerDetails.push({ docid: doc.id, doc: doc.data() });
+        }
+      });
+    });
+
+  }
+
+ 
+  ionViewWillEnter(){
+
   }
   async Logout() {
 
@@ -147,8 +172,27 @@ export class ProfilePage implements OnInit {
               },
               {
                 text: 'Sure',
-                handler: ()=> {
+                handler: async()=> {
                   console.log('deleted package , ', i, 'pack', p);
+                
+                    this.packsToDisplay.splice(i, 1);
+                      const alert = await this.alertController.create({
+                        header: 'Deleted Successfully.',
+                        subHeader: '',
+                        message: '',
+                        buttons: ['OK']
+                      });
+                    
+                      await alert.present();
+
+                      this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
+                        packages : this.packages,                    
+                      }, { merge: true }).then(res => {           
+                       console.log(res);
+                      }).catch(error => {
+                        console.log('Error');
+                      });
+                    
                 }
               }
             ]
@@ -159,15 +203,32 @@ export class ProfilePage implements OnInit {
         text: 'Edit',
         icon: 'create',
         handler: () => {
+
           this.zone.run(()=> {
+
             this.packstoEdit = {
               amount: p.amount,
               code: p.code,
               name: p.name,
               number: p.number
             }
+           
+            this.packsToDisplay[i] = this.packstoEdit;
+            this.packsToDisplay.splice(i, 1); 
+            // this.packages[0].code01.push(this.packstoEdit);
+            console.log('rrrrrrrrrrrr', this.packsToDisplay[i]);
+            
             this.editCodePack()
-          })
+          });
+  
+          // this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
+          //   packages : this.packages,                    
+          // }, { merge: true }).then(res => {           
+          //  console.log(res);
+          // }).catch(error => {
+          //   console.log('Error');
+          // });
+          
         }
       }, {
         text: 'Cancel',
@@ -180,6 +241,9 @@ export class ProfilePage implements OnInit {
     });
     await actionSheet.present();
   }
+
+
+
   editCodePack() {
     this.zone.run(()=>{
       this.editPacks = true;
@@ -206,45 +270,221 @@ export class ProfilePage implements OnInit {
       }
     })
   }
+
+
+
   addPackage() {
-    this.zone.run(()=> {
+ 
+    this.zone.run(async()=> {
       console.log('clicked');
       
-      this.packstoEdit = {
-        amount: null,
-        code: null,
-        name: null,
-        number: null
-      }
+      // this.packstoEdit = {
+      //   amount: null,
+      //   code: null,
+      //   name: null,
+      //   number: null
+      // }
       // this.editPacks = true
+
       switch (this.segmentVal) {
-        case 'code01':
-            console.log('adding code1');
-            this.editPacks = false;
+        case 'code01': 
+            this.packstoEdit.code = 'code01';
+            if(this.singlePackAmount != 0){
+
+              if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
+
+                this.packages[0].code01.push(this.packstoEdit);
+                this.packages[0].price = this.singlePackAmount ;
+
+              this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
+                packages : this.packages,  
+                                
+              }, { merge: true }).then(res => {           
+               console.log(res);
+              }).catch(error => {
+                console.log('Error');
+              });
+  
+              this.editPacks = false;
+              console.log('adding code1');
+              }else{
+                const alert = await this.alertController.create({
+                  message: 'Fields cannot be empty!',
+                  buttons: ['OK']
+                });
+                await alert.present();
+              }
+
+            }else{
+              const alert = await this.alertController.create({
+                message: 'Please enter the price.',
+                buttons: ['OK']
+              });
+              await alert.present();
+            }
+           
           break;
           case 'code08':
+
+              this.packstoEdit.code = 'code08';
+
+              if(this.singlePackAmount != 0){
+
+                if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
+                  
+                  this.packages[1].code08.push(this.packstoEdit);
+                  this.packages[1].price = this.singlePackAmount ;
+
+              this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
+                packages : this.packages
+                                
+              }, { merge: true }).then(res => {           
+               console.log(res);
+              }).catch(error => {
+                console.log('Error');
+              });
+
+
             console.log('adding code8');
             this.editPacks = false;
+
+                }else{
+                  const alert = await this.alertController.create({
+                    message: 'Fields cannot be empty!',
+                    buttons: ['OK']
+                  });
+                  await alert.present();
+                }
+  
+              }else{
+                const alert = await this.alertController.create({
+                  message: 'Please enter the price.',
+                  buttons: ['OK']
+                });
+                await alert.present();
+              }
+           
           break;
           case 'code10':
-            console.log('adding code10');
-            this.editPacks = false;
+              this.packstoEdit.code = 'code10';
+
+              if(this.singlePackAmount != 0){
+
+                if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
+                  
+                  this.packages[2].code10.push(this.packstoEdit);
+                  this.packages[2].price = this.singlePackAmount ;
+
+                  this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
+                    packages : this.packages
+                                  
+                  }, { merge: true }).then(res => {           
+                   console.log(res);
+                  }).catch(error => {
+                    console.log('Error');
+                  });
+    
+    
+                console.log('adding code10');
+                this.editPacks = false;
+            
+                }else{
+                  const alert = await this.alertController.create({
+                    message: 'Fields cannot be empty!',
+                    buttons: ['OK']
+                  });
+                  await alert.present();
+                }
+  
+              }else{
+                const alert = await this.alertController.create({
+                  message: 'Please enter the price.',
+                  buttons: ['OK']
+                });
+                await alert.present();
+              }
+
+              
           break;
           case 'code14':
-            console.log('adding cod14');
-            this.editPacks = false;
+              this.packstoEdit.code = 'code14';
+
+              if(this.singlePackAmount != 0){
+
+                if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
+                  
+                  this.packages[3].code14.push(this.packstoEdit);
+                  this.packages[3].price = this.singlePackAmount ;
+
+              
+                  this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
+                   packages : this.packages
+                               
+                 }, { merge: true }).then(res => {           
+                  console.log(res);
+                 }).catch(error => {
+                   console.log('Error');
+                 });
+   
+   
+               console.log('adding cod14');
+               this.editPacks = false;
+            
+                }else{
+                  const alert = await this.alertController.create({
+                    message: 'Fields cannot be empty!',
+                    buttons: ['OK']
+                  });
+                  await alert.present();
+                }
+  
+              }else{
+                const alert = await this.alertController.create({
+                  message: 'Please enter the price.',
+                  buttons: ['OK']
+                });
+                await alert.present();
+              }
+
+            
           break;
       
-        default:
+          default:
           break;
       }
     })
+
+    console.log("Data added",  this.packages);
+    this. packstoEdit = {
+      amount: '',
+      code: '',
+      name: '',
+      number: ''
+    }
+
+ 
+    
   }
-  openPackEdit() {
+
+
+  openPackEdit() {  
+
+    if(this.packsToDisplay.length > 0){
+      console.log("Length is > 0 i Hide price");
+      
+      this.showPrice = false;
+    }else{
+      console.log("Length is < 0 i show price");
+      this.showPrice = true
+    }
+    
     this.zone.run(()=> {
       this.editPacks = !this.editPacks;
     })
   }
+
+
+  
   editPack(p) {
     this.zone.run(()=> {
       this.editPacks = !this.editPacks;
@@ -252,6 +492,8 @@ export class ProfilePage implements OnInit {
     })
     
   }
+
+
   segmentChanged(ev) {
     console.log(this.packsToDisplay);
     this.zone.run(()=> {
@@ -287,6 +529,8 @@ export class ProfilePage implements OnInit {
     }
     })
   }
+
+
 toedit() {
   this.zone.run(()=> {
     console.log('Should navigate');
@@ -295,6 +539,7 @@ toedit() {
   })
 }
 
-    }
+
+}
 
     

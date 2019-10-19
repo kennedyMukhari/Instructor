@@ -1063,7 +1063,6 @@ options2={
 
 
 
-
       openImage(image, cmd) {
         // console.log('Open triggerd');
         console.log(this.elementref);

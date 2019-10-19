@@ -233,5 +233,9 @@ switchForms(cmd) {
     this.renderer.setStyle(this.signInForm[0], 'transform', 'translateX(100vw)');
     this.renderer.setStyle(this.signUpForm[0], 'transform', 'translateX(0vw)');
   }
+
+
 }
+
+
 }
