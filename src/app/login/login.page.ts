@@ -106,14 +106,17 @@ export class LoginPage implements OnInit {
   }
 
   async signupUser(signupForm: FormGroup): Promise<void> {
+    
     console.log('Method is called');
 
     if (!signupForm.valid) {
+      
       console.log(
         'Need to complete the form, current value: ',
         signupForm.value
       );
     } else {
+      this.loaderAnimate = true;
       const email: string = signupForm.value.email;
       const password: string = signupForm.value.password;
 
@@ -123,6 +126,7 @@ export class LoginPage implements OnInit {
             // this.router.navigateByUrl('profile');
             this.router.navigateByUrl('viewprofile');
           });
+          this.loaderAnimate = false;
           this.router.navigateByUrl('viewprofile');
         },
         error => {
@@ -132,11 +136,14 @@ export class LoginPage implements OnInit {
               buttons: [{ text: 'Ok', role: 'cancel' }]
             });
             await alert.present();
+            this.loaderAnimate = false;
           });
+          
         }
       );
       this.loading = await this.loadingCtrl.create();
-      await this.loading.present();
+      // await this.loading.present();
+      this.loaderAnimate = true;
     }
   }
 
