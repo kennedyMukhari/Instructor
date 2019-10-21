@@ -9,7 +9,7 @@ import { OnboardingPage } from '../onboarding/onboarding.page';
   styleUrls: ['./help.page.scss'],
 })
 export class HelpPage implements OnInit {
-  tsProperty = 'about';
+  tsProperty = '';
   public unsubscribeBackEvent: any;
   value: boolean = true;
 

@@ -7,11 +7,16 @@
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.603);
-    z-index: 200;
+    z-index: 2000;
     display: flex;
     align-items: center;
     overflow-y: auto;
     transform: scale(1);
+    .fab {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
     .packForm {
         width: 80%;
         // height: 80%;
@@ -56,11 +61,16 @@
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.603);
-    z-index: 200;
+    z-index: 2000;
     display: flex;
     align-items: center;
     overflow-y: auto;
     transform: scale(0);
+    .fab {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
     .packForm {
         width: 80%;
         // height: 80%;

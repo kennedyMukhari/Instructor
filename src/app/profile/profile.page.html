@@ -1,5 +1,10 @@
 <ion-content>
-  <div [ngClass]="{'packEdit': editPacks, 'packEdit-inactive': !editPacks}" >
+  <div [ngClass]="{'packEdit': editPacks, 'packEdit-inactive': !editPacks}">
+      <div class="fab">
+          <ion-fab-button  (click)="closeEdit()" color="light" size="small">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
     <div class="packForm">
       <h4>{{segmentVal}}</h4>
       <div class="amountInput">
