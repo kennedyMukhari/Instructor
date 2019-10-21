@@ -54,7 +54,7 @@
       </div>
       <div class="s-list" padding>
   
-        <div class="card" *ngFor = "let obj of NewRequesteWithPictures; let i = index" (click)="checkBookingProfile(obj)">
+        <div class="card" *ngFor = "let obj of NewRequesteWithPictures; let i = index" (click)="checkBookingProfile(obj, i, obj.docid )">
   
           <div class="image">
             <img src="{{obj.image}}" alt="No Image">

@@ -15,6 +15,7 @@ import { LoadingController } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
+
 @Component({
   selector: 'app-viewprofile',
   templateUrl: './viewprofile.page.html',
@@ -225,6 +226,7 @@ options2={
      public elementref: ElementRef, 
      public alert : LoadingController,
      public splashscreen: SplashScreen
+   
 
      ) 
 
@@ -236,6 +238,7 @@ options2={
         tabBar.style.display = 'flex';
       });
 
+ 
   
     
   }
@@ -253,26 +256,46 @@ options2={
           
           
   }
-  saveEdit() {
 
+  saveEdit() {
+    
   }
+  
   swipeUp() {
     this.display = !this.display;
   }
+
   ionViewDidLoad(){
-   
     this.initializeBackButtonCustomHandler();
-    this.tempData = this.businessdata.schoolname;
+    this.tempData = this.businessdata.schoolname; 
     
+  }
+
+  Displaydata(){
+    // console.log("ddddddddsdsdsdsd", this.data.SavedData);
   }
 
   ionViewWillLeave() {
     // Unregister the custom back button action for this page
     this.unsubscribeBackEvent && this.unsubscribeBackEvent();
   }
-  swipeNext(){
-    this.slides.slideNext();
+
+
+
+  async swipeNext(){
+
+    if(this.businessdata.schoolname != '' && this.businessdata.cellnumber != '' && this.businessdata.cost != '' && this.businessdata.desc != ''){
+      this.slides.slideNext();
+    }else{
+      const alert = await this.alertController.create({
+        message: 'Fields cannot be empty!',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+   
   }
+
   ionViewWillEnter(){
 
     this.initAutocomplete();
@@ -814,7 +837,7 @@ options2={
 
   async  createMyAccount(): Promise<void>{
     
-       if(true) {
+       if(this.businessdata.open != '' && this.businessdata.closed != '') {
         
         if(this.businessdata.closed.slice(11, 16)  != this.businessdata.open.slice(11, 16)  && this.businessdata.closed.slice(11, 16)  > this.businessdata.open.slice(11, 16)){
 
@@ -861,7 +884,7 @@ options2={
        }else{
 
         const alert = await this.alertController.create({
-          message: 'Fields cannot be empty in the previous slide!',
+          message: 'Fields cannot be empty!',
           buttons: ['OK']
         });     
         await alert.present();

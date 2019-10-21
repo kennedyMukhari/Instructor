@@ -5,31 +5,31 @@
     </ion-fab-button>
   </div>
 <div class="image">
-  <img src="{{user.image}}" alt="">
+  <img src="{{NewRequesteWithPictures[0].obj.image}}" alt="">
 </div>
 <div class="details">
   <div class="uPersonalDet">
-      <h1>{{user.name}}</h1>
-      <p>{{user.location}} </p>
+      <h1>{{NewRequesteWithPictures[0].obj.name}}</h1>
+      <p>{{NewRequesteWithPictures[0].obj.location}} </p>
   </div>
   <div class="bookingD">
     <h3>Booking Details</h3>
     <p>Code 08</p>
     <p>5 Lesson O ackage</p>
     <p>R1445.00</p>
-    <p>from {{user.datein}} to {{user.dateout}}</p>
-    <p>at {{user.time}}</p>
+    <p>from {{NewRequesteWithPictures[0].obj.datein}} to {{NewRequesteWithPictures[0].obj.dateout}}</p>
+    <p>at {{NewRequesteWithPictures[0].obj.time}}</p>
   </div>
   <div class="contacts">
     <h3>Contacts</h3>
-    <p>{{user.phone}}</p>
+    <p>{{NewRequesteWithPictures[0].obj.phone}}</p>
   </div>
   <div class="btns">
     <div class="accept">
-      <button>Accept</button>
+      <button  (click)="Accept(NewRequesteWithPictures[0], NewRequesteWithPictures[0].index, NewRequesteWithPictures[0].docid)">Accept</button>
     </div>
     <div class="reject">
-      <button>Decline</button>
+      <button (click)="Decline(NewRequesteWithPictures[0].docid, NewRequesteWithPictures[0].i)">Decline</button>
     </div>
   </div>
 </div>

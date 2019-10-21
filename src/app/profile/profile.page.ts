@@ -412,7 +412,7 @@ export class ProfilePage implements OnInit {
               if(this.singlePackAmount != 0){
 
                 if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
-                  
+                
                   this.packages[3].code14.push(this.packstoEdit);
                   this.packages[3].price = this.singlePackAmount ;
 

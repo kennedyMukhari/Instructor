@@ -31,7 +31,7 @@ export class PastbookingsPage implements OnInit {
 
   constructor(public data : DataSavedService, public alertController: AlertController, public platform : Platform) { 
 
- 
+    this.SortedBookings = [];
     //retriving data from booking collection
     // this.db.collection('users').onSnapshot(snapshot => {
 
@@ -153,7 +153,7 @@ async presentAlert() {
   const length = array.length;
   for(let i = 0; i < length; i++){
     for(let j = 0; j < length - 1; j++){
-      if(array[j].datein.toString() > array[j + 1].datein.toString()){
+      if(array[j].obj.datein.toString() > array[j + 1].obj.datein.toString()){
         this.swap(array, j, j + 1);
       }
     }
@@ -170,12 +170,10 @@ swap(array, a, b){
 }
 
 
-SortData(){
+SortData(){ 
    
-    
      this.SortedBookings = this.bubbleSort(this.Booking);   
-     console.log('iiiiiiiiiii', this.SortedBookings[0].placeid);
-       
+     console.log('iiiiiiiiiii', this.SortedBookings[0].placeid);  
 }
 
 showTab(){
