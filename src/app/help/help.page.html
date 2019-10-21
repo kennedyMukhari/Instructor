@@ -22,51 +22,66 @@
         <div class="aboutus" >
             <h4>about us</h4>
               </div>
-        
-              <p>
-                    Found in May of 2018 and based in South Afica, Chris Hani Rd, Diepkloof, Johannesburg, 1862 and Johannesburg is a trusted community
-                     marketplace for people to list, discover and accept or decline bookings to unique clients around their nearest location or within
-                     their radar from a mobile phone or tablet.
-                
-                     Whether lessons for a day or the entire week, or even the whole month, instructors even get the opportunity to enlist their specials on the app itself,
-                     which provides them with free marketing and at the same time saving them money on marketing as well as keep their business convient in other words StepDrive 
-                     is the easiest way for people to monetize their driving lessons and showcase it to the world 
-                    </p>
+        <div class="para">
+            <p>
+                Found in May of 2018 and based in South Afica, Chris Hani Rd, Diepkloof, Johannesburg, 1862 and Johannesburg is a trusted community
+                 marketplace for people to list, discover and accept or decline bookings to unique clients around their nearest location or within
+                 their radar from a mobile phone or tablet.
+            
+                 Whether lessons for a day or the entire week, or even the whole month, instructors even get the opportunity to enlist their specials on the app itself,
+                 which provides them with free marketing and at the same time saving them money on marketing as well as keep their business convient in other words StepDrive 
+                 is the easiest way for people to monetize their driving lessons and showcase it to the world 
+                </p>
+
+        </div>
+          
     </div>
    
     <div [ngClass]="{'aboutus1': tsProperty=='terms' , 'aboutus2': tsProperty!='terms'}" (click)="activate('terms')">
         <div class="aboutus" >
             <h4>Terms of use</h4>
               </div>
-             
+            <div class="para">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae minima autem debitis quis, quidem fugiat neque laboriosam suscipit facere deserunt dolore nobis voluptatum dolorem eveniet ipsam iusto nostrum illo doloribus.</p>
+            </div> 
         
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae minima autem debitis quis, quidem fugiat neque laboriosam suscipit facere deserunt dolore nobis voluptatum dolorem eveniet ipsam iusto nostrum illo doloribus.</p>
+ 
     </div>
     <div [ngClass]="{'aboutus1': tsProperty=='contact' , 'aboutus2': tsProperty!='contact'}" (click)="activate('contact')">
         <div class="aboutus" >
             <h4>Contact</h4>
               </div>
-        
-              <p>Contact us: (015)-610-6358</p>
+        <div class="para">
+            <p>Contact us: (015)-610-6358</p>
+        </div>
+            
     </div>
     <div [ngClass]="{'aboutus1': tsProperty=='disclaimer' , 'aboutus2': tsProperty!='disclaimer'}" (click)="activate('disclaimer')">
         <div class="aboutus" >
             <h4>Disclaimer</h4>
               </div>
-              <p>
+
+              <div class="para">
+                <p>
                     The StepDrive app stores and processes personal data that you have provided to us so that you can accept or decline bookings 
                     requests from client, It's your responsibility to keep your phone and access to the app secure.
                     We recommend that you do not jailbreak or root your phone, which is the process of removing software restrictions and limitations
                     imposed by the official Operating System of your device. It could make your phone vulnerable to malware/viruses/malicious programs, 
                     compromise your phone's security features and it could mean that the easy that the StepDrive app won't work properly.
                 </p>
+
+
+              </div>
+             
     </div>
     <div [ngClass]="{'aboutus1': tsProperty=='safety' , 'aboutus2': tsProperty!='safety'}">
         <div class="aboutus" (click)="activate('safety')">
             <h4>safety information</h4>
               </div>
-        
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae minima autem debitis quis, quidem fugiat neque laboriosam suscipit facere deserunt dolore nobis voluptatum dolorem eveniet ipsam iusto nostrum illo doloribus.</p>
+        <div class="para">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae minima autem debitis quis, quidem fugiat neque laboriosam suscipit facere deserunt dolore nobis voluptatum dolorem eveniet ipsam iusto nostrum illo doloribus.</p>
+        </div>
+       
     </div>
 
     

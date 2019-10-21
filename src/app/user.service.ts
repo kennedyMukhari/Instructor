@@ -8,7 +8,7 @@ uid: string
 
 @Injectable()
 export class UserService {
-   userProfile: Object = {
+  public userProfile: Object = {
       book: null,
 datein: "",
 dateout: "",
@@ -33,11 +33,11 @@ getUID(){
 }
 storeUserProfile(profile: Object) {
    this.userProfile = profile;
-   console.log('got profile',this.userProfile);
+   // console.log('got profile',this.userProfile);
    
 }
 async getUserProfile() {
-   console.log('return bookig', this.userProfile);
+   // console.log('return bookig', this.userProfile);
    
    return this.userProfile
 }

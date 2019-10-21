@@ -7,7 +7,7 @@ import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@io
 import * as firebase from 'firebase';
 import { AuthService } from '../../app/user/auth.service';
 import { LoginPage } from '../login/login.page';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { DataSavedService } from '../data-saved.service';
 // import undefined = require('firebase/empty-import');
 import { AlertController, LoadingController } from '@ionic/angular';
@@ -15,6 +15,7 @@ import { Platform } from '@ionic/angular';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 declare var google;
+
 @Component({
   selector: 'app-the-map',
   templateUrl: './the-map.page.html',
@@ -181,8 +182,14 @@ export class TheMapPage implements OnInit {
 
   }
   checkBookingProfile(profile) {
+    
+    let navigationExtras: NavigationExtras = {
+      state: {
+        booking: profile
+      }
+    }
     this.userService.storeUserProfile(profile)
-    this.router.navigateByUrl('viewdetails');
+    this.router.navigateByUrl('viewdetails', navigationExtras);
   }
   swipeUp() {
     this.display = !this.display;

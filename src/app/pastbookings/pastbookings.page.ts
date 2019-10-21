@@ -158,7 +158,6 @@ async presentAlert() {
       }
     }
   }
-
   return array;
 }
 
@@ -169,13 +168,9 @@ swap(array, a, b){
 
 }
 
-
 SortData(){
-   
-    
      this.SortedBookings = this.bubbleSort(this.Booking);   
      console.log('iiiiiiiiiii', this.SortedBookings[0].placeid);
-       
 }
 
 showTab(){
@@ -186,11 +181,7 @@ showTab(){
   }); 
 }
 
-
-  
-
-
-  async getBooking(){
+async getBooking(){
     let data = {
       user: {
         image: null,
@@ -241,5 +232,4 @@ showTab(){
       // console.log('Reqs: ', this.Booking);
     })
   }
-
 }

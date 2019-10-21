@@ -17,35 +17,49 @@ h6{
  background: linear-gradient(#4C0A0A, #790B0B);
  
 }
-
-
-
-  
   .con{
         display: flex;
         flex-direction: column;
         margin:  5 auto;
   }
   .aboutus1 {
+      transition: 0.4s;;
       height: auto;
-      border: solid linear-gradient(#4C0A0A, #790B0B);
+      border: solid 1px rgb(76, 10, 10);
       overflow: hidden;
       margin:  5px auto;
       width: 70%;
       text-align: center;
-      padding: 5vw;
+      border-radius: 12px;
+      // padding: 5vw;
+      .para{
+            // height: 0px;
+            // border: solid #4C0A0A;
+            border-radius: 10px;
+            border-top: none;
+            overflow: hidden;
+      }
       }
   .aboutus2 {
-      height: 50px;
+        transition: 0.4s;;
+        height: 40px;
       border: black;
       overflow: hidden;
       margin:  5px auto;
       width: 70%;
-      border-radius: 10px 10px 10px 10px;
+      border-radius: 12px;
+      border: solid 1px rgb(76, 10, 10);
+      .para{
+            // height: 0px;
+            // border: solid #4C0A0A;
+            border-radius: 10px 10px 10px 10px;
+            border-top: none;
+            overflow: hidden;
+      }
       }
       .aboutus{
             height: 40px;
-                border: solid linear-gradient(#4C0A0A, #790B0B);
+            border: solid linear-gradient(#4C0A0A, #790B0B);
             width: 100%;
             border-radius: 10px 10px 10px 10px; 
             background: linear-gradient(#4C0A0A, #790B0B);
@@ -69,6 +83,4 @@ h6{
       h4{
             color: white;
       }
-      p{
-            
-      }
+      
