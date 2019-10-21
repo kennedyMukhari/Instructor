@@ -158,7 +158,6 @@ async presentAlert() {
       }
     }
   }
-
   return array;
 }
 
@@ -184,11 +183,7 @@ showTab(){
   }); 
 }
 
-
-  
-
-
-  async getBooking(){
+async getBooking(){
     let data = {
       user: {
         image: null,
@@ -239,5 +234,4 @@ showTab(){
       // console.log('Reqs: ', this.Booking);
     })
   }
-
 }

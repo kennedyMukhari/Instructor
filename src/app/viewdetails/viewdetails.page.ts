@@ -1,8 +1,8 @@
+import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from './../user.service';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { DataSavedService } from '../data-saved.service';
-import { AlertController } from '@ionic/angular';
 import * as firebase from 'firebase';
 
 
@@ -32,12 +32,17 @@ export class ViewdetailsPage implements OnInit {
      }
 
   ngOnInit() {
+    
    this.zone.run(()=>{
-    this.user =  this.userService.getUserProfile()
+    this.user = this.rounte.getCurrentNavigation().extras.state.booking
+
     this.userService.getUserProfile().then(res => {
-      console.log('response', res);
       
+     
     })
+    this.rounte.paramsInheritanceStrategy = 'always'
+    console.log(this.rounte.getCurrentNavigation().extras.state.booking);
+
     
    })
   }

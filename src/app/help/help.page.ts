@@ -9,13 +9,13 @@ import { OnboardingPage } from '../onboarding/onboarding.page';
   styleUrls: ['./help.page.scss'],
 })
 export class HelpPage implements OnInit {
-  tsProperty = '';
+  tsProperty = 'about';
   public unsubscribeBackEvent: any;
-  value : boolean = true;
+  value: boolean = true;
 
-  constructor( private platform: Platform,  private router: Router, ) { }
+  constructor(private platform: Platform, private router: Router, ) { }
 
-   ngOnInit() {
+  ngOnInit() {
     // this.initializeBackButtonCustomHandler();
   }
 
@@ -24,96 +24,91 @@ export class HelpPage implements OnInit {
     // this.unsubscribeBackEvent && this.unsubscribeBackEvent();
   }
 
-//   initializeBackButtonCustomHandler(): void {
+  //   initializeBackButtonCustomHandler(): void {
 
-//     this.platform.backButton.subscribeWithPriority(1, () => {
-//       alert("Do you want to exit the App");
-//       navigator['app'].exitApp();
-// });
-  
+  //     this.platform.backButton.subscribeWithPriority(1, () => {
+  //       alert("Do you want to exit the App");
+  //       navigator['app'].exitApp();
+  // });
 
-//   // this.unsubscribeBackEvent = this.platform.backButton.subscribeWithPriority(999999,  () => {
-//   //     // alert("back pressed home" + this.constructor.name);
-     
-//   // });
-//   /* here priority 101 will be greater then 100 
-//   if we have registerBackButtonAction in app.component.ts */
-// }
 
-  ionViewDidEnter(){
-    this.platform.ready().then(() => {
-      console.log('Core service init');
-      const tabBar = document.getElementById('myTabBar');
-       tabBar.style.display = 'flex';
-    });
-  }
+  //   // this.unsubscribeBackEvent = this.platform.backButton.subscribeWithPriority(999999,  () => {
+  //   //     // alert("back pressed home" + this.constructor.name);
 
-  showTab(){
+  //   // });
+  //   /* here priority 101 will be greater then 100 
+  //   if we have registerBackButtonAction in app.component.ts */
+  // }
+
+  ionViewDidEnter() {
     this.platform.ready().then(() => {
       console.log('Core service init');
       const tabBar = document.getElementById('myTabBar');
       tabBar.style.display = 'flex';
-    });   
+    });
   }
-instruct(){
-  this.router.navigateByUrl('Onboarding');
-}
+
+  showTab() {
+    this.platform.ready().then(() => {
+      console.log('Core service init');
+      const tabBar = document.getElementById('myTabBar');
+      tabBar.style.display = 'flex';
+    });
+  }
+  instruct() {
+    this.router.navigateByUrl('Onboarding');
+  }
 
 
 
-activate(cmd) {
-
-  switch (cmd) {
-  
-
+  activate(cmd) {
+    console.log(this.tsProperty);
     
-    case 'about':
-      if (this.tsProperty == 'about'){
-        this.tsProperty = ""
-      }else{
-        this.tsProperty = 'about';
-
-      }
-      
-      break;
-
-      case 'terms':
-if (this.tsProperty =='terms'){
-  this.tsProperty =""
-}else{
-
-  this.tsProperty = 'terms';
-}
-        
+    switch (cmd) {
+      case 'about':
+        if (this.tsProperty == 'about') {
+          this.tsProperty = ""
+        } else {
+          this.tsProperty = 'about';
+        }
         break;
-        case 'contact':
-          if (this.tsProperty =='contact'){
-            this.tsProperty =''
-          }else{
-            this.tsProperty = 'contact';
-          }
-         
-      break;
+      case 'terms':
+        if (this.tsProperty == 'terms') {
+          this.tsProperty = ""
+        } else {
+
+          this.tsProperty = 'terms';
+        }
+
+        break;
+      case 'contact':
+        if (this.tsProperty == 'contact') {
+          this.tsProperty = ''
+        } else {
+          this.tsProperty = 'contact';
+        }
+
+        break;
       case 'disclaimer':
-        if (this.tsProperty == 'disclaimer'){
-          this.tsProperty =''
-        }else{
+        if (this.tsProperty == 'disclaimer') {
+          this.tsProperty = ''
+        } else {
           this.tsProperty = 'disclaimer';
         }
-        
-      break;
+
+        break;
       case 'safety':
-        if (this.tsProperty =='safety'){
-          this.tsProperty =''
-        }else{
+        if (this.tsProperty == 'safety') {
+          this.tsProperty = ''
+        } else {
           this.tsProperty = 'safety';
         }
-  
-      break;
-    default:
-      break;
+
+        break;
+      default:
+        break;
+    }
   }
-}
 
 
 
