@@ -90,7 +90,7 @@ initializeApp() {
               if (res.exists) {
                 this.router.navigate(['/main/the-map']);
               } else {              
-                this.router.navigate(['/viewprofile']);
+                // this.router.navigate(['/viewprofile']);
               }
             })
           } else {
