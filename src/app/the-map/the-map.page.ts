@@ -192,7 +192,7 @@ export class TheMapPage implements OnInit {
     console.log("DeliveredData", this.data.DeliveredData);
     
     this.userService.storeUserProfile(obj)
-    this.router.navigateByUrl('viewdetails');
+    // this.router.navigateByUrl('viewdetails');
 
   }
 
