@@ -1,5 +1,10 @@
 <ion-content>
-  <div [ngClass]="{'packEdit': editPacks, 'packEdit-inactive': !editPacks}" >
+  <div [ngClass]="{'packEdit': editPacks, 'packEdit-inactive': !editPacks}">
+      <div class="fab">
+          <ion-fab-button  (click)="closeEdit()" color="light" size="small">
+            <ion-icon name="close"></ion-icon>
+          </ion-fab-button>
+        </div>
     <div class="packForm">
       <h4>{{segmentVal}}</h4>
       <div class="amountInput">
@@ -13,7 +18,7 @@
           
         </div>
       </div>
-
+​
       <div class="pInputs">
         <p>Name</p>
         <input [(ngModel)]="packstoEdit.name" type="text">
@@ -22,8 +27,8 @@
         <p>Number</p>
         <input [(ngModel)]="packstoEdit.number" type="tel">
       </div>
-
-
+​
+​
       <div class="buttons">
         <ion-button (click)="addPackage()" shape="round">
          Done
@@ -79,7 +84,7 @@
   </div>
   <div class="pCont">
     <div class="line">
-
+​
     </div>
     <div class="pTitle">
       <div class="packs">
@@ -92,10 +97,10 @@
       </div>
     </div>
     <div class="line">
-
+​
     </div>
   </div>
-
+​
   <ion-segment style="width: 96vw !important; margin: auto;" [(ngModel)]="segmentVal" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="code01">
       <ion-label >Code 01</ion-label>
@@ -110,9 +115,9 @@
           <ion-label>Code 14</ion-label>
         </ion-segment-button>
   </ion-segment>
-
+​
  
-
+​
   <div class="lessonCont">
       <div class="lessonCard" *ngFor="let p of packsToDisplay; let i = index" (click)="presentActionSheet(i, p)">
           <div class="title">
@@ -130,6 +135,10 @@
           </div>
         </div>
   </div>
-
+​
  
   </ion-content>
+
+
+
+

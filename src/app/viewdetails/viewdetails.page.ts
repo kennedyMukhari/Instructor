@@ -20,10 +20,11 @@ export class ViewdetailsPage implements OnInit {
 
   constructor( public router: Router, public data: DataSavedService,
     public alertController: AlertController, private userService: UserService, public zone:NgZone, private rounte: Router) {
+
       this.NewRequesteWithPictures = [];
-      this.NewRequesteWithPictures = this.data.DeliveredData;
-      console.log("Data in the View details page", this.data.SavedData);
-      
+      this.NewRequesteWithPictures = this.data.SavedData;
+      console.log("Data in the View details page",  this.NewRequesteWithPictures );
+
      }
 
   
@@ -35,10 +36,7 @@ export class ViewdetailsPage implements OnInit {
     
    this.zone.run(()=>{
     this.user = this.rounte.getCurrentNavigation().extras.state.booking
-
     this.userService.getUserProfile().then(res => {
-      
-     
     })
     this.rounte.paramsInheritanceStrategy = 'always'
     console.log(this.rounte.getCurrentNavigation().extras.state.booking);
@@ -48,9 +46,7 @@ export class ViewdetailsPage implements OnInit {
   }
 
 
-  back() {
-    this.rounte.navigateByUrl('/main/the-map')
-  }
+ 
 
   
   Displaydata(){
@@ -66,11 +62,12 @@ export class ViewdetailsPage implements OnInit {
       { confirmed: 'accepted' }, { merge: true }
       );
 
-      this.data.SavedData.push({obj: obj, index:i, docid:docid});
+      //  this.data.SavedData.push({obj: obj, index:i, docid:docid});
       console.log("ddddddddsdsdsdsd", this.data.SavedData);
       
     this.presentAlert();
-    this.router.navigateByUrl('pastbookings');
+    // this.router.navigateByUrl('pastbookings');
+    this.router.navigateByUrl('main/the-map');
 
   }
 
@@ -90,6 +87,10 @@ export class ViewdetailsPage implements OnInit {
     await alert.present();
     this.router.navigateByUrl('main/the-map');
     
+  }
+
+  back() {
+    this.rounte.navigateByUrl('/main/the-map')
   }
 
   async presentAlert() {

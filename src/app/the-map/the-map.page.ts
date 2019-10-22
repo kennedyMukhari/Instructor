@@ -56,9 +56,11 @@ export class TheMapPage implements OnInit {
     open: false
   }
 
+
   constructor(private geolocation: Geolocation, private platform: Platform, public alertController: AlertController, public AuthService: AuthService, public data: DataSavedService, public router: Router, private nativeGeocoder: NativeGeocoder, public elementref: ElementRef, public renderer: Renderer2, private localNot: LocalNotifications, private userService: UserService,
     public loadingCtrl: LoadingController) {
     // this.pushNotification();
+  
     console.log('notification' ,this.pushNotification)
   }
 
@@ -185,14 +187,14 @@ export class TheMapPage implements OnInit {
   checkBookingProfile(obj, i, docid) {
 
     console.log("Muuuu", obj, i, docid);
-    // this.data.SavedData.push({obj: obj, index:i, docid:docid});
+    this.data.SavedData.push({obj: obj, index:i, docid:docid});
     
-    this.data.DeliveredData.push({obj: obj, index:i, docid:docid});
+    // this.data.DeliveredData.push({obj: obj, index:i, docid:docid});
 
-    console.log("DeliveredData", this.data.DeliveredData);
+    console.log("DeliveredData", this.data.SavedData);
     
     this.userService.storeUserProfile(obj)
-    this.router.navigateByUrl('viewdetails');
+    this.router.navigateByUrl('viewdetails', {state:{booking:obj}});
 
   }
 
@@ -204,6 +206,7 @@ export class TheMapPage implements OnInit {
       );
 
       this.data.SavedData.push({obj: obj, index:i, docid:docid});
+
       console.log("rrrrrrrrrrrr",  this.data.SavedData);
     this.NewRequesteWithPictures.splice(i, 1);
     this.presentAlert();

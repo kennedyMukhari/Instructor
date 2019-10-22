@@ -28,8 +28,10 @@ export class PastbookingsPage implements OnInit {
  public unsubscribeBackEvent: any;
  value : string = '';
  placeid : string = 'https://www.google.com/maps/place/?q=place_id:ChIJz61BHrUJlR4RieDxkSG75mE';
+ dataDisplay = [];
 
   constructor(public data : DataSavedService, public alertController: AlertController, public platform : Platform) { 
+console.log("DATA IN THE PAST", this.data.SavedData);
 
     this.SortedBookings = [];
     //retriving data from booking collection
@@ -63,6 +65,8 @@ export class PastbookingsPage implements OnInit {
 
   
  ionViewDidEnter(){
+  this.dataDisplay = [];
+  this.dataDisplay = this.data.SavedData
   // this.platform.ready().then(() => {
   //   console.log('Core service init');
   //   const tabBar = document.getElementById('myTabBar');

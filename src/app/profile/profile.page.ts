@@ -62,7 +62,7 @@ export class ProfilePage implements OnInit {
     price: 0}
    
   ];
-
+counter : number = 0;
   showPrice : boolean = false;
 
 
@@ -271,32 +271,36 @@ export class ProfilePage implements OnInit {
     })
   }
 
-
+  closeEdit(){
+    this.editPacks = false;
+  }
 
   addPackage() {
  
     this.zone.run(async()=> {
-      console.log('clicked');
-      
-      // this.packstoEdit = {
-      //   amount: null,
-      //   code: null,
-      //   name: null,
-      //   number: null
-      // }
-      // this.editPacks = true
-
+      // checking what code is being added
       switch (this.segmentVal) {
-        case 'code01': 
+        case 'code01':
+          // set the active code to edit
             this.packstoEdit.code = 'code01';
+            // check if the amount is provided
             if(this.singlePackAmount != 0){
-
+              // check if package details are provided
               if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
-
+                // check if length of array is full
+                if (this.packages[0].code01.length >= 4) {
+                  this.editPacks = false;
+                    const alert = await this.alertController.create({
+                      message: 'Code 01 package limit reached',
+                      buttons: ['OK']
+                    });
+                    await alert.present();
+                } else {
+                  
                 this.packages[0].code01.push(this.packstoEdit);
                 this.packages[0].price = this.singlePackAmount ;
 
-              this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
+              this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({
                 packages : this.packages,  
                                 
               }, { merge: true }).then(res => {           
@@ -307,6 +311,8 @@ export class ProfilePage implements OnInit {
   
               this.editPacks = false;
               console.log('adding code1');
+                }
+
               }else{
                 const alert = await this.alertController.create({
                   message: 'Fields cannot be empty!',
@@ -331,8 +337,15 @@ export class ProfilePage implements OnInit {
               if(this.singlePackAmount != 0){
 
                 if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
-                  
-                  this.packages[1].code08.push(this.packstoEdit);
+                  if (this.packages[0].code08.length >= 4) {
+                    this.editPacks = false;
+                    const alert = await this.alertController.create({
+                      message: 'Code 08 package limit reached',
+                      buttons: ['OK']
+                    });
+                    await alert.present();
+                  } else {
+this.packages[1].code08.push(this.packstoEdit);
                   this.packages[1].price = this.singlePackAmount ;
 
               this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
@@ -343,10 +356,9 @@ export class ProfilePage implements OnInit {
               }).catch(error => {
                 console.log('Error');
               });
-
-
-            console.log('adding code8');
             this.editPacks = false;
+                  }
+                  
 
                 }else{
                   const alert = await this.alertController.create({
@@ -371,8 +383,15 @@ export class ProfilePage implements OnInit {
               if(this.singlePackAmount != 0){
 
                 if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
-                  
-                  this.packages[2].code10.push(this.packstoEdit);
+                  if (this.packages[0].code10.length >= 4) {
+                    this.editPacks = false;
+                    const alert = await this.alertController.create({
+                      message: 'Code 10 package limit reached',
+                      buttons: ['OK']
+                    });
+                    await alert.present();
+                  } else {
+                    this.packages[2].code10.push(this.packstoEdit);
                   this.packages[2].price = this.singlePackAmount ;
 
                   this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
@@ -387,6 +406,8 @@ export class ProfilePage implements OnInit {
     
                 console.log('adding code10');
                 this.editPacks = false;
+                  }
+                  
             
                 }else{
                   const alert = await this.alertController.create({
@@ -412,8 +433,15 @@ export class ProfilePage implements OnInit {
               if(this.singlePackAmount != 0){
 
                 if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
-                
-                  this.packages[3].code14.push(this.packstoEdit);
+                  if (this.packages[0].code14.length >= 4) {
+                    this.editPacks = false;
+                    const alert = await this.alertController.create({
+                      message: 'Code 14 package limit reached',
+                      buttons: ['OK']
+                    });
+                    await alert.present();
+                  } else {
+this.packages[3].code14.push(this.packstoEdit);
                   this.packages[3].price = this.singlePackAmount ;
 
               
@@ -429,7 +457,8 @@ export class ProfilePage implements OnInit {
    
                console.log('adding cod14');
                this.editPacks = false;
-            
+                  }
+  
                 }else{
                   const alert = await this.alertController.create({
                     message: 'Fields cannot be empty!',
@@ -541,5 +570,3 @@ toedit() {
 
 
 }
-
-    
