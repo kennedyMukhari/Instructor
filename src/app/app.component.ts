@@ -89,8 +89,8 @@ initializeApp() {
             firebase.firestore().collection('users').doc(user.uid).get().then(res => {
               if (res.exists) {
                 this.router.navigate(['/main/the-map']);
-              } else {
-                this.router.navigate(['/viewprofile']);
+              } else {              
+                // this.router.navigate(['/viewprofile']);
               }
             })
           } else {

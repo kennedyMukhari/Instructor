@@ -245,16 +245,13 @@ options2={
 
 
   ngOnInit() {
-    
     this.splashscreen.hide()
           setTimeout(()=>{
             let viewimage = this.elementref.nativeElement.children[0].children[0]
           console.log('ggg',viewimage);
           this.renderer.setStyle(viewimage, 'opacity', '0');
           this.renderer.setStyle(viewimage, 'transform', 'scale(0)'); 
-          },500)   
-          
-          
+          },500)          
   }
 
   saveEdit() {
@@ -284,7 +281,7 @@ options2={
 
   async swipeNext(){
 
-    if(this.businessdata.schoolname != '' && this.businessdata.cellnumber != '' && this.businessdata.cost != '' && this.businessdata.desc != ''){
+    if(this.businessdata.schoolname != '' && this.businessdata.cellnumber != '' && this.businessdata.desc != ''){
       this.slides.slideNext();
     }else{
       const alert = await this.alertController.create({
@@ -314,7 +311,6 @@ options2={
         this.businessdata.registration = doc.data().registration
         this.businessdata.email = doc.data().email
         this.businessdata.cellnumber = doc.data().cellnumber
-        this.businessdata.cost = doc.data().cost
         this.businessdata.desc = doc.data().desc
         this.businessdata.open = doc.data().open
         this.businessdata.address = doc.data().address
@@ -780,7 +776,6 @@ options2={
             allday : this.businessdata.allday,
             cellnumber : this.businessdata.cellnumber,
             closed : this.businessdata.closed,
-            cost : this.businessdata.cost,
             desc : this.businessdata.desc,
             email : this.businessdata.email,
             image : this.businessdata.image,
@@ -849,7 +844,6 @@ options2={
             allday : this.businessdata.allday,
             cellnumber : this.businessdata.cellnumber,
             closed : this.businessdata.closed,
-            cost : this.businessdata.cost,
             desc : this.businessdata.desc,
             email : this.businessdata.email,
             image : this.businessdata.image,
@@ -918,7 +912,6 @@ options2={
                   allday : this.businessdata.allday,
                   cellnumber : this.businessdata.cellnumber,
                   closed : this.businessdata.closed,
-                  cost : this.businessdata.cost,
                   desc : this.businessdata.desc,
                   email : this.businessdata.email,
                   image : this.businessdata.image,
@@ -960,8 +953,7 @@ options2={
                   city : this.town_1,
                   allday : this.businessdata.allday,
                   cellnumber : this.businessdata.cellnumber,
-                  closed : this.businessdata.closed,
-                  cost : this.businessdata.cost,
+                  closed : this.businessdata.closed,            
                   desc : this.businessdata.desc,
                   email : this.businessdata.email,
                   image : this.businessdata.image,
