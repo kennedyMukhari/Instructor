@@ -60,6 +60,8 @@
               {{loginError.message}}
             </div>
 
+            <button class="bb" (clikc)="loginUser(signinForm.value)"></button>
+
             <div class="forget">
               <button (click)="forgetpassword()">
                 Forgot Password?
@@ -115,6 +117,8 @@
                     Password needs more than 6 characters long.
                   </div>
                 </div>
+
+                <button class="bb" (clikc)="signupUser(signupForm)"></button> 
 
                   <div class="btn">
                     <button  type="submit">

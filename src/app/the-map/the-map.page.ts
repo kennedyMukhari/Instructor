@@ -181,16 +181,51 @@ export class TheMapPage implements OnInit {
     // })
 
   }
-  checkBookingProfile(profile) {
+
+  checkBookingProfile(obj, i, docid) {
+
+    console.log("Muuuu", obj, i, docid);
+    // this.data.SavedData.push({obj: obj, index:i, docid:docid});
     
-    let navigationExtras: NavigationExtras = {
-      state: {
-        booking: profile
-      }
-    }
-    this.userService.storeUserProfile(profile)
-    this.router.navigateByUrl('viewdetails', navigationExtras);
+    this.data.DeliveredData.push({obj: obj, index:i, docid:docid});
+
+    console.log("DeliveredData", this.data.DeliveredData);
+    
+    this.userService.storeUserProfile(obj)
+    this.router.navigateByUrl('viewdetails');
+
   }
+
+
+  Accept(obj, i, docid) {
+  
+    this.db.collection('bookings').doc(docid).set(
+      { confirmed: 'accepted' }, { merge: true }
+      );
+
+      this.data.SavedData.push({obj: obj, index:i, docid:docid});
+      console.log("rrrrrrrrrrrr",  this.data.SavedData);
+    this.NewRequesteWithPictures.splice(i, 1);
+    this.presentAlert();
+    
+  }
+
+  async Decline(docid, i) {
+
+    this.db.collection('bookings').doc(docid).set({ confirmed: 'rejected' }, { merge: true });
+    this.NewRequesteWithPictures.splice(i, 1)
+
+    const alert = await this.alertController.create({
+      header: 'Declined Successfully.',
+      subHeader: '',
+      message: '',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+
   swipeUp() {
     this.display = !this.display;
     console.log('Clicked');
@@ -279,32 +314,7 @@ export class TheMapPage implements OnInit {
   }
 
 
-  Accept(Customer, i, docid) {
-    console.log("rrrrrrrrrrrr", Customer);
-    this.db.collection('bookings').doc(docid).set(
-      { confirmed: 'accepted' }, { merge: true }
-      );
-      this.data.SavedData.push(Customer)
 
-    
-    this.NewRequesteWithPictures.splice(i, 1);
-    this.presentAlert();
-  }
-
-  async Decline(docid, i) {
-
-    this.db.collection('bookings').doc(docid).set({ confirmed: 'rejected' }, { merge: true });
-    this.NewRequesteWithPictures.splice(i, 1)
-
-    const alert = await this.alertController.create({
-      header: 'Declined Successfully.',
-      subHeader: '',
-      message: '',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
 
 
 

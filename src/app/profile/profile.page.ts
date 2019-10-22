@@ -337,7 +337,7 @@ counter : number = 0;
               if(this.singlePackAmount != 0){
 
                 if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
-                  if (this.packages[0].code08.length >= 4) {
+                  if (this.packages[1].code08.length >= 4) {
                     this.editPacks = false;
                     const alert = await this.alertController.create({
                       message: 'Code 08 package limit reached',
@@ -383,7 +383,7 @@ this.packages[1].code08.push(this.packstoEdit);
               if(this.singlePackAmount != 0){
 
                 if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
-                  if (this.packages[0].code10.length >= 4) {
+                  if (this.packages[2].code10.length >= 4) {
                     this.editPacks = false;
                     const alert = await this.alertController.create({
                       message: 'Code 10 package limit reached',
@@ -433,7 +433,7 @@ this.packages[1].code08.push(this.packstoEdit);
               if(this.singlePackAmount != 0){
 
                 if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
-                  if (this.packages[0].code14.length >= 4) {
+                  if (this.packages[3].code14.length >= 4) {
                     this.editPacks = false;
                     const alert = await this.alertController.create({
                       message: 'Code 14 package limit reached',

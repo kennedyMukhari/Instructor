@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { ViewdetailsPage } from './viewdetails.page';
 
+
+
 const routes: Routes = [
   {
     path: '',
@@ -23,4 +25,17 @@ const routes: Routes = [
   ],
   declarations: [ViewdetailsPage]
 })
-export class ViewdetailsPageModule {}
+export class ViewdetailsPageModule {
+
+
+ 
+
+
+  constructor(
+    
+     ){
+
+  }
+
+
+}
