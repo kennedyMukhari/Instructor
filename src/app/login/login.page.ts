@@ -122,15 +122,12 @@ export class LoginPage implements OnInit {
 
       this.authService.signupUser(email, password).then(
         () => {
-          this.loading.dismiss().then(() => {
-            // this.router.navigateByUrl('profile');
-            this.router.navigateByUrl('viewprofile');
-          });
+          this.loading.dismiss()
           this.loaderAnimate = false;
           this.router.navigateByUrl('viewprofile');
-        },
-        error => {
-          this.loading.dismiss().then(async () => {
+        }
+      ).catch(error =>{
+         this.loading.dismiss().then(async () => {
             const alert = await this.alertCtrl.create({
               message: error.message,
               buttons: [{ text: 'Ok', role: 'cancel' }]
@@ -138,9 +135,7 @@ export class LoginPage implements OnInit {
             await alert.present();
             this.loaderAnimate = false;
           });
-          
-        }
-      );
+      })
       this.loading = await this.loadingCtrl.create();
       // await this.loading.present();
       this.loaderAnimate = true;
