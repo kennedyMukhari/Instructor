@@ -1,5 +1,4 @@
 
-
 <ion-content>
   <div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
   <!-- <div class="loader"> -->
@@ -59,8 +58,8 @@
             <div class="error" style="text-align: right; width: 100%;" *ngIf="loginError.code=='auth/wrong-password'">
               {{loginError.message}}
             </div>
-
-            <button class="bb" (clikc)="loginUser(signinForm.value)"></button>
+<!-- 
+            <button class="bb" (clikc)="loginUser(signinForm.value)"></button> -->
 
             <div class="forget">
               <button (click)="forgetpassword()">

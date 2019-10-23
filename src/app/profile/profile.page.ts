@@ -33,6 +33,8 @@ export class ProfilePage implements OnInit {
   schoolDetails: any = {}
   packsToDisplay = []
   editPacks = false;
+  average = 0;
+  ratingTotal = 0
   DrivingSchoolOwnerDetails = [];
   packstoEdit = {
     amount: '',
@@ -92,6 +94,7 @@ counter : number = 0;
 
   ngOnInit() {
     this.zone.run(()=> {
+      this.calculateAverage()
       firebase.auth().onAuthStateChanged(user => {
         this.db.collection('drivingschools').doc(user.uid).get().then(res => {
           this.schoolDetails = res.data();
@@ -123,6 +126,17 @@ counter : number = 0;
  
   ionViewWillEnter(){
 
+  }
+  calculateAverage(){
+    firebase.auth().onAuthStateChanged(user => {
+      this.db.collection('reviews').where('schooluid','==',user.uid).onSnapshot(snap => {
+        this.ratingTotal = 0
+        snap.forEach(doc => {
+          this.ratingTotal = this.ratingTotal + doc.data().rating
+        })
+        this.average = this.ratingTotal / snap.size;
+      })
+    })
   }
   async Logout() {
 

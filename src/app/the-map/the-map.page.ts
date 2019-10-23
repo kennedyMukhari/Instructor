@@ -382,7 +382,7 @@ export class TheMapPage implements OnInit {
     }, (err: PositionError) => {
       // this.loadMap()
       console.log("error : " + err.message);
-      // this.addMap(-29.465306,-24.741967);
+      this.addMap(-29.465306,-24.741967);
       // this.addMap(pos.coords.latitude, pos.coords.longitude);
     }).catch(err => {
       this.addMap(-29.465306,-24.741967);
