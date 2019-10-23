@@ -159,6 +159,7 @@ export class TheMapPage implements OnInit {
         }
       })
 
+      
       this.fillArrayWithData();
 
     });
@@ -187,9 +188,9 @@ export class TheMapPage implements OnInit {
   checkBookingProfile(obj, i, docid) {
 
     console.log("Muuuu", obj, i, docid);
-    this.data.SavedData.push({obj: obj, index:i, docid:docid});
+    // this.data.SavedData.push({obj: obj, index:i, docid:docid});
     
-    // this.data.DeliveredData.push({obj: obj, index:i, docid:docid});
+    this.data.DeliveredData.push({obj: obj, index:i, docid:docid});
 
     console.log("DeliveredData", this.data.SavedData);
     
@@ -205,7 +206,10 @@ export class TheMapPage implements OnInit {
       { confirmed: 'accepted' }, { merge: true }
       );
 
-      this.data.SavedData.push({obj: obj, index:i, docid:docid});
+      // this.data.SavedData.push({obj: obj, index:i, docid:docid});
+      
+      this.data.AcceptedData.push({obj: obj, index:i, docid:docid});
+      this.data.NewRequesteWithPictures.splice(i, 1);
 
       console.log("rrrrrrrrrrrr",  this.data.SavedData);
     this.NewRequesteWithPictures.splice(i, 1);
@@ -216,7 +220,7 @@ export class TheMapPage implements OnInit {
   async Decline(docid, i) {
 
     this.db.collection('bookings').doc(docid).set({ confirmed: 'rejected' }, { merge: true });
-    this.NewRequesteWithPictures.splice(i, 1)
+    this.data.NewRequesteWithPictures.splice(i, 1);
 
     const alert = await this.alertController.create({
       header: 'Declined Successfully.',
@@ -258,9 +262,10 @@ export class TheMapPage implements OnInit {
           docid : element.docid,
           placeid : data.data().placeid
         }
-        this.NewRequesteWithPictures = []
-       this.NewRequesteWithPictures.push(obj);
-       console.log("This is my array ", this.NewRequesteWithPictures );
+        this.data.NewRequesteWithPictures = []
+       this.data.NewRequesteWithPictures.push(obj);
+       this.NewRequesteWithPictures = this.data.NewRequesteWithPictures
+       console.log("This is my array ", this.data.NewRequesteWithPictures );
       }
     })
       

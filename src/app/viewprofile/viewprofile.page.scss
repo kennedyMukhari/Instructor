@@ -35,19 +35,21 @@
       border-radius: 10px;
     }
   }
-
   
 ion-slides {
     height: 100%;
     width: 100%;
 }
+ form {
+        width: 100%;
+        height: 100%;
+    }
 .container{
     display: flex;
     flex-direction: row;
     height: 100%;
     width: 100%;
     // position: fixed;
-
     .road {
         width: 15%;
         height: 100%;
@@ -92,7 +94,6 @@ ion-slides {
                     p {
                         font-size: 3vw;
                         padding: 0px 4vw;
-
                     }
                 }
             }
@@ -119,7 +120,6 @@ ion-slides {
         flex-direction: row;
         padding: 5px 0px;
         // height: 5%;
-
         .div1{
             width: 15%;
             // border: 1px solid green;
@@ -132,7 +132,6 @@ ion-slides {
             }
         }
         .div2 {
-
             // border: 1px solid red;
             width: 60%;
             display: flex;
@@ -163,7 +162,6 @@ ion-slides {
         .blank{
             width:5%;
             height: 100%;
-
         }
         .inputs{
             width: 95%;
@@ -222,7 +220,6 @@ ion-slides {
                     }
                 }
             }
-
         }
     }
 }
@@ -288,7 +285,6 @@ ion-slides {
             align-items: flex-end;
             // height: 25%;
             .t1{
-
                 width: 90%;
                 display: flex;
                 flex-direction: column;
@@ -352,7 +348,6 @@ ion-slides {
                     a{
                         color: black;
                     }
-
                 }
             }
             .inputs{
@@ -423,7 +418,6 @@ ion-slides {
                     ion-fab-button {
                         margin: 0px !important;
                         .btn {
-
                         }
                     }
                 }
@@ -431,22 +425,18 @@ ion-slides {
         }
     }
 }
-
 .error{
     color: red;
 }
-
 .a{
     margin: auto;
 }
-
 .myPackages{
     height: 20%;
     width: 100%;
     background-color: rgb(248, 244, 244);
    
 }
-
 .Myinputs{
     display: flex;
     justify-content: space-around;
@@ -467,19 +457,13 @@ ion-slides {
         width: 65%;
     }
 }
-
-
-
 .I{
     background-color: rgb(105, 6, 6);
     height: 40%;
     border-radius: 20px;
 }
-
 .carde{
     width: 40%;
     border: 1px solid black;
     border-radius: 10px;
 }
-
-

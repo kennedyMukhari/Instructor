@@ -7,6 +7,10 @@ export class DataSavedService {
 
   constructor() { }
 
+  NewRequesteWithPictures = []; 
+
+  
+  AcceptedData = [];
   SavedData = [];
   DeliveredData = []
 }

@@ -22,7 +22,7 @@ export class ViewdetailsPage implements OnInit {
     public alertController: AlertController, private userService: UserService, public zone:NgZone, private rounte: Router) {
 
       this.NewRequesteWithPictures = [];
-      this.NewRequesteWithPictures = this.data.SavedData;
+      this.NewRequesteWithPictures = this.data.DeliveredData;
       console.log("Data in the View details page",  this.NewRequesteWithPictures );
 
      }
@@ -53,17 +53,14 @@ export class ViewdetailsPage implements OnInit {
   
   }
 
-
-
   Accept(obj, i, docid) {
 
-    // console.log("rrrrrrrrrrrr", Customer);
     this.db.collection('bookings').doc(docid).set(
       { confirmed: 'accepted' }, { merge: true }
       );
-
+      this.data.AcceptedData.push({obj: obj.obj, index:i, docid:docid});
       //  this.data.SavedData.push({obj: obj, index:i, docid:docid});
-      console.log("ddddddddsdsdsdsd", this.data.SavedData);
+      this.data.NewRequesteWithPictures.splice(i, 1);
       
     this.presentAlert();
     // this.router.navigateByUrl('pastbookings');
@@ -74,7 +71,7 @@ export class ViewdetailsPage implements OnInit {
   async Decline(docid, i, x) {
 
     this.db.collection('bookings').doc(docid).set({ confirmed: 'rejected' }, { merge: true });
-    this.NewRequesteWithPictures.splice(x, 1)
+    this.data.NewRequesteWithPictures.splice(i, 1)
 
     this.data.SavedData.splice(i, 1)
     const alert = await this.alertController.create({

@@ -66,7 +66,7 @@ console.log("DATA IN THE PAST", this.data.SavedData);
   
  ionViewDidEnter(){
   this.dataDisplay = [];
-  this.dataDisplay = this.data.SavedData
+  this.dataDisplay = this.data.AcceptedData
   // this.platform.ready().then(() => {
   //   console.log('Core service init');
   //   const tabBar = document.getElementById('myTabBar');
@@ -82,7 +82,7 @@ console.log("DATA IN THE PAST", this.data.SavedData);
 
   let date;
   this.Booking = [];
-  this.Booking = this.data.SavedData;
+  this.Booking = this.data.AcceptedData;
  
   this.CheckArrayLength();
  
