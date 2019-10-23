@@ -70,7 +70,6 @@
                     color: red; text-align: right; width: 100%;font-size: 4vw;">{{error.message}}</p>
                   </div>
                 </div>
-
                 <a>School name</a>
                 <input type="text" formControlName="schoolname">
                 <div *ngFor="let error of error_messages.schoolname"  >
@@ -79,7 +78,6 @@
                       color: red; text-align: right; width: 100%;font-size: 4vw;">{{error.message}}</p>
                     </div>
                   </div>
-
                 <a>Cell number</a>
                 <input type="tel" formControlName="cellnumber">
                 <div *ngFor="let error of error_messages.cellnumber"  >
@@ -131,7 +129,6 @@
               <div class="dv2"></div>
             </div>
           </div>
-
           <div class="time">
             <div class="t1">
               <a>Opening time</a>
@@ -147,9 +144,7 @@
                 </div>
             </div>
             <div class="t2">
-
             </div>
-
             <div class="t1">
               <a>Closing Time</a>
               <ion-item>
@@ -163,7 +158,6 @@
                   </div>
               </ion-item>
             </div>
-
           </div>
           <div class="next" *ngIf="formValid" >
             <div class="btn">

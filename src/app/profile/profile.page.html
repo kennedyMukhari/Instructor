@@ -10,7 +10,7 @@
       <div class="amountInput">
         <div class="inp" *ngIf="showPrice">
             <ion-item>
-                <ion-label position="stacked" >Amount for 1 lesson</ion-label>
+                <ion-label position="stacked" >Amount for {{segmentVal}}</ion-label>
                 <ion-input  [(ngModel)]="singlePackAmount"  type="tel"></ion-input>
               </ion-item>
         </div>
@@ -22,7 +22,7 @@
       <div class="pInputs">
         <p>Name</p>
         <input [(ngModel)]="packstoEdit.name" type="text">
-        <p>Amount</p>
+        <p>Packages Amount</p>
         <input [(ngModel)]="packstoEdit.amount" type="tel">
         <p>Number</p>
         <input [(ngModel)]="packstoEdit.number" type="tel">

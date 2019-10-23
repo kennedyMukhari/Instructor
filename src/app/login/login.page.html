@@ -40,7 +40,9 @@
                   <a>User Email</a>
               </div>
               <div class="inp">
-                <input type="email" ngModel name="email" (keyup.enter)="submit()">
+                  <!-- (keyup.enter)="submit()"
+                  (keyup.enter)="submit()" -->
+                <input type="email" ngModel name="email" >
               </div>
             </div>
             <div class="error"  style="text-align: right; width: 100%;"  *ngIf="loginError.code=='auth/invalid-email'">
@@ -52,14 +54,14 @@
                   <a>Password</a>
               </div>
               <div class="inp">
-                <input type="password" ngModel name="password" (keyup.enter)="submit()">
+                <input type="password" ngModel name="password">
               </div>
             </div>
             <div class="error" style="text-align: right; width: 100%;" *ngIf="loginError.code=='auth/wrong-password'">
               {{loginError.message}}
             </div>
-<!-- 
-            <button class="bb" (clikc)="loginUser(signinForm.value)"></button> -->
+
+            <!-- <button class="bb" (clikc)="loginUser(signinForm.value)"></button> -->
 
             <div class="forget">
               <button (click)="forgetpassword()">

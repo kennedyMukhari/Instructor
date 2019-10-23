@@ -97,7 +97,17 @@ export class LoginPage implements OnInit {
     firebase.auth().signInWithEmailAndPassword(signinForm.email, signinForm.password).then(res => {
       this.loaderAnimate = false;
       this.router.navigateByUrl('/main/the-map')
-    }).catch(err => {
+    }).catch( async (err) => {
+
+      
+        const alert = await this.alertCtrl.create({
+          message: 'Email does not exist.',
+          buttons: [{ text: 'Ok', role: 'cancel' }]
+        });
+        await alert.present();
+        this.loaderAnimate = false;
+      
+      
       this.loaderAnimate = false;
       this.loginError.code = err.code,
       this.loginError.message = err.message;
