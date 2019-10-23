@@ -16,6 +16,7 @@ import { IonSlides } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 
+
 @Component({
   selector: 'app-viewprofile',
   templateUrl: './viewprofile.page.html',
@@ -122,7 +123,8 @@ options2={
     closed: '',
     allday: 'true',
     schooluid: '',
-   
+    city : '',
+    coords : {lat:'', lng:''}
   }
 
   DrivingSchoolOwnerDetails = [];
@@ -225,12 +227,16 @@ options2={
      public platform : Platform,
      public elementref: ElementRef, 
      public alert : LoadingController,
-     public splashscreen: SplashScreen
+     public splashscreen: SplashScreen,
+    
    
 
      ) 
 
      {
+
+   
+
 
       this.platform.ready().then(() => {
         console.log('Core service init');
@@ -318,7 +324,7 @@ options2={
         this.businessdata.packages = doc.data().packages
       })
 
-    this.DisplayPackages = this.businessdata.packages[2].code10;
+     this.DisplayPackages = this.businessdata.packages[2].code10;
      this.pack = this.businessdata.packages[0];
      this.tempData = this.businessdata.schoolname;
      if(this.tempData === ''){
@@ -503,13 +509,12 @@ options2={
 }
 
  fillInAddress() {
-
   // Get the place details from the autocomplete object.
   let place = this.autocomplete.getPlace();
- this.MyAddress = place.formatted_address;
-  this.town_1 = place.address_components[3].long_name;
-  this.myLatitude =  place.geometry.location.lat();
-  this.myLongitude =  place.geometry.location.lng();
+  this.businessdata.address = place.formatted_address;
+  this.businessdata.city = place.address_components[3].long_name;
+  this.businessdata.coords.lat =  place.geometry.location.lat();
+  this.businessdata.coords.lng =  place.geometry.location.lng();
 }
 
 // Bias the autocomplete object to the user's geographical location,
@@ -832,6 +837,10 @@ options2={
 
   async  createMyAccount(): Promise<void>{
     
+
+  
+    console.log("Your address is", firebase.auth().currentUser.email);
+    
        if(this.businessdata.open != '' && this.businessdata.closed != '') {
         
         if(this.businessdata.closed.slice(11, 16)  != this.businessdata.open.slice(11, 16)  && this.businessdata.closed.slice(11, 16)  > this.businessdata.open.slice(11, 16)){
@@ -839,22 +848,22 @@ options2={
 
           
           this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({
-            address: this.MyAddress,
-            city : this.town_1,
+            address:  this.businessdata.address,
+            city : this.businessdata.city,
             allday : this.businessdata.allday,
             cellnumber : this.businessdata.cellnumber,
             closed : this.businessdata.closed,
             desc : this.businessdata.desc,
-            email : this.businessdata.email,
+            email : firebase.auth().currentUser.email,
             image : this.businessdata.image,
             open : this.businessdata.open,
-            coords : {lat:  this.myLatitude,
-              lng:  this.myLongitude},
+            coords : this.businessdata.coords,
             packages : this.packages,
             schoolname : this.businessdata.schoolname,
-            schooluid : firebase.auth().currentUser.uid           
-          }).then(res => {           
-           console.log(res);
+            schooluid : firebase.auth().currentUser.uid,
+               
+          }).then(async(res) => {        
+           console.log("============================",res);
           }).catch(error => {
             console.log('Error');
           });
@@ -865,7 +874,7 @@ options2={
           });
           await alert.present();
          
-         this.router.navigateByUrl('main/the-map');
+         this.router.navigateByUrl('main/profile');
 
         }else{
           const alert = await this.alertController.create({
@@ -907,8 +916,8 @@ options2={
 
 
                 this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({
-                  address: this.MyAddress,
-                  city : this.town_1,
+                  address:  this.businessdata.address,
+                  city : this.businessdata.city,
                   allday : this.businessdata.allday,
                   cellnumber : this.businessdata.cellnumber,
                   closed : this.businessdata.closed,
@@ -916,12 +925,10 @@ options2={
                   email : this.businessdata.email,
                   image : this.businessdata.image,
                   open : this.businessdata.open,
-                  coords : {lat:  this.myLatitude,
-                    lng:  this.myLongitude},
-                  packages :this.businessdata.packages,
-                  registration : this.businessdata.registration,
+                  coords : this.businessdata.coords,
+                  packages : this.packages,
                   schoolname : this.businessdata.schoolname,
-                  schooluid : firebase.auth().currentUser.uid           
+                  schooluid : firebase.auth().currentUser.uid            
                 }).then(res => {           
                   // console.log('Profile created');
                   // this.getProfile()

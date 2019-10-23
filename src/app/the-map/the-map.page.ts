@@ -79,9 +79,9 @@ export class TheMapPage implements OnInit {
   ngOnInit() {
   
     this.getUserPosition();
-    this.loaderAnimate = true;
    
-    this.loaderAnimate = false;
+   
+  
     // this.initializeBackButtonCustomHandler();
   }
 
@@ -364,6 +364,7 @@ export class TheMapPage implements OnInit {
 
   getUserPosition() {
 
+    this.loaderAnimate = true;
     let count  = 0
     this.options = {
       enableHighAccuracy: false
@@ -380,6 +381,7 @@ export class TheMapPage implements OnInit {
       // console.log('Current Location', pos);
       this.addMarker(pos.coords.latitude, pos.coords.longitude);
     }, (err: PositionError) => {
+      this.addMap(-29.465306,-24.741967);
       // this.loadMap()
       console.log("error : " + err.message);
       // this.addMap(-29.465306,-24.741967);
@@ -387,6 +389,7 @@ export class TheMapPage implements OnInit {
     }).catch(err => {
       this.addMap(-29.465306,-24.741967);
     })
+    this.loaderAnimate = false;
   }
 
 

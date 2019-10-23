@@ -86,7 +86,7 @@ counter : number = 0;
 
      {
 
-    
+
   }
 
 
@@ -122,10 +122,38 @@ counter : number = 0;
 
  
   ionViewWillEnter(){
+     
+    firebase.auth().onAuthStateChanged(user => {
+      this.db.collection('drivingschools').doc(user.uid).get().then(res => {
+        this.schoolDetails = res.data();
+        this.packages = res.data().packages
+        this.packsToDisplay = []
+        this.packsToDisplay =  this.packages[0].code01
+        this.singlePackAmount = this.packages[0].price
+        console.log(this.packages);
+        console.log('Driving school details', res.data());
+        
+      })
+    })
+  
 
+  this.db.collection('drivingschools').onSnapshot(snapshot => {
+    this.DrivingSchoolOwnerDetails = [];
+    snapshot.forEach(doc => {
+  
+     
+      if (doc.data().schooluid === firebase.auth().currentUser.uid) {
+        console.log("Data data", doc.data());
+        this.DrivingSchoolOwnerDetails.push({ docid: doc.id, doc: doc.data() });
+      }
+    });
+  });
   }
+
+
   async Logout() {
 
+  
     console.log('My value from the profile is ');
             const alert = await this.alertController.create({
               header: '',
@@ -152,7 +180,12 @@ counter : number = 0;
             });
         
             await alert.present();
-        }
+
+            this.packsToDisplay = [];
+            this.schoolDetails = [];
+}
+
+
   async presentActionSheet(i, p) {
     let packageIndex = i
     let packge = p
@@ -272,6 +305,7 @@ counter : number = 0;
   }
 
   closeEdit(){
+    this.addPackage();
     this.editPacks = false;
   }
 
@@ -288,31 +322,28 @@ counter : number = 0;
               // check if package details are provided
               if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
                 // check if length of array is full
-                if (this.packages[0].code01.length >= 4) {
+                   if(this.packages[0].code01.length < 4) {
+                    this.packages[0].code01.push(this.packstoEdit);
+                    this.packages[0].price = this.singlePackAmount ;
+    
+                  this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({
+                    packages : this.packages,  
+                                    
+                  }, { merge: true }).then(res => {           
+                   console.log(res);
+                  }).catch(error => {
+                    console.log('Error');
+                  });
+      
                   this.editPacks = false;
+                  console.log('adding code1');
+                   }else{
                     const alert = await this.alertController.create({
-                      message: 'Code 01 package limit reached',
+                      message: 'Only 4 packages allowed',
                       buttons: ['OK']
                     });
                     await alert.present();
-                } else {
-                  
-                this.packages[0].code01.push(this.packstoEdit);
-                this.packages[0].price = this.singlePackAmount ;
-
-              this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({
-                packages : this.packages,  
-                                
-              }, { merge: true }).then(res => {           
-               console.log(res);
-              }).catch(error => {
-                console.log('Error');
-              });
-  
-              this.editPacks = false;
-              console.log('adding code1');
-                }
-
+                   }    
               }else{
                 const alert = await this.alertController.create({
                   message: 'Fields cannot be empty!',
@@ -337,27 +368,29 @@ counter : number = 0;
               if(this.singlePackAmount != 0){
 
                 if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
-                  if (this.packages[0].code08.length >= 4) {
-                    this.editPacks = false;
+                  
+                  if(this.packages[1].code08.length < 4){
+                    this.packages[1].code08.push(this.packstoEdit);
+                    this.packages[1].price = this.singlePackAmount ;
+  
+                this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
+                  packages : this.packages
+                                  
+                }, { merge: true }).then(res => {           
+                 console.log(res);
+                }).catch(error => {
+                  console.log('Error');
+                });
+              this.editPacks = false;
+                    
+                  }else{
                     const alert = await this.alertController.create({
-                      message: 'Code 08 package limit reached',
+                      message: 'Only 4 packages allowed',
                       buttons: ['OK']
                     });
                     await alert.present();
-                  } else {
-this.packages[1].code08.push(this.packstoEdit);
-                  this.packages[1].price = this.singlePackAmount ;
-
-              this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
-                packages : this.packages
-                                
-              }, { merge: true }).then(res => {           
-               console.log(res);
-              }).catch(error => {
-                console.log('Error');
-              });
-            this.editPacks = false;
                   }
+
                   
 
                 }else{
@@ -383,30 +416,32 @@ this.packages[1].code08.push(this.packstoEdit);
               if(this.singlePackAmount != 0){
 
                 if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
-                  if (this.packages[0].code10.length >= 4) {
-                    this.editPacks = false;
+
+                  if(this.packages[2].code10.length < 4){
+                    this.packages[2].code10.push(this.packstoEdit);
+                    this.packages[2].price = this.singlePackAmount ;
+  
+                    this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
+                      packages : this.packages
+                                    
+                    }, { merge: true }).then(res => {           
+                     console.log(res);
+                    }).catch(error => {
+                      console.log('Error');
+                    });
+      
+      
+                  console.log('adding code10');
+                  this.editPacks = false;
+                    
+                  }else{
                     const alert = await this.alertController.create({
-                      message: 'Code 10 package limit reached',
+                      message: 'Only 4 packages allowed',
                       buttons: ['OK']
                     });
                     await alert.present();
-                  } else {
-                    this.packages[2].code10.push(this.packstoEdit);
-                  this.packages[2].price = this.singlePackAmount ;
-
-                  this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
-                    packages : this.packages
-                                  
-                  }, { merge: true }).then(res => {           
-                   console.log(res);
-                  }).catch(error => {
-                    console.log('Error');
-                  });
-    
-    
-                console.log('adding code10');
-                this.editPacks = false;
                   }
+              
                   
             
                 }else{
@@ -433,32 +468,32 @@ this.packages[1].code08.push(this.packstoEdit);
               if(this.singlePackAmount != 0){
 
                 if(this.packstoEdit.name != '' && this.packstoEdit.amount != '' && this.packstoEdit.number != ''){
-                  if (this.packages[0].code14.length >= 4) {
-                    this.editPacks = false;
+              
+
+                  if(this.packages[3].code14.length < 4){
+                    this.packages[3].code14.push(this.packstoEdit);
+                    this.packages[3].price = this.singlePackAmount ;
+  
+                
+                    this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
+                     packages : this.packages
+                                 
+                   }, { merge: true }).then(res => {           
+                    console.log(res);
+                   }).catch(error => {
+                     console.log('Error');
+                   });
+     
+     
+                 console.log('adding cod14');
+                 this.editPacks = false;
+                  }else{
                     const alert = await this.alertController.create({
-                      message: 'Code 14 package limit reached',
+                      message: 'Only 4 packages allowed',
                       buttons: ['OK']
                     });
                     await alert.present();
-                  } else {
-this.packages[3].code14.push(this.packstoEdit);
-                  this.packages[3].price = this.singlePackAmount ;
-
-              
-                  this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({        
-                   packages : this.packages
-                               
-                 }, { merge: true }).then(res => {           
-                  console.log(res);
-                 }).catch(error => {
-                   console.log('Error');
-                 });
-   
-   
-               console.log('adding cod14');
-               this.editPacks = false;
                   }
-  
                 }else{
                   const alert = await this.alertController.create({
                     message: 'Fields cannot be empty!',

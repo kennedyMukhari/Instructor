@@ -10,7 +10,7 @@
       <div class="amountInput">
         <div class="inp" *ngIf="showPrice">
             <ion-item>
-                <ion-label position="stacked" >Amount for 1 lesson</ion-label>
+                <ion-label position="stacked" >Amount for {{segmentVal}}</ion-label>
                 <ion-input  [(ngModel)]="singlePackAmount"  type="tel"></ion-input>
               </ion-item>
         </div>
@@ -22,7 +22,7 @@
       <div class="pInputs">
         <p>Name</p>
         <input [(ngModel)]="packstoEdit.name" type="text">
-        <p>Amount</p>
+        <p>Packages Amount</p>
         <input [(ngModel)]="packstoEdit.amount" type="tel">
         <p>Number</p>
         <input [(ngModel)]="packstoEdit.number" type="tel">
@@ -52,7 +52,10 @@
           <ion-icon name="create"></ion-icon>
         </ion-fab-button>
     </div>
-    <img src="{{schoolDetails.image}}" alt="">
+    <img *ngIf="!schoolDetails.image"
+    src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d"
+    alt="">
+    <img *ngIf="schoolDetails.image" src="{{schoolDetails.image}}" alt="">
   </div>
   <div class="schoolN">
     <h4>{{schoolDetails.schoolname}}</h4>
