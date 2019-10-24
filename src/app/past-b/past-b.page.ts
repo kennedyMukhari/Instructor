@@ -26,6 +26,7 @@ export class PastBPage implements OnInit {
 ​
 ​
   constructor(private router: Router, public platform : Platform) { 
+    this.reviews = [];
     this.db.collection('drivingschools').onSnapshot(snapshot => {
     this.NewDrivingschool = [];
      
@@ -60,6 +61,7 @@ export class PastBPage implements OnInit {
 ​
     firebase.auth().onAuthStateChanged(user => {
       this.db.collection('reviews').where('schooluid','==', user.uid).onSnapshot(snapshot => {
+        this.reviews = [];
         snapshot.forEach(doc =>{
           console.log('Document : ', doc.data().image);
           

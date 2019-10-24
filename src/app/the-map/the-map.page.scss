@@ -1,7 +1,7 @@
 .loader{
   transition: 0.3s;
   transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
-  background-color: rgba(31, 2, 2, 0.685);
+  background-color: rgba(42, 2, 2, 0.486);
   width: 100vw;
   height: 100%;
   margin: 0 auto;
@@ -84,7 +84,7 @@
 .loader-hide{
   transition: 0.3s;
   transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
-  background-color: rgba(31, 2, 2, 0.685);
+  background-color: rgba(31, 2, 2, 0);
   width: 100vw;
   height: 100vh;
   margin: 0 auto;

@@ -3,7 +3,10 @@
     
     <div class="top"  *ngFor="let d of NewDrivingschool">
       <div class="image">
-        <img *ngIf="d.image" src="{{d.image}}" alt="">
+          <img *ngIf="!d.image"
+          src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d"
+          alt="">
+        <img *ngIf="d.image" src="{{d.image}}">
       </div>
       <div class="name">
         <p>
@@ -13,11 +16,17 @@
     </div>
 
 
-    <div class="say">
+    <div *ngIf="reviews.length > 0" class="say">
       <p>
         People said
       </p>
     </div>
+
+    <div *ngIf="reviews.length == 0" class="say">
+        <p>
+         People haven't said anything yet!
+        </p>
+      </div>
 
     <!-- <ion-list *ngFor="let item of reviews">
       <ion-item>

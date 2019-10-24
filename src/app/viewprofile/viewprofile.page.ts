@@ -5,7 +5,7 @@ import { Camera, CameraOptions } from '@ionic-native/Camera/ngx';
 import { Router } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { GeolocationOptions, Geoposition, PositionError } from '@ionic-native/geolocation';
-import { PopoverController, NavController } from '@ionic/angular';
+import { PopoverController, NavController, ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { TabsService } from '../core/tabs.service';
 import { Platform } from '@ionic/angular';
@@ -15,8 +15,6 @@ import { NgZone } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-
-
 
 @Component({
   selector: 'app-viewprofile',
@@ -123,7 +121,8 @@ export class ViewprofilePage implements OnInit {
     allday: 'true',
     schooluid: '',
     city: '',
-    coords: { lat: '', lng: '' }
+    coords: { lat: '', lng: '' },
+    average: 0
   }
   DrivingSchoolOwnerDetails = [];
   viewImage = {
@@ -194,6 +193,7 @@ export class ViewprofilePage implements OnInit {
   ]
 
   constructor(
+    public toastController:ToastController,
     public zone: NgZone,
     private geolocation: Geolocation,
     public router: Router,
@@ -247,54 +247,60 @@ export class ViewprofilePage implements OnInit {
 
     })
 
-    this.profileForm = this.formBuilder.group({
-      address: [this.businessdata.address, Validators.compose([
-        Validators.required,
-        Validators.minLength(3)
-      ])],
-      schoolname: [this.businessdata.schoolname, Validators.compose([Validators.required])],
-      cellnumber: [
-        this.businessdata.cellnumber,
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10)])
-      ],
-      desc: [this.businessdata.desc, Validators.compose([Validators.required])],
-      open: [
-        this.businessdata.open,
-        Validators.compose([Validators.required])
-      ],
-      closed: [
-        this.businessdata.closed,
-        Validators.compose([Validators.required])
-      ]
-    });
-    setTimeout(() => {
-      this.profileForm = this.formBuilder.group({
-        address: [this.businessdata.address, Validators.compose([
-          Validators.required,
-          Validators.minLength(7)
-        ])],
-        schoolname: [this.businessdata.schoolname, Validators.compose([Validators.required])],
-        cellnumber: [
-          this.businessdata.cellnumber,
-          Validators.compose([
-            Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(10)])
-        ],
-        desc: [this.businessdata.desc, Validators.compose([Validators.required])],
-        open: [
-          this.businessdata.open,
-          Validators.compose([Validators.required])
-        ],
-        closed: [
-          this.businessdata.closed,
-          Validators.compose([Validators.required])
-        ]
-      });
-    }, 500)
+
+    // this.profileForm = this.formBuilder.group({
+
+    //   address: [this.businessdata.address, Validators.compose([
+    //     Validators.required,
+    //     Validators.minLength(1)
+    //   ])],
+
+    //   schoolname: [this.businessdata.schoolname, Validators.compose([Validators.required])],
+    //   cellnumber: [
+    //     this.businessdata.cellnumber,
+    //     Validators.compose([
+    //       Validators.required,
+    //       Validators.minLength(10),
+    //       Validators.maxLength(10)])
+    //   ],
+    //   desc: [this.businessdata.desc, Validators.compose([Validators.required])],
+    //   open: [
+    //     this.businessdata.open,
+    //     Validators.compose([Validators.required])
+    //   ],
+    //   closed: [
+    //     this.businessdata.closed,
+    //     Validators.compose([Validators.required])
+    //   ]
+    // });
+
+    // setTimeout(() => {
+    //   this.profileForm = this.formBuilder.group({
+    //     address: [this.businessdata.address, Validators.compose([
+    //       Validators.required,
+    //       Validators.minLength(7)
+    //     ])],
+    //     schoolname: [this.businessdata.schoolname, Validators.compose([Validators.required])],
+    //     cellnumber: [
+    //       this.businessdata.cellnumber,
+    //       Validators.compose([
+    //         Validators.required,
+    //         Validators.minLength(10),
+    //         Validators.maxLength(10)])
+    //     ],
+    //     desc: [this.businessdata.desc, Validators.compose([Validators.required])],
+    //     open: [
+    //       this.businessdata.open,
+    //       Validators.compose([Validators.required])
+    //     ],
+    //     closed: [
+    //       this.businessdata.closed,
+    //       Validators.compose([Validators.required])
+    //     ]
+    //   });
+    // }, 500)
+
+
     this.platform.ready().then(() => {
       const tabBar = document.getElementById('myTabBar');
       tabBar.style.display = 'flex';
@@ -325,19 +331,62 @@ export class ViewprofilePage implements OnInit {
     this.unsubscribeBackEvent && this.unsubscribeBackEvent();
   }
 
-  async swipeNext() {
 
-    if (this.businessdata.schoolname != '' && this.businessdata.cellnumber != '' && this.businessdata.desc != '') {
-      this.slides.slideNext();
-    } else {
-      const alert = await this.alertController.create({
-        message: 'Fields cannot be empty!',
-        buttons: ['OK']
+  async swipeNext(x) {
+    
+  console.log("Semi profile",x)
+
+    // if (this.businessdata.schoolname != '' && this.businessdata.cellnumber != '' && this.businessdata.desc != '') {
+    //   this.slides.slideNext();
+    // } else {
+    //   const alert = await this.alertController.create({
+    //     message: 'Fields cannot be empty!',
+    //     buttons: ['OK']
+    //   });
+    //   await alert.present();
+    // }
+
+
+    if(x.address==""||x.address==undefined)
+    {
+      const toast = await this.toastController.create({
+        message: 'Enter your address.',
+        duration: 3000
       });
-      await alert.present();
+      toast.present();
     }
+    else if(x.schoolname==""||x.schoolname==undefined)
+    {
+      const toast = await this.toastController.create({
+        message: 'Enter your school name.',
+        duration: 3000
+      });
+      toast.present();
+    }
+    else if(x.cellnumber==""||x.cellnumber==undefined||x.cellnumber.length
+    !=10)
+    {
 
+      
+      const toast = await this.toastController.create({
+        message: 'Enter a cellphone number with 10 digits.',
+        duration: 3000
+      });
+      toast.present();
+    }
+    else if(x.desc==""||x.desc==undefined)
+    {
+      const toast = await this.toastController.create({
+        message: 'Give us a description of your school.',
+        duration: 3000
+      });
+      toast.present();
+    }
+else{
+  this.slides.slideNext();
+}
   }
+
 
   ionViewWillEnter() {
 
@@ -564,9 +613,8 @@ export class ViewprofilePage implements OnInit {
     });
 
   }
-
-  async  createMyAccount(formdata): Promise<void> {
-
+  async  createMyAccount(x): Promise<void> {
+    console.log("Profile = ",x)
     
     if (this.businessdata.open != '' && this.businessdata.closed != '') {
 
@@ -576,16 +624,17 @@ export class ViewprofilePage implements OnInit {
           address: this.businessdata.address,
           city: this.businessdata.city,
           allday: this.businessdata.allday,
-          cellnumber: formdata.cellnumber,
-          closed: formdata.closed,
-          desc: formdata.desc,
+          cellnumber: this.businessdata.cellnumber,
+          closed: this.businessdata.closed,
+          desc: this.businessdata.desc,
           email: firebase.auth().currentUser.email,
           image: this.businessdata.image,
-          open: formdata.open,
+          open: x.open,
           coords: this.businessdata.coords,
           packages: this.packages,
-          schoolname: formdata.schoolname,
+          schoolname: this.businessdata.schoolname,
           schooluid: firebase.auth().currentUser.uid,
+          average: this.businessdata.average
         }).then(async (res) => {
         
         }).catch(error => {

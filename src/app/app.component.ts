@@ -86,13 +86,12 @@ initializeApp() {
         firebase.auth().onAuthStateChanged(user => {
           if (user) {
             // check if user has profile
-            firebase.firestore().collection('users').doc(user.uid).get().then(res => {
-              if (res.exists) {
-                this.router.navigate(['/main/the-map']);
-              
-              } else {
+            firebase.firestore().collection('drivingschools').doc(user.uid).get().then(res => {
+              console.log(res.data())
+              if (res.data()==undefined) {
                 this.router.navigate(['/viewprofile']);
-  
+              } else {              
+              this.router.navigate(['/main/the-map']);
               }
             })
           } else {
