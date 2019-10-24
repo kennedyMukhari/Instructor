@@ -54,9 +54,7 @@
           <ion-icon name="create"></ion-icon>
         </ion-fab-button>
     </div>
-    <img *ngIf="!schoolDetails.image"
-    src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d"
-    alt="">
+
     <img *ngIf="schoolDetails.image" src="{{schoolDetails.image}}" alt="">
 
     <div class="reviews" (click)="goToReviews()">

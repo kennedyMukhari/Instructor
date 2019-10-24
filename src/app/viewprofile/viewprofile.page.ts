@@ -96,7 +96,9 @@ export class ViewprofilePage implements OnInit {
     name: this.name,
     number: this.number,
   }
+
   opened: boolean
+
   businessdata = {
     schoolname: '',
     registration: '',
@@ -594,6 +596,29 @@ else{
     }
   }
 
+  openImage(image, cmd) {
+    // console.log('Open triggerd');
+    console.log(this.elementref);
+
+    if (cmd == 'open') {
+      this.viewImage.image = image;
+      this.viewImage.open = true;
+
+      let viewimage = this.elementref.nativeElement.children[0].children[0]
+      console.log('ggg', viewimage);
+      this.renderer.setStyle(viewimage, 'opacity', '1');
+      this.renderer.setStyle(viewimage, 'transform', 'scale(1)');
+      this.renderer.setStyle(viewimage, 'height', '100vh');
+    } else {
+
+      this.viewImage.open = false;
+      let viewimage = this.elementref.nativeElement.children[0].children[0]
+      console.log('ggg', viewimage);
+      this.renderer.setStyle(viewimage, 'opacity', '0');
+      this.renderer.setStyle(viewimage, 'transform', 'scale(0)');
+      this.renderer.setStyle(viewimage, 'height', '0vh');
+    }
+  }
 
   getProfile() {
   }
@@ -606,24 +631,5 @@ else{
   view() {
     this.router.navigate(['viewprofile']);
   }
-  openImage(image, cmd) {
-    // console.log('Open triggerd');
-    console.log(this.elementref);
-    if (cmd == 'open') {
-      this.viewImage.image = image;
-      this.viewImage.open = true;
-      let viewimage = this.elementref.nativeElement.children[0].children[0]
-      console.log('ggg', viewimage);
-      this.renderer.setStyle(viewimage, 'opacity', '1');
-      this.renderer.setStyle(viewimage, 'transform', 'scale(1)');
-      this.renderer.setStyle(viewimage, 'height', '100vh');
-    } else {
-      this.viewImage.open = false;
-      let viewimage = this.elementref.nativeElement.children[0].children[0]
-      console.log('ggg', viewimage);
-      this.renderer.setStyle(viewimage, 'opacity', '0');
-      this.renderer.setStyle(viewimage, 'transform', 'scale(0)');
-      this.renderer.setStyle(viewimage, 'height', '0vh');
-    }
-  }
+
 }
