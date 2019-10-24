@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ViewprofilePage } from './viewprofile.page';
-import { ReactiveFormsModule }   from '@angular/forms';
 
 const routes: Routes = [
   {
