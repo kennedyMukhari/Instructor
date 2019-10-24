@@ -57,9 +57,9 @@ export class TheMapPage implements OnInit {
   }
 
 
-  constructor(private geolocation: Geolocation, private platform: Platform, public alertController: AlertController, public AuthService: AuthService, public data: DataSavedService, public router: Router, private nativeGeocoder: NativeGeocoder, public elementref: ElementRef, public renderer: Renderer2, private localNot: LocalNotifications, private userService: UserService,
+  constructor(public loadingController:LoadingController,private geolocation: Geolocation, private platform: Platform, public alertController: AlertController, public AuthService: AuthService, public data: DataSavedService, public router: Router, private nativeGeocoder: NativeGeocoder, public elementref: ElementRef, public renderer: Renderer2, private localNot: LocalNotifications, private userService: UserService,
     public loadingCtrl: LoadingController) {
-    // this.pushNotification();
+    this.pushNotification();
   
     console.log('notification' ,this.pushNotification)
   }
@@ -367,7 +367,7 @@ export class TheMapPage implements OnInit {
   }
 
 
-  getUserPosition() {
+  async getUserPosition() {
 
     this.loaderAnimate = true;
     let count  = 0
@@ -375,6 +375,16 @@ export class TheMapPage implements OnInit {
       enableHighAccuracy: false
     };
     
+
+    const loading = await this.loadingController.create({
+      message: '',
+      cssClass:null,
+      duration: 3000
+    });
+    await loading.present();
+
+
+
     this.geolocation.getCurrentPosition().then((pos: Geoposition) => {
       count = count + 1;
       console.log(count);
@@ -382,7 +392,7 @@ export class TheMapPage implements OnInit {
       this.currentPos = pos;
       // console.log(pos);
       this.addMap(pos.coords.latitude, pos.coords.longitude);
-     
+   
       // console.log('Current Location', pos);
       this.addMarker(pos.coords.latitude, pos.coords.longitude);
     }, (err: PositionError) => {

@@ -27,8 +27,10 @@ import { ViewprofilePage } from "../viewprofile/viewprofile.page";
 
 // NativeGeocoderResult
 
-
 export class ProfilePage implements OnInit {
+
+  average = 0;
+ ratingTotal = 0
   db = firebase.firestore()
   schoolDetails: any = {}
   packsToDisplay = []
@@ -92,6 +94,7 @@ counter : number = 0;
 
   ngOnInit() {
     this.zone.run(()=> {
+      this.calculateAverage()
       firebase.auth().onAuthStateChanged(user => {
         this.db.collection('drivingschools').doc(user.uid).get().then(res => {
           this.schoolDetails = res.data();
@@ -183,6 +186,11 @@ counter : number = 0;
 
             this.packsToDisplay = [];
             this.schoolDetails = [];
+}
+
+
+goToReviews(){
+this.router.navigateByUrl('past-b')
 }
 
 
@@ -602,6 +610,16 @@ toedit() {
     this.router.navigate(['viewprofile'])
   })
 }
-
+calculateAverage(){
+  firebase.auth().onAuthStateChanged(user => {
+    this.db.collection('reviews').where('schooluid','==',user.uid).onSnapshot(snap => {
+      this.ratingTotal = 0
+      snap.forEach(doc => {
+        this.ratingTotal = this.ratingTotal + doc.data().rating
+      })
+      this.average = this.ratingTotal / snap.size;
+    })
+  })
+}
 
 }
