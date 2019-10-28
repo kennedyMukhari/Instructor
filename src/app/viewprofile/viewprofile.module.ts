@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { ViewprofilePage } from './viewprofile.page';
 
-
 const routes: Routes = [
   {
     path: '',
