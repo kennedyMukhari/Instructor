@@ -257,6 +257,7 @@ export class TheMapPage implements OnInit {
           dateout : element.doc.dateout,
           book :  element.doc.book,
           location :  element.doc.location.address,
+          route: element.doc.location,
           time : element.doc.time,
           packageName : element.doc.package.name,
           docid : element.docid,
@@ -292,7 +293,7 @@ export class TheMapPage implements OnInit {
       // -26.260901, 27.949600699999998
       //here
       const icon = {
-        url: '../../assets/icon/icon.png', // image url
+        url: 'https://cdn.mapmarker.io/api/v1/pin?size=50&background=%23373737&icon=fa-user&color=%23FFFFFF&voffset=0&hoffset=1&', // image url
         scaledSize: new google.maps.Size(50, 50), // scaled size
         origin: new google.maps.Point(0, 0), // origin
         anchor: new google.maps.Point(0, 0) // anchor
@@ -428,7 +429,7 @@ export class TheMapPage implements OnInit {
         map: this.map,
         animation: google.maps.Animation.DROP,
         position: myLatLng,
-        
+        icon: 'https://cdn.mapmarker.io/api/v1/pin?size=50&background=%23FFFFFF&icon=fa-car&color=%239F0500&voffset=0&hoffset=1&'
       });
   
       let content = "<p>You!</p>";
