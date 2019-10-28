@@ -23,8 +23,12 @@ export class ViewdetailsPage implements OnInit {
 
       this.NewRequesteWithPictures = [];
       this.NewRequesteWithPictures = this.data.DeliveredData;
-      console.log("Data in the View details page",  this.NewRequesteWithPictures );
+     
 
+     }
+
+     lll(){
+      console.log("Data in the View details page",  this.NewRequesteWithPictures );
      }
 
   
@@ -50,8 +54,9 @@ export class ViewdetailsPage implements OnInit {
 
   
   Displaydata(){
-  
   }
+
+
 
   Accept(obj, i, docid) {
 
@@ -61,19 +66,23 @@ export class ViewdetailsPage implements OnInit {
       this.data.AcceptedData.push({obj: obj.obj, index:i, docid:docid});
       //  this.data.SavedData.push({obj: obj, index:i, docid:docid});
       this.data.NewRequesteWithPictures.splice(i, 1);
-      
+      this.NewRequesteWithPictures = [];
+      this.data.DeliveredData = [];
     this.presentAlert();
     // this.router.navigateByUrl('pastbookings');
     this.router.navigateByUrl('main/the-map');
 
   }
 
+
   async Decline(docid, i, x) {
 
     this.db.collection('bookings').doc(docid).set({ confirmed: 'rejected' }, { merge: true });
     this.data.NewRequesteWithPictures.splice(i, 1)
 
-    this.data.SavedData.splice(i, 1)
+    this.data.SavedData.splice(i, 1);
+    this.NewRequesteWithPictures = [];
+    this.data.DeliveredData = [];
     const alert = await this.alertController.create({
       header: 'Declined Successfully.',
       subHeader: '',

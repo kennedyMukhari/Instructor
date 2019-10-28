@@ -15,6 +15,9 @@
   <div class="bookingD">
     <h3>Booking Details</h3>
     <!-- <p>Code 08</p> -->
+
+   
+
     <p>{{NewRequesteWithPictures[0].obj.packageName}}</p>
     <p>R1445.00</p>
     <p>from {{NewRequesteWithPictures[0].obj.datein}} to {{NewRequesteWithPictures[0].obj.dateout}}</p>
@@ -32,5 +35,6 @@
       <button (click)="Decline(NewRequesteWithPictures[0].docid, NewRequesteWithPictures[0].i)">Decline</button>
     </div>
   </div>
+  
 </div>
 </ion-content>
