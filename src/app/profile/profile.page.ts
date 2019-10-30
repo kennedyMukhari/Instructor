@@ -20,6 +20,7 @@ import { IonSlides } from '@ionic/angular';
 import { ViewprofilePage } from "../viewprofile/viewprofile.page";
 import { DataSavedService } from '../../app/data-saved.service'
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -50,26 +51,37 @@ export class ProfilePage implements OnInit {
   singlePackAmount = 0;
   segmentVal = 'code01';
 
-  packages = [
+   packages = [
 
-    {code01: [ //3
+    {code01: [
+       //3
+     
     ],
-  price: 0},
+  price: 0
+},
 
     {code08: [ //0
+     
     ],
-    price: 0},
+    price: 0
+  },
 
     {code10: [ //1
+
+     
     ],
-    price: 0},
+    price: 0
+  },
 
     
     {code14: [ //2
+
+     
     ],
-    price: 0}
-   
-  ];
+    price: 0
+  }
+
+];
 
 counter : number = 0;
   showPrice : boolean = false;
@@ -597,43 +609,60 @@ this.router.navigateByUrl('past-b')
 
 
   segmentChanged(ev) {
- 
+
     console.log(this.packsToDisplay);
     this.zone.run(()=> {
 
     // ev.detail.value
     switch (ev.detail.value) {
       case 'code01':
-        this.packsToDisplay = []
-       this.packsToDisplay =  this.packages[0].code01;
+        this.packsToDisplay = this.packages
+        if(this.packages[1].code01.length>0) {
+                 this.packsToDisplay =  this.packages[0].code01;
        this.singlePackAmount = this.packages[0].price
+        }
+
        console.log(this.packstoEdit);
        
         break;
         case 'code08':
           this.packsToDisplay = []
-          this.packsToDisplay =  this.packages[1].code08
+          if(this.packages[1].code08.length>0) {
+            console.log('pac');
+            
+            this.packsToDisplay =  this.packages[1].code08
           this.singlePackAmount = this.packages[1].price
+          } else {
+            console.log('pack undefined');
+            
+          }
           console.log(this.packstoEdit);
           break;
           case 'code10':
             this.packsToDisplay = []
-            this.packsToDisplay =  this.packages[2].code10
+            if(this.packages[1].code10.length>0) {
+              this.packsToDisplay =  this.packages[2].code10
             this.singlePackAmount = this.packages[2].price
+            }
+            
             console.log(this.packstoEdit);
             break;
             case 'code14':
               this.packsToDisplay = []
-              this.packsToDisplay =  this.packages[3].code14
+              if(this.packages[1].code14.length>0) {
+                this.packsToDisplay =  this.packages[3].code14
               this.singlePackAmount = this.packages[3].price
+              }
+              
         break;
       default:
         break;
     }
     
     }
-    )
-  }
+    )   
+
+}
 
 
 toedit() {

@@ -119,7 +119,7 @@
     </div>
   </div>
 ​
-  <ion-segment style="width: 96vw !important; margin: auto;" [(ngModel)]="segmentVal" (ionChange)="segmentChanged($event)">
+  <ion-segment  style="width: 96vw !important; margin: auto;" [(ngModel)]="segmentVal" (ionChange)="segmentChanged($event)">
 
     <ion-segment-button value="code01">
       <ion-label >Code 01</ion-label>
@@ -139,24 +139,25 @@
 
   </ion-segment>
 ​
- 
-​
   <div class="lessonCont">
-      <div class="lessonCard" *ngFor="let p of packsToDisplay; let i = index" (click)="presentActionSheet(i, p)">
-          <div class="title">
-            <div class="lName">
-              <h5>{{p.name}} <sub>{{p.code}}</sub> </h5>
+    <div *ngIf="packsToDisplay!==undefined">
+        <div class="lessonCard" *ngFor="let p of packsToDisplay; let i = index" (click)="presentActionSheet(i, p)">
+            <div class="title">
+              <div class="lName">
+                <h5>{{p.name}} <sub>{{p.code}}</sub> </h5>
+              </div>
+            </div>
+            <div class="lessonCdetails">
+              <div>
+                <p>R {{p.amount}}.00</p>
+              </div>
+              <div>
+                <p>{{p.number}} lessons</p>
+              </div>
             </div>
           </div>
-          <div class="lessonCdetails">
-            <div>
-              <p>R {{p.amount}}.00</p>
-            </div>
-            <div>
-              <p>{{p.number}} lessons</p>
-            </div>
-          </div>
-        </div>
+    </div>
+      
   </div>
 ​
  
