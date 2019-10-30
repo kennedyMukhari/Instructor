@@ -214,6 +214,8 @@ this.router.navigateByUrl('past-b')
 
 
   async presentActionSheet(i, p) {
+
+
     let packageIndex = i
     let packge = p
     const actionSheet = await this.actionSteetCtrl.create({
@@ -300,7 +302,10 @@ this.router.navigateByUrl('past-b')
       }]
     });
     await actionSheet.present();
+    
   }
+
+
 
 
 
