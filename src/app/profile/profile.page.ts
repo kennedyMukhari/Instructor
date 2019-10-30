@@ -18,6 +18,7 @@ import { NgZone } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
 import { ViewprofilePage } from "../viewprofile/viewprofile.page";
+import { DataSavedService } from '../../app/data-saved.service'
 
 @Component({
   selector: 'app-profile',
@@ -62,6 +63,8 @@ export class ProfilePage implements OnInit {
     {code10: [ //1
     ],
     price: 0},
+
+    
     {code14: [ //2
     ],
     price: 0}
@@ -87,7 +90,8 @@ counter : number = 0;
      public elementref: ElementRef, 
      public alert : LoadingController,
      public NavCtrl: NavController,
-      public actionSteetCtrl: ActionSheetController
+      public actionSteetCtrl: ActionSheetController,
+      public Mypackages : DataSavedService
      ) 
 
      {
@@ -342,6 +346,8 @@ this.router.navigateByUrl('past-b')
   }
 
   addPackage() {
+
+  
  
     this.zone.run(async()=> {
       // checking what code is being added
@@ -624,7 +630,9 @@ this.router.navigateByUrl('past-b')
       default:
         break;
     }
-    })
+    
+    }
+    )
   }
 
 

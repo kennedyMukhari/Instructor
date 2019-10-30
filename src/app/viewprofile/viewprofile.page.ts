@@ -572,6 +572,8 @@ else{
       correctOrientation: true,
       sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM
     }
+
+
     await this.camera.getPicture(option).then(res => {
       console.log(res);
       const image = `data:image/jpeg;base64,${res}`;
@@ -599,7 +601,11 @@ else{
       console.log("Something went wrong: ", err);
     })
     this.imageSelected = true;
+
+
   }
+
+
   showTab() {
     this.platform.ready().then(() => {
       console.log('Core service init');
@@ -608,6 +614,8 @@ else{
     });
 
   }
+
+
   async  createMyAccount(x): Promise<void> {
     console.log("Profile = ",x)
     
@@ -626,11 +634,10 @@ else{
           image: this.businessdata.image,
           open: x.open,
           coords: this.businessdata.coords,
-          packages: this.packages,
           schoolname: this.businessdata.schoolname,
           schooluid: firebase.auth().currentUser.uid,
           average: this.businessdata.average
-        }).then(async (res) => {
+        }, { merge: true }).then(async (res) => {
         
         }).catch(error => {
           
