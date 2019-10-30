@@ -157,8 +157,8 @@ export class ViewprofilePage implements OnInit {
   error = ""
   profileImage: string;
   userProv: any;
-  uploadprogress: number;
-  isuploading: boolean;
+  uploadprogress = 0;
+  isuploading = false;
   userProfile: any;
   isuploaded: boolean;
   imageSelected: boolean;
@@ -580,24 +580,19 @@ else{
       let imageRef = this.storage.child('image').child('imageName');
       const upload = imageRef.putString(image, 'data_url');
       upload.on('state_changed', snapshot => {
-        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        this.uploadprogress = progress;
-        if (progress == 100) {
+        this.uploadprogress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(this.uploadprogress);
+        
+        if (this.uploadprogress > 0) {
           this.isuploading = true;
-          if (this.uploadprogress == 100) {
-            this.isuploading = false;
-          } else {
-            this.isuploading = true;
-          }
-
-
         }
       }, err => {
       }, () => {
         upload.snapshot.ref.getDownloadURL().then(downUrl => {
           this.businessdata.image = downUrl;
           console.log('Image downUrl', downUrl);
-          this.isuploaded = true;
+          this.isuploading = false;
+          
         })
       })
     }, err => {
@@ -658,11 +653,6 @@ else{
 
     } else {
 
-      const alert = await this.alertController.create({
-        message: 'Fields cannot be empty!',
-        buttons: ['OK']
-      });
-      await alert.present();
 
     }
 

@@ -12,9 +12,16 @@
         <ion-icon name="create"></ion-icon>
       </ion-fab-button>
     </ion-fab>
+
+    <p *ngIf="isuploading" style="color: white;">Uploading</p>
+    <div class="progress">
+    <ion-progress-bar *ngIf="isuploading"  color="secondary" value="{{uploadprogress/100}}"></ion-progress-bar>
+    </div>
+    
   </div>
-  <!-- <form #profileForm="ngForm" (ngSubmit)="createMyAccount(profileForm.value)"> -->
- 
+
+
+   
 
     <ion-slides #mySlider (ionSlideWillChange)="doCheck()">
     <ion-slide>
@@ -60,8 +67,6 @@
             <div class="blank">
             </div>
             <div class="inputs">
-
-
               <a>Address</a>
               <input type="text" #autocomplete id="autocomplete"
                 (onFocus)="initAutocomplete()" type="text" [(ngModel)]="businessdata.address" >
@@ -115,9 +120,6 @@
                 <ion-datetime displayFormat="HH:mm"   [(ngModel)]=" businessdata.open" >
                 </ion-datetime>
               </ion-item>
-
-              
-
             </div>
             <div class="t2">
             </div>
@@ -126,9 +128,6 @@
               <ion-item>
                 <ion-datetime displayFormat="HH:mm" [(ngModel)]="businessdata.closed">
                 </ion-datetime>
-
-              
-
               </ion-item>
             </div>
           </div>
@@ -148,6 +147,4 @@
       </div>
     </ion-slide>
   </ion-slides>
- 
-  
 </ion-content>

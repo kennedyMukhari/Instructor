@@ -376,7 +376,7 @@ this.router.navigateByUrl('past-b')
                   message: 'Fields cannot be empty!',
                   buttons: ['OK']
                 });
-                await alert.present();
+                // await alert.present();
               }
 
             }else{

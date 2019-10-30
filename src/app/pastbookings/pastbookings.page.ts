@@ -29,7 +29,7 @@ export class PastbookingsPage implements OnInit {
  value : string = '';
  placeid : string = 'https://www.google.com/maps/place/?q=place_id:ChIJz61BHrUJlR4RieDxkSG75mE';
  dataDisplay = [];
-
+geocoder = new google.maps.Geocoder()
   constructor(public data : DataSavedService, public alertController: AlertController, public platform : Platform) { 
 console.log("DATA IN THE PAST", this.data.SavedData);
 
@@ -97,8 +97,20 @@ console.log("DATA IN THE PAST", this.data.SavedData);
  }
 
 
- GoTo(placeid){
-  return window.location.href = 'https://www.google.com/maps/place/?q=place_id:'+placeid;
+ GoTo(booking){
+   console.log('destination ', booking);
+   firebase.auth().onAuthStateChanged(user => {
+    this.db.collection('drivingschools').doc(user.uid).get().then(res => {
+      console.log('origin, ',res.data());
+      let bLat = booking.obj.route.lat
+      let bLng = booking.obj.route.lng
+     let sLat =  res.data().coords.lat
+     let sLng =  res.data().coords.lng
+return window.location.href = `https://www.google.com/maps/dir/?api=1&origin=${sLat},${sLng}&destination=${bLat},${bLng}&travelmode=driving`;
+    })
+  })
+  
+  
 }
 
  CheckArrayLength(){
