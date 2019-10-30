@@ -66,7 +66,9 @@ console.log("DATA IN THE PAST", this.data.SavedData);
   
  ionViewDidEnter(){
   this.dataDisplay = [];
-  this.dataDisplay = this.data.AcceptedData
+  this.dataDisplay = this.data.AcceptedData;
+  console.log("====================", this.dataDisplay);
+  
   // this.platform.ready().then(() => {
   //   console.log('Core service init');
   //   const tabBar = document.getElementById('myTabBar');

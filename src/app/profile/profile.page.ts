@@ -38,6 +38,7 @@ export class ProfilePage implements OnInit {
   // average = 0;
   // ratingTotal = 0
   DrivingSchoolOwnerDetails = [];
+  
   packstoEdit = {
     amount: '',
     code: '',
@@ -66,6 +67,7 @@ export class ProfilePage implements OnInit {
     price: 0}
    
   ];
+
 counter : number = 0;
   showPrice : boolean = false;
 
@@ -89,39 +91,39 @@ counter : number = 0;
      ) 
 
      {
-
-
+      
   }
 
 
   ngOnInit() {
+    this.packsToDisplay = [];
     this.zone.run(()=> {
       this.calculateAverage()
-      firebase.auth().onAuthStateChanged(user => {
-        this.db.collection('drivingschools').doc(user.uid).get().then(res => {
-          this.schoolDetails = res.data();
-          this.packages = res.data().packages
-          this.packsToDisplay = []
-          this.packsToDisplay =  this.packages[0].code01
-          this.singlePackAmount = this.packages[0].price
-          console.log(this.packages);
-          console.log('Driving school details', res.data());
+      // firebase.auth().onAuthStateChanged(user => {
+      //   this.db.collection('drivingschools').doc(user.uid).get().then(res => {
+      //     this.schoolDetails = res.data();
+      //     this.packages = res.data().packages
+      //     this.packsToDisplay = []
+      //     this.packsToDisplay =  this.packages[0].code01
+      //     this.singlePackAmount = this.packages[0].price
+      //     console.log(this.packages);
+      //     console.log('Driving school details', res.data());
           
-        })
-      })
+      //   })
+      // })
     })
 
-    this.db.collection('drivingschools').onSnapshot(snapshot => {
-      this.DrivingSchoolOwnerDetails = [];
-      snapshot.forEach(doc => {
+    // this.db.collection('drivingschools').onSnapshot(snapshot => {
+    //   this.DrivingSchoolOwnerDetails = [];
+    //   snapshot.forEach(doc => {
     
        
-        if (doc.data().schooluid === firebase.auth().currentUser.uid) {
-          console.log("Data data", doc.data());
-          this.DrivingSchoolOwnerDetails.push({ docid: doc.id, doc: doc.data() });
-        }
-      });
-    });
+    //     if (doc.data().schooluid === firebase.auth().currentUser.uid) {
+    //       console.log("Data data", doc.data());
+    //       this.DrivingSchoolOwnerDetails.push({ docid: doc.id, doc: doc.data() });
+    //     }
+    //   });
+    // });
 
   }
 
@@ -130,7 +132,7 @@ counter : number = 0;
      
     firebase.auth().onAuthStateChanged(user => {
       this.db.collection('drivingschools').doc(user.uid).get().then(res => {
-        this.schoolDetails = res.data();
+        // this.schoolDetails = res.data();
         this.packages = res.data().packages
         this.packsToDisplay = []
         this.packsToDisplay =  this.packages[0].code01
@@ -143,17 +145,20 @@ counter : number = 0;
   
 
   this.db.collection('drivingschools').onSnapshot(snapshot => {
-    this.DrivingSchoolOwnerDetails = [];
+    this.schoolDetails = {};
     snapshot.forEach(doc => {
   
      
       if (doc.data().schooluid === firebase.auth().currentUser.uid) {
         console.log("Data data", doc.data());
-        this.DrivingSchoolOwnerDetails.push({ docid: doc.id, doc: doc.data() });
+        // this.DrivingSchoolOwnerDetails.push({ docid: doc.id, doc: doc.data() });
+        this.schoolDetails = doc.data();
       }
     });
   });
+
   }
+
   // calculateAverage(){
   //   firebase.auth().onAuthStateChanged(user => {
   //     this.db.collection('reviews').where('schooluid','==',user.uid).onSnapshot(snap => {
@@ -165,6 +170,8 @@ counter : number = 0;
   //     })
   //   })
   // }
+
+
   async Logout() {
 
   
@@ -186,6 +193,7 @@ counter : number = 0;
                     console.log('You are logged out');
                     firebase.auth().signOut().then((res) => {
                      console.log(res);
+                     this.schoolDetails = {};
                       this.router.navigateByUrl('/login');
                     })
                   }
@@ -195,8 +203,8 @@ counter : number = 0;
         
             await alert.present();
 
-            this.packsToDisplay = [];
-            this.schoolDetails = [];
+            // this.packsToDisplay = [];
+          
 }
 
 
@@ -578,9 +586,10 @@ this.router.navigateByUrl('past-b')
 
 
   segmentChanged(ev) {
+ 
     console.log(this.packsToDisplay);
     this.zone.run(()=> {
-      
+
     // ev.detail.value
     switch (ev.detail.value) {
       case 'code01':

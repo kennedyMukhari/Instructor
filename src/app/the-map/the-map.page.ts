@@ -13,6 +13,7 @@ import { DataSavedService } from '../data-saved.service';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 declare var google;
 
@@ -57,10 +58,10 @@ export class TheMapPage implements OnInit {
   }
 
 
-  constructor(public loadingController:LoadingController,private geolocation: Geolocation, private platform: Platform, public alertController: AlertController, public AuthService: AuthService, public data: DataSavedService, public router: Router, private nativeGeocoder: NativeGeocoder, public elementref: ElementRef, public renderer: Renderer2, private localNot: LocalNotifications, private userService: UserService,
-    public loadingCtrl: LoadingController) {
+  constructor(public loadingController:LoadingController,private geolocation: Geolocation,private screenOrientation: ScreenOrientation, private platform: Platform, public alertController: AlertController, public AuthService: AuthService, public data: DataSavedService, public router: Router, private nativeGeocoder: NativeGeocoder, public elementref: ElementRef, public renderer: Renderer2, private localNot: LocalNotifications, private userService: UserService,
+    public loadingCtrl: LoadingController){
     this.pushNotification();
-  
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     console.log('notification' ,this.pushNotification)
   }
 
@@ -404,7 +405,8 @@ export class TheMapPage implements OnInit {
     }).catch(err => {
       this.addMap(-29.465306,-24.741967);
     })
-    this.loaderAnimate = false;
+
+   
   }
 
 
@@ -698,6 +700,7 @@ export class TheMapPage implements OnInit {
     }
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+     this.loaderAnimate = false;
   }
 
   //=====================

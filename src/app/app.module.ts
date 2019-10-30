@@ -23,7 +23,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { InstructorPipe } from './instructor.pipe';
-
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 
 
@@ -53,6 +53,7 @@ firebase.initializeApp(FIREBASE_CONFIG);
     SplashScreen,
     Camera,
     LocalNotifications,
+    ScreenOrientation,
     // PhotoViewer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     NativeGeocoder,

@@ -3,6 +3,8 @@ import { IonSlides } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+
 @Component({
   selector: 'app-onboarding',
   templateUrl: './onboarding.page.html',
@@ -14,12 +16,14 @@ export class OnboardingPage implements OnInit {
 
   constructor(private router: Router,
     private storage: Storage,
+    private screenOrientation: ScreenOrientation,
     public splashscreen: SplashScreen) {
     //constructor code
     
   }
 
   ngOnInit() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     this.splashscreen.hide()
   }
 

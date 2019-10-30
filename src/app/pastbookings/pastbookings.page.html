@@ -4,9 +4,9 @@
          {{value}}
       </h1>
     </div>
-    <div class="container" padding>
+    <div class="container" padding *ngFor = "let obj of dataDisplay; let i = index">
   
-      <div class="card" *ngFor = "let obj of dataDisplay; let i = index">
+      <div class="card" >
   
           <div class="image">
             <img src="{{obj.obj.image}}" alt="No Image">
@@ -17,6 +17,7 @@
               
               <p (click)="GoTo(obj.placeid)"style="font-size: 3vw">{{obj.obj.location}}</p>
               <p style="font-size: 3vw">Contacts: {{obj.obj.phone}}</p><br />
+              <!-- <p style="font-size: 3vw">Date: {{obj.obj.datein}}</p> -->
               <!-- <p style="font-size: 2.5vw">{{obj.phone}}</p> -->
             </div>
           </div>

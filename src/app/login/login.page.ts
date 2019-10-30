@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { Directive, HostListener, Output, EventEmitter, ElementRef, Input } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -15,6 +16,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
   selector: '[br-data-dependency]' // Attribute selector
 })
 export class LoginPage implements OnInit {
+
   loaderAnimate = false;
   public onSubmit(): void {
     // ...

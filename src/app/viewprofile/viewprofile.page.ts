@@ -714,9 +714,11 @@ else{
   profile() {
     this.router.navigate(['the-map']);
   }
+  
   view() {
     this.router.navigate(['viewprofile']);
   }
+
   openImage(image, cmd) {
     // console.log('Open triggerd');
     console.log(this.elementref);

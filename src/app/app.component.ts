@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { TabsService } from './core/tabs.service';
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
  
 @Component({
   selector: 'app-root',
@@ -28,13 +29,14 @@ export class AppComponent {
     private statusBar: StatusBar,
     public router: Router,
     public alertCtrl: AlertController,
-    public oneSignal: OneSignal,private storage: Storage
+    public oneSignal: OneSignal,private storage: Storage,
+    private screenOrientation: ScreenOrientation,
     
   ) 
   
   
   {
-
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     this.initializeApp();
     // let status bar overlay webview
     // this.statusBar.overlaysWebView(true);
