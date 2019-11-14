@@ -33,19 +33,20 @@ export class ViewdetailsPage implements OnInit {
 
   
      ionViewWillLeave(){
-     
+       console.log('Will leave');
+       
+      this.user = {}
      }
 
   ngOnInit() {
     
    this.zone.run(()=>{
     this.user = this.rounte.getCurrentNavigation().extras.state.booking
+    console.log('Booking currintly viewed ', this.user);
+    
     this.userService.getUserProfile().then(res => {
     })
-    this.rounte.paramsInheritanceStrategy = 'always'
-    console.log(this.rounte.getCurrentNavigation().extras.state.booking);
-
-    
+    this.rounte.paramsInheritanceStrategy = 'always';
    })
   }
 
@@ -58,32 +59,27 @@ export class ViewdetailsPage implements OnInit {
 
 
 
-  Accept(obj, i, docid) {
+  Accept(docid) {
 
-    this.db.collection('bookings').doc(docid).set(
-      { confirmed: 'accepted' }, { merge: true }
-      );
-      this.data.AcceptedData.push({obj: obj.obj, index:i, docid:docid});
-      //  this.data.SavedData.push({obj: obj, index:i, docid:docid});
-      this.data.NewRequesteWithPictures.splice(i, 1);
-      this.NewRequesteWithPictures = [];
-      this.data.DeliveredData = [];
-    this.presentAlert();
-    // this.router.navigateByUrl('pastbookings');
-    this.router.navigateByUrl('main/the-map');
+    this.db.collection('bookings').doc(docid).set({ confirmed: 'accepted' }, { merge: true }).then(async res=>{
+      const alert = await this.alertController.create({
+     header: 'Accepted Successfully.',
+     subHeader: '',
+     message: '',
+     buttons: ['OK']
+   });
+
+   await alert.present();
+   this.router.navigateByUrl('main/the-map');
+   })
 
   }
 
 
-  async Decline(docid, i, x) {
+  async Decline(docid) {
 
-    this.db.collection('bookings').doc(docid).set({ confirmed: 'rejected' }, { merge: true });
-    this.data.NewRequesteWithPictures.splice(i, 1)
-
-    this.data.SavedData.splice(i, 1);
-    this.NewRequesteWithPictures = [];
-    this.data.DeliveredData = [];
-    const alert = await this.alertController.create({
+    this.db.collection('bookings').doc(docid).set({ confirmed: 'rejected' }, { merge: true }).then(async res=>{
+       const alert = await this.alertController.create({
       header: 'Declined Successfully.',
       subHeader: '',
       message: '',
@@ -92,6 +88,8 @@ export class ViewdetailsPage implements OnInit {
 
     await alert.present();
     this.router.navigateByUrl('main/the-map');
+    })
+   
     
   }
 

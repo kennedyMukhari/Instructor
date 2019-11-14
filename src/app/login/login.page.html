@@ -4,7 +4,7 @@
   <!-- <div class="loader"> -->
     <div class="load-ctrl">
         <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-        Logging In
+        <p style="color: white; font-size: 4vw; text-align: center">Logging In</p>
     </div>
   </div>
  
@@ -28,7 +28,7 @@
       <div class="cont">
         <div class="login">
           <!-- LOGIN FORM -->
-          <form #signinForm="ngForm" (ngSubmit)="loginUser(signinForm.value)" >
+          <form #signinForm="ngForm" (ngSubmit)="loginUser(signinForm.value); signinForm.reset()" >
               <div class="title">
                   <h1>
                     SIGN IN
@@ -42,7 +42,7 @@
               <div class="inp">
                   <!-- (keyup.enter)="submit()"
                   (keyup.enter)="submit()" -->
-                <input type="email" ngModel name="email" >
+                <input type="email" onfocus="this.value=''" ngModel name="email" id="email" >
               </div>
             </div>
             <div class="error"  style="text-align: right; width: 100%;"  *ngIf="loginError.code=='auth/invalid-email'">

@@ -25,8 +25,6 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { InstructorPipe } from './instructor.pipe';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
-
-
 firebase.initializeApp(FIREBASE_CONFIG);
 
 @NgModule({

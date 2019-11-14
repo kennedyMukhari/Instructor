@@ -107,23 +107,35 @@ export class ViewprofilePage implements OnInit {
   opened: boolean
 
   businessdata = {
-    schoolname: '',
-    registration: '',
-    image: '',
-    email: '',
-    cellnumber: '',
-    cost: '',
-    desc: '',
-    address: '',
-    packages: [],
-    open: '',
-    closed: '',
-    allday: 'true',
-    schooluid: '',
-    city: '',
-    coords: { lat: '', lng: '' },
-    average: 0
+    address: null,
+    allday: null,
+    avarage: null,
+    cellnumber: null,
+    city: null,
+    closed: null,
+    coords: {
+      lat: null,
+      lng: null
+    },
+    desc: null,
+    email: firebase.auth().currentUser.email,
+    image: 'https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d',
+    open: null,
+    packages:{
+      code01: [],
+      code01Price: 0,
+      code08: [],
+      code08Price: 0,
+      code10: [],
+      code10Price: 0,
+      code14: [],
+      code14Price: 0
+    },
+    schoolname: null,
+    schooluid: null,
+    tokenId: null,
   }
+
   DrivingSchoolOwnerDetails = [];
   viewImage = {
     image: '',
@@ -167,31 +179,6 @@ export class ViewprofilePage implements OnInit {
   showButton1: boolean;
   DisplayPackages = [];
 
-  packages = [
-
-    {
-      code01: [ //3
-      ],
-      price: 0
-    },
-    {
-      code08: [ //0
-      ],
-      price: 0
-    },
-    {
-      code10: [ //1
-      ],
-      price: 0
-    },
-    {
-      code14: [ //2
-      ],
-      price: 0
-    }
-
-  ]
-
   constructor(
     public toastController:ToastController,
     public zone: NgZone,
@@ -210,115 +197,85 @@ export class ViewprofilePage implements OnInit {
 
 
   ) {
-    this.db.collection('drivingschools').where('schooluid', '==', firebase.auth().currentUser.uid).get().then(res => {
-
-      res.forEach(doc => {
-        console.log(doc.data());
-        this.tempData = doc.data().schoolname;
-        this.businessdata.image = doc.data().image
-        this.businessdata.schoolname = doc.data().schoolname
-        this.businessdata.registration = doc.data().registration
-        this.businessdata.email = doc.data().email
-        this.businessdata.cellnumber = doc.data().cellnumber
-        this.businessdata.desc = doc.data().desc
-        this.businessdata.open = doc.data().open
-        this.businessdata.address = doc.data().address
-        this.businessdata.closed = doc.data().closed
-        this.businessdata.packages = doc.data().packages
-      })
-
-
-      this.DisplayPackages = this.businessdata.packages[2].code10;
-      this.pack = this.businessdata.packages[0];
-      this.tempData = this.businessdata.schoolname;
-      if (this.tempData === '') {
-        this.showButton = true;
-        this.textInButton = "Done";
-        this.tempData = '';
-      } else {
-        this.showButton1 = true;
-        this.textInButton = "Update";
-        this.tempData = '';
-      }
-
-
-    }).catch(err => {
-      console.log(err);
-
-    })
-
-
-    // this.profileForm = this.formBuilder.group({
-
-    //   address: [this.businessdata.address, Validators.compose([
-    //     Validators.required,
-    //     Validators.minLength(1)
-    //   ])],
-
-    //   schoolname: [this.businessdata.schoolname, Validators.compose([Validators.required])],
-    //   cellnumber: [
-    //     this.businessdata.cellnumber,
-    //     Validators.compose([
-    //       Validators.required,
-    //       Validators.minLength(10),
-    //       Validators.maxLength(10)])
-    //   ],
-    //   desc: [this.businessdata.desc, Validators.compose([Validators.required])],
-    //   open: [
-    //     this.businessdata.open,
-    //     Validators.compose([Validators.required])
-    //   ],
-    //   closed: [
-    //     this.businessdata.closed,
-    //     Validators.compose([Validators.required])
-    //   ]
-    // });
-
-    // setTimeout(() => {
-    //   this.profileForm = this.formBuilder.group({
-    //     address: [this.businessdata.address, Validators.compose([
-    //       Validators.required,
-    //       Validators.minLength(7)
-    //     ])],
-    //     schoolname: [this.businessdata.schoolname, Validators.compose([Validators.required])],
-    //     cellnumber: [
-    //       this.businessdata.cellnumber,
-    //       Validators.compose([
-    //         Validators.required,
-    //         Validators.minLength(10),
-    //         Validators.maxLength(10)])
-    //     ],
-    //     desc: [this.businessdata.desc, Validators.compose([Validators.required])],
-    //     open: [
-    //       this.businessdata.open,
-    //       Validators.compose([Validators.required])
-    //     ],
-    //     closed: [
-    //       this.businessdata.closed,
-    //       Validators.compose([Validators.required])
-    //     ]
-    //   });
-    // }, 500)
-
-
     this.platform.ready().then(() => {
       const tabBar = document.getElementById('myTabBar');
       tabBar.style.display = 'flex';
     });
-
-
-
-
   }
   ngOnInit() {
-    this.splashscreen.hide()
-    setTimeout(() => {
-      let viewimage = this.elementref.nativeElement.children[0].children[0]
-      console.log('ggg', viewimage);
-      this.renderer.setStyle(viewimage, 'opacity', '0');
-      this.renderer.setStyle(viewimage, 'transform', 'scale(0)');
-    }, 200)
+   
   }
+
+
+  ionViewWillEnter() {
+
+    this.zone.run(()=>{
+      this.businessdata.schooluid = firebase.auth().currentUser.uid
+      this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).get().then(res => {
+        if (res.exists) {
+          this.tempData = res.data().schoolname;
+          this.businessdata = {
+            address: res.data().address,
+            allday: res.data().allday,
+            avarage: 0,
+            cellnumber: res.data().cellnumber,
+            city: res.data().city,
+            closed: res.data().closed,
+            coords: res.data().coords,
+            desc: res.data().desc,
+            email: firebase.auth().currentUser.email,
+            image: res.data().image,
+            open: res.data().open,
+            packages: res.data().packages,
+            schoolname: res.data().schoolname,
+            schooluid:firebase.auth().currentUser.uid,
+            tokenId: res.data().tokenId,
+          }
+          console.log('document ',this.businessdata);
+          
+        } else {
+          console.log('No Profile for this driving school')
+        }
+          
+          console.log(this.businessdata);
+          
+        this.tempData = this.businessdata.schoolname;
+        if (this.tempData === '') {
+          this.showButton = true;
+          this.textInButton = "Done";
+          this.tempData = '';
+        } else {
+          this.showButton1 = true;
+          this.textInButton = "Update";
+          this.tempData = '';
+        }
+  
+      }).catch(err => {
+        console.log(err);
+  
+      })
+      setTimeout(()=>{
+        this.splashscreen.hide()
+            },2000)
+  
+            
+      this.splashscreen.hide()
+      setTimeout(() => {
+        let viewimage = this.elementref.nativeElement.children[0].children[0]
+        console.log('ggg', viewimage);
+        this.renderer.setStyle(viewimage, 'opacity', '0');
+        this.renderer.setStyle(viewimage, 'transform', 'scale(0)');
+      }, 200)
+    })
+    
+
+    this.initAutocomplete();
+    this.counter = 0;
+    this.getUserPosition();
+
+
+  }
+  
   swipeUp() {
     this.display = !this.display;
   }
@@ -388,63 +345,8 @@ else{
   }
 
 
-  ionViewWillEnter() {
-
-    this.initAutocomplete();
-    this.counter = 0;
-    this.getUserPosition();
-  }
-
-  async addPack() {
-
-    if (this.code !== '' && this.name !== '' && this.amount !== '' && this.number !== '') {
-
-      if (this.code === 'Code 1') {
-        this.packages[0].code01.push({ name: this.name, amount: this.amount, number: this.number, code: 'Code 01' })
-
-        const alert = await this.alertController.create({
-          message: 'Package added',
-          buttons: ['OK']
-        });
-        await alert.present();
-
-      } else if (this.code === 'Code 8') {
-        this.packages[1].code08.push({ name: this.name, amount: this.amount, number: this.number, code: 'Code 08' })
-
-        const alert = await this.alertController.create({
-          message: 'Package added',
-          buttons: ['OK']
-        });
-        await alert.present();
-
-      } else if (this.code === 'Code 10') {
-        this.packages[2].code10.push({ name: this.name, amount: this.amount, number: this.number, code: 'Code 10' })
-
-        const alert = await this.alertController.create({
-          message: 'Package added',
-          buttons: ['OK']
-        });
-        await alert.present();
 
 
-      } else if (this.code === 'Code 14') {
-        this.packages[3].code14.push({ name: this.name, amount: this.amount, number: this.number, code: 'Code 14' })
-
-        const alert = await this.alertController.create({
-          message: 'Package added',
-          buttons: ['OK']
-        });
-        await alert.present();
-      }
-    } else {
-      const alert = await this.alertController.create({
-        message: 'Fields cannot be empty!',
-        buttons: ['OK']
-      });
-      await alert.present();
-    }
-    console.log("Your awesome data is", this.packages);
-  }
   doCheck() {
 
     let prom1 = this.slides.isBeginning();
@@ -477,6 +379,8 @@ else{
     // address fields in the form.
     this.autocomplete.addListener('place_changed', () => { this.fillInAddress() });
   }
+
+
   fillInAddress() {
     // Get the place details from the autocomplete object.
     let place = this.autocomplete.getPlace();
@@ -577,18 +481,15 @@ else{
       const image = `data:image/jpeg;base64,${res}`;
       this.profileImage = image;
       // const UserImage = this.storage.child(this.userProv.getUser().uid+'.jpg');
-      let imageRef = this.storage.child('image').child('imageName');
+      let imageRef = this.storage.child('image_'+this.businessdata.schoolname+'_'+this.businessdata.address)
       const upload = imageRef.putString(image, 'data_url');
       upload.on('state_changed', snapshot => {
-        this.uploadprogress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(this.uploadprogress);
-        
-        if (this.uploadprogress > 0) {
-          this.isuploading = true;
-        }
+        this.uploadprogress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100; 
+        this.isuploading = true;
       }, err => {
       }, () => {
         upload.snapshot.ref.getDownloadURL().then(downUrl => {
+          this.businessdata.image = null
           this.businessdata.image = downUrl;
           console.log('Image downUrl', downUrl);
           this.isuploading = false;
@@ -608,40 +509,28 @@ else{
     });
 
   }
+  
   async  createMyAccount(x): Promise<void> {
+    
     console.log("Profile = ",x)
     
     if (this.businessdata.open != '' && this.businessdata.closed != '') {
 
       if (this.businessdata.closed.slice(11, 16) != this.businessdata.open.slice(11, 16) && this.businessdata.closed.slice(11, 16) > this.businessdata.open.slice(11, 16)) {
-
-        this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set({
-          address: this.businessdata.address,
-          city: this.businessdata.city,
-          allday: this.businessdata.allday,
-          cellnumber: this.businessdata.cellnumber,
-          closed: this.businessdata.closed,
-          desc: this.businessdata.desc,
-          email: firebase.auth().currentUser.email,
-          image: this.businessdata.image,
-          open: x.open,
-          coords: this.businessdata.coords,
-          packages: this.packages,
-          schoolname: this.businessdata.schoolname,
-          schooluid: firebase.auth().currentUser.uid,
-          average: this.businessdata.average
-        }).then(async (res) => {
         
+        
+        this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).set(this.businessdata).then(async (res) => {
+          const alert = await this.alertController.create({
+            message: 'Profile successfully created!',
+            buttons: ['OK']
+          });
+          await alert.present();
+  
+          this.router.navigateByUrl('main/profile');
         }).catch(error => {
           
         });
-        const alert = await this.alertController.create({
-          message: 'Profile successfully created!',
-          buttons: ['OK']
-        });
-        await alert.present();
-
-        this.router.navigateByUrl('main/profile');
+        
 
       } else {
         const alert = await this.alertController.create({

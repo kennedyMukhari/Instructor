@@ -12,27 +12,38 @@
   .container{
       display: flex;
       flex-direction: column;
-      // height: 85%;
-      height: 25%;
-      overflow: scroll;
+      height: 100%;
+      // height: auto;
+      overflow: visible;
   
       .card {
-        // margin-top: 30px;
+        margin-bottom: 30px;
         display: flex;
         flex-direction: row;
         background: linear-gradient(to right, #790B0B,#4C0A0A);
         position: relative;
         // border: 1px solid green;
-        height: 30vw;
-        padding-left: 36vw;
         border-radius: 10px;
+        button {
+          outline: none !important;
+          position: absolute;
+          bottom: -5vw;
+          right: -5vw;
+          width: 13vw;
+          height: 13vw;
+          padding: 5px 8px;
+          color: white;
+          margin: 0px 3px;
+          border-radius: 200px;
+          box-shadow: 0px 2px 2px #1717173a;
+          background: linear-gradient(90deg, rgb(85, 0, 0), rgb(59, 0, 0));
+        }
         .image {
           // border: 1px solid red;
           width: 35vw;
-          height: 35vw;
+          height: 40vw;
           border-radius: 15px;
           overflow: hidden;
-          position: absolute;
       left: -3px;
       top: -10px;
           img {
@@ -46,6 +57,7 @@
           display: flex;
           align-items: center;
           width: 70%;
+          padding: 5px;
           .det {
             height: 80%;
             width: 100%;
@@ -60,36 +72,7 @@
               text-align: left;
               margin: 3px 0px;
             }
-            .butons{
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              position: absolute;
-              bottom: -10px;
-              left: 35vw;
-              right: 0;
-              button {
-                width: 25%;
-                width: 20vw;
-                padding: 5px 8px;
-                color: white;
-                margin: 0px 3px;
-                border-radius: 200px;
-                box-shadow: 0px 2px 2px #1717173a;
-              }
-            .btns{
-              .bt1{
-                background: #F29F05;
-              }
-            }
-            .btns2{
-            }
-            .bt2{
-              // position: absolute;
-              background: #A61103;
-              
-            }
-          }
+            
         }
         }
       }

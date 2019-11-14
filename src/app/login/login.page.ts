@@ -50,6 +50,8 @@ export class LoginPage implements OnInit {
     private zone: NgZone,
     public splashscreen: SplashScreen
   ) {
+
+
     this.signinForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: [
@@ -57,6 +59,8 @@ export class LoginPage implements OnInit {
         Validators.compose([Validators.required, Validators.minLength(6)])
       ]
     });
+
+
     this.signupForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: [
@@ -89,21 +93,38 @@ export class LoginPage implements OnInit {
   }
 
   async ngOnInit() {
+    setTimeout(()=>{
+      this.splashscreen.hide()
+          },2000)
     this.splashscreen.hide()
   }
 
   async loginUser(signinForm) {
+    
+
     this.zone.run(()=> {
       this.loaderAnimate = true;
     console.log(signinForm);
     firebase.auth().signInWithEmailAndPassword(signinForm.email, signinForm.password).then(res => {
       this.loaderAnimate = false;
-      this.router.navigateByUrl('/main/the-map')
+      this.db.collection('drivingschools').doc(firebase.auth().currentUser.uid).get().then(res => {
+        if (res.exists) {
+        
+          this.router.navigateByUrl('/main/the-map')    
+        } else {
+          this.router.navigate(['viewprofile'])
+        }
+  
+      }).catch(err => {
+        console.log(err);
+  
+      })
+     
     }).catch( async (err) => {
 
       
         const alert = await this.alertCtrl.create({
-          message: 'Email does not exist.',
+          message: err.message,
           buttons: [{ text: 'Ok', role: 'cancel' }]
         });
         await alert.present();
@@ -115,6 +136,7 @@ export class LoginPage implements OnInit {
       this.loginError.message = err.message;
     })
     })
+
   }
 
   async signupUser(signupForm: FormGroup): Promise<void> {
@@ -223,6 +245,7 @@ export class LoginPage implements OnInit {
 
 switchForms(cmd) {
   
+ 
   
   this.formSwitcher = cmd;
   console.log('clicked', this.formSwitcher);

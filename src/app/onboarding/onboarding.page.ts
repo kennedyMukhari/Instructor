@@ -23,7 +23,10 @@ export class OnboardingPage implements OnInit {
   }
 
   ngOnInit() {
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+    setTimeout(()=>{
+      this.splashscreen.hide()
+          },2000)
+    // 
     this.splashscreen.hide()
   }
 

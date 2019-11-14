@@ -41,7 +41,8 @@
         <!-- <div class="loader"> -->
           <div class="load-ctrl">
               <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-              Getting Request
+              <p style="color: white; font-size: 4vw; text-align: center">Getting Request</p>
+              
           </div>
         </div>
 
@@ -53,15 +54,15 @@
         <p *ngIf="!display" color="dark" style="font-size: 3vw;">REQUESTS</p>
       </div>
       <div class="s-list" padding>
-  
-        <div class="card" *ngFor = "let obj of NewRequesteWithPictures; let i = index" (click)="checkBookingProfile(obj, i, obj.docid )">
+        <p *ngIf="NewRequesteWithPictures.length==0" style="color: gray; text-align: center;">No bookings for you yet.</p>
+        <div class="card" *ngFor = "let obj of NewRequesteWithPictures; let i = index" >
   
           <div class="image">
             <img src="{{obj.image}}" alt="No Image">
           </div>
           <div class="details">
             <div class="det">
-              <p style="font-size: 8vw;font-weight: bold">{{obj.name}}</p>
+              <p style="font-size: 5vw;font-weight: bold" (click)="checkBookingProfile(obj, i, obj.docid )">{{obj.name}}</p>
               <p style="font-size: 3vw; width: 100%;">{{obj.location}}</p>
               
               <div class="butons">

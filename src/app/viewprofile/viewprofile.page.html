@@ -32,7 +32,7 @@
           <div class="top">
             <div class="reviews">
               <div class="fab">
-                <ion-fab-button (click)="goToRev()" color="light" size="small">
+                <ion-fab-button [disabled]="!businessdata.closed" (click)="goToRev()" color="light" size="small">
                   <ion-icon name="arrow-back"></ion-icon>
                 </ion-fab-button>
               </div>
@@ -75,7 +75,7 @@
                 <input type="text"   [(ngModel)]="businessdata.schoolname" >
               
                 <a>Cell number</a>
-                <input type="text"  [(ngModel)]="businessdata.cellnumber">
+                <input  type="tel" maxlength="10"  [(ngModel)]="businessdata.cellnumber">
               
                 <a>Description</a>
                 <input type="text" [(ngModel)]="businessdata.desc" >

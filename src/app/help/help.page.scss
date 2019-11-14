@@ -67,13 +67,16 @@ h6{
             align-items: center;
             text-align: center;
             padding: 20px;
+            overflow:  hidden !important;
             h4 {
                   width: 100%;
                   text-transform: uppercase;
             }
       }
       .inform{
-      margin-top: 20%;
+      // margin-top: 20%;
+      display: flex;
+      align-items: center;
       height: 75%;
       background:linear-gradient(rgb(255, 255, 255),rgba(255, 255, 255, 0)),url('../../assets/dims\ \(1\).jpg');
         background-size: 100% auto;
@@ -81,6 +84,10 @@ h6{
         background-position:center 45vh ;
         overflow-y: auto;
      
+      }
+      div {
+            max-height: 100%;
+            overflow-y: auto;
       }
       h4{
             color: white;

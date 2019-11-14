@@ -1,19 +1,30 @@
 <ion-content>
-  <div [ngClass]="{'packEdit': editPacks, 'packEdit-inactive': !editPacks}">
+    <div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
+        <!-- <div class="loader"> -->
+          <div class="load-ctrl">
+              <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+              <p style="color: white; font-size: 4vw; text-align: center">Profiling</p>
+          </div>
+        </div>
+  <div [ngClass]="{'packEdit': editPacks, 'packEdit-inactive': !editPacks}" >
+
+
       <div class="fab">
           <ion-fab-button  (click)="closeEdit()" color="light" size="small">
             <ion-icon name="close"></ion-icon>
           </ion-fab-button>
-        </div>
+      </div>
+
+
     <div class="packForm">
 
         
       <h4>{{segmentVal}}</h4>
       <div class="amountInput">
-        <div class="inp" *ngIf="showPrice">
+        <div class="inp">
             <ion-item>
                 <ion-label position="stacked" >Amount for 1 lesson</ion-label>
-                <ion-input  [(ngModel)]="singlePackAmount"  type="tel"></ion-input>
+                <ion-input  [(ngModel)]="singlePackAmount" type="tel" maxlength="5" ></ion-input>
               </ion-item>
         </div>
         <div class="desc">
@@ -24,17 +35,21 @@
       <div class="pInputs">
         <p>Name of package</p>
         <input [(ngModel)]="packstoEdit.name" type="text">
+        
         <p>Packages price</p>
-        <input [(ngModel)]="packstoEdit.amount" type="tel">
+        <input [(ngModel)]="packstoEdit.amount" type="tel" maxlength="5">
         <p>Number of lessons</p>
-        <input [(ngModel)]="packstoEdit.number" type="tel">
+        <input [(ngModel)]="packstoEdit.number" type="tel" maxlength="3">
+       
       </div>
 ​
-​
       <div class="buttons">
-        <ion-button (click)="addPackage()" shape="round">
-         Done
+        <ion-button *ngIf="formState=='addPack'" (tap)="PackageAdding()" shape="round">
+         Add
         </ion-button>
+        <ion-button *ngIf="formState=='editPack'" (click)="editPackage()" shape="round">
+          Edit
+         </ion-button>
       </div>
     </div>
   </div>
@@ -49,6 +64,7 @@
     </div>
   </div>
   <div class="profileimage">
+
     <div class="editB">
         <ion-fab-button (click)="toedit()" color="light" size="small">
           <ion-icon name="create"></ion-icon>
@@ -57,16 +73,13 @@
 
     
 
-    <img *ngIf="schoolDetails.image" src="{{schoolDetails.image}}" alt="">
-    <img *ngIf="!schoolDetails.image"
-      src="https://firebasestorage.googleapis.com/v0/b/step-drive-95bbe.appspot.com/o/1.png?alt=media&token=c023a9e6-a7a0-4af9-bd13-9778f2bea46d"
-      alt="">
+    <img src="{{schoolDetails.image}}" alt="">
 
     <div class="reviews" (click)="goToReviews()">
         <p>reviews</p>
       </div>
       <div class="ratings">
-        <p>ratings {{schoolDetails.average}}</p>
+        <p>ratings {{schoolDetails.avarage}}</p>
       </div>
   </div>
 
@@ -109,7 +122,7 @@
           <p>packages</p>
       </div>
       <div class="ab">
-        <ion-fab-button (click)="openPackEdit()" size="small">
+        <ion-fab-button (click)="openPackEdit('addPack')" size="small">
           <ion-icon name="add"></ion-icon>
         </ion-fab-button>
       </div>
@@ -119,45 +132,45 @@
     </div>
   </div>
 ​
-  <ion-segment  style="width: 96vw !important; margin: auto;" [(ngModel)]="segmentVal" (ionChange)="segmentChanged($event)">
+  <ion-segment scrollable="true" style="width: 96vw !important; margin: auto;" [(ngModel)]="segmentVal" (ionChange)="segmentChanged($event)">
 
-    <ion-segment-button value="code01">
+    <ion-segment-button style="border-bottom: solid 1px rgb(187, 187, 187) !important;" value="code01">
       <ion-label >Code 01</ion-label>
     </ion-segment-button>
 
-    <ion-segment-button value="code08">
+    <ion-segment-button style="border-bottom: solid 1px rgb(187, 187, 187) !important;" value="code08">
       <ion-label>Code 08</ion-label>
     </ion-segment-button>
 
-    <ion-segment-button value="code10">
+    <ion-segment-button style="border-bottom: solid 1px rgb(187, 187, 187) !important;" value="code10">
         <ion-label>Code 10</ion-label>
     </ion-segment-button>
 
-      <ion-segment-button value="code14">
+      <ion-segment-button style="border-bottom: solid 1px rgb(187, 187, 187) !important;" value="code14">
           <ion-label>Code 14</ion-label>
       </ion-segment-button>
 
   </ion-segment>
 ​
+ 
+​
   <div class="lessonCont">
-    <div *ngIf="packsToDisplay!==undefined">
-        <div class="lessonCard" *ngFor="let p of packsToDisplay; let i = index" (click)="presentActionSheet(i, p)">
-            <div class="title">
-              <div class="lName">
-                <h5>{{p.name}} <sub>{{p.code}}</sub> </h5>
-              </div>
-            </div>
-            <div class="lessonCdetails">
-              <div>
-                <p>R {{p.amount}}.00</p>
-              </div>
-              <div>
-                <p>{{p.number}} lessons</p>
-              </div>
+    <p class="k" *ngIf="packsToDisplay.length == 0" style="text-align: center;" >No Packages added for {{segmentVal}}</p>
+      <div class="lessonCard" *ngFor="let p of packsToDisplay; let i = index" (click)="presentActionSheet(i, p)">
+          <div class="title">
+            <div class="lName">
+              <h5>{{p.name}} <sub>{{p.code}}</sub> </h5>
             </div>
           </div>
-    </div>
-      
+          <div class="lessonCdetails">
+            <div>
+              <p>R {{p.amount}}.00</p>
+            </div>
+            <div>
+              <p>{{p.number}} lessons</p>
+            </div>
+          </div>
+        </div>
   </div>
 ​
  

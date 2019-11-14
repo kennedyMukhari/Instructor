@@ -1,27 +1,24 @@
 <ion-content>
-    <div class="request">
-      <h1 style="font-size: 4vw;">
-         {{value}}
-      </h1>
-    </div>
-    <div class="container" padding *ngFor = "let obj of dataDisplay; let i = index">
-  
-      <div class="card" >
+    <div class="container" padding >
+      <p *ngIf="dataDisplay.length==0" style="text-align: center;" >No bookings made yet.</p>
+      <div class="card" *ngFor = "let obj of dataDisplay; let i = index">
   
           <div class="image">
-            <img src="{{obj.obj.image}}" alt="No Image">
+            <img src="{{obj.image}}" alt="No Image">
           </div>
           <div class="details" >
             <div class="det">
-              <p style="font-size: 4vw;font-weight: bold">{{obj.obj.name}}</p>
+              <p style="font-size: 5vw;font-weight: bold">{{obj.name}}</p>
               
-              <p (click)="GoTo(obj)"style="font-size: 3vw">{{obj.obj.location}}</p>
-              <p style="font-size: 3vw">Contacts: {{obj.obj.phone}}</p><br />
-              <!-- <p style="font-size: 3vw">Date: {{obj.obj.datein}}</p> -->
-              <!-- <p style="font-size: 2.5vw">{{obj.phone}}</p> -->
+              <p style="font-size: 3vw">{{obj.package.name}}, {{obj.package.code}}, R{{obj.package.amount}}.00, {{obj.package.number}} lesson(s)</p>
+              <p style="font-size: 3vw">{{obj.phone}}</p>
+              
+              <hr style="background: white;">
+              <p style="font-size: 3vw">{{obj.datein}} to {{obj.dateout}}</p>
+              <p style="color: rgb(93, 190, 255);text-decoration: underline;" (click)="GoTo(obj)">Take me here</p>
             </div>
           </div>
-  <!-- <button (click)="DeleteItem(i)">Delete</button> -->
+  <button (click)="DeleteItem(obj)"> <ion-icon name="trash"></ion-icon> </button>
         </div>
 
       </div>  

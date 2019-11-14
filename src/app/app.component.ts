@@ -73,7 +73,9 @@ export class AppComponent {
 //   }
 
 initializeApp() {
+  
   this.platform.ready().then(() => {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     this.backButton()
     this.statusBar.styleDefault();
     this.statusBar.styleLightContent();
@@ -83,14 +85,12 @@ initializeApp() {
     // check if the user did the onboarding
     this.storage.get('onboarding').then(val => {
       if (val == 'checked') {
-        console.log(val);
         // check if they are signed in
         firebase.auth().onAuthStateChanged(user => {
           if (user) {
             // check if user has profile
             firebase.firestore().collection('drivingschools').doc(user.uid).get().then(res => {
-              console.log(res.data())
-              if (res.data()==undefined) {
+              if (!res.exists) {
                 this.router.navigate(['/viewprofile']);
               } else {              
               this.router.navigate(['/main/the-map']);
@@ -107,7 +107,7 @@ initializeApp() {
 
 
     if (this.platform.is('cordova')) {
-      // this.setupPush();
+      this.setupPush();
     }
   });
 }
@@ -154,70 +154,53 @@ initializeApp() {
 }
 ngOnInit() {
   
-   this.initializeBackButtonCustomHandler();
-  
  }
  ionViewWillLeave() {
   // Unregister the custom back button action for this page
   this.unsubscribeBackEvent && this.unsubscribeBackEvent();
 }
-initializeBackButtonCustomHandler(): void {
-    
 
 
+setupPush() {
+ 
+  this.oneSignal.startInit('d0d13732-1fec-4508-b72b-86eaa0c62aa4', '580007341136')
+
+  this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
 
 
+  this.oneSignal.handleNotificationReceived().subscribe(data => {
+    let msg = data.payload.body;
+    let title = data.payload.title;
+    let additionalData = data.payload.additionalData;
+    this.showAlert(title, msg, additionalData.task);
+  });
 
-
-
-// this.unsubscribeBackEvent = this.platform.backButton.subscribeWithPriority(999999,  () => {
-//     // alert("back pressed home" + this.constructor.name);
+  this.oneSignal.handleNotificationOpened().subscribe(data => {
+    console.log(data)
    
-// });
-/* here priority 101 will be greater then 100 
-if we have registerBackButtonAction in app.component.ts */
+    let additionalData = data.notification.payload.additionalData;
+
+    this.showAlert('Notification opened', 'You already read this before', additionalData.task);
+  });
+
+  this.oneSignal.endInit();
 }
 
-// setupPush() {
- 
-//   this.oneSignal.startInit('d0d13732-1fec-4508-b72b-86eaa0c62aa4', '580007341136');
-
-//   this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
-
-
-//   this.oneSignal.handleNotificationReceived().subscribe(data => {
-//     let msg = data.payload.body;
-//     let title = data.payload.title;
-//     let additionalData = data.payload.additionalData;
-//     this.showAlert(title, msg, additionalData.task);
-//   });
-
-//   this.oneSignal.handleNotificationOpened().subscribe(data => {
-//     console.log(data)
-   
-//     let additionalData = data.notification.payload.additionalData;
-
-//     this.showAlert('Notification opened', 'You already read this before', additionalData.task);
-//   });
-
-//   this.oneSignal.endInit();
-// }
-
-// async showAlert(title, msg, task) {
-//   const alert = await this.alertCtrl.create({
-//     header: title,
-//     subHeader: msg,
-//     buttons: [
-//       {
-//         text: `Action: ${task}`,
-//         handler: () => {
-//           // E.g: Navigate to a specific screen
-//         }
-//       }
-//     ]
-//   })
-//   alert.present();
-// }
+async showAlert(title, msg, task) {
+  const alert = await this.alertCtrl.create({
+    header: title,
+    subHeader: msg,
+    buttons: [
+      {
+        text: `Action: ${task}`,
+        handler: () => {
+          // E.g: Navigate to a specific screen
+        }
+      }
+    ]
+  })
+  alert.present();
+}
 @HostListener('document:readystatechange', ['$event'])
 onReadyStateChanged(event) {
     if (event.target.readyState === 'complete') {
