@@ -15,6 +15,7 @@ import { Platform } from '@ionic/angular';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { ToastController } from '@ionic/angular';
 
 declare var google;
 
@@ -53,13 +54,14 @@ export class TheMapPage implements OnInit {
   NewRequeste = [];
   Data = [];
   NewData = [];
+  dataDisplay = [];
   viewImage = {
     image: '',
     open: false
   }
 
 
-  constructor(public loadingController:LoadingController,private geolocation: Geolocation,private screenOrientation: ScreenOrientation, private platform: Platform, public alertController: AlertController, public AuthService: AuthService, public data: DataSavedService, public router: Router, private nativeGeocoder: NativeGeocoder, public elementref: ElementRef, public renderer: Renderer2, private localNot: LocalNotifications, private userService: UserService,
+  constructor(public loadingController:LoadingController, public toastCtrl:ToastController, private geolocation: Geolocation,private screenOrientation: ScreenOrientation, private platform: Platform, public alertController: AlertController, public AuthService: AuthService, public data: DataSavedService, public router: Router, private nativeGeocoder: NativeGeocoder, public elementref: ElementRef, public renderer: Renderer2, private localNot: LocalNotifications, private userService: UserService,
     public loadingCtrl: LoadingController,   public splashscreen: SplashScreen, public zone: NgZone){
     this.pushNotification();
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
@@ -157,9 +159,132 @@ setTimeout(()=>{
 
     this.getUserPosition();
     })
+
+
+    this.zone.run(()=>{
+      console.log('Core service init');
+  const tabBar = document.getElementById('myTabBar');
+   tabBar.style.display = 'flex';
+   this.zone.run(()=>{
+    setTimeout(() => {
+      this.dataDisplay.length = 0
+      this.getBooking()
+    }, 1000);
+     })
+   
+})
     
    
   }
+
+  async getBooking(){
+    this.zone.run(()=>{
+        console.log('Getting bookings');
+    
+    let obj = {
+      image : null,
+      name : null,
+      phone : null,
+      datein : null,
+      dateout :null,
+      book :  null,
+      location : null,
+      route: null,
+      time : null,
+      packageName : null,
+      package: null,
+      docid : null,
+      placeid : null,
+      notified: null
+    }
+
+
+    
+      this.db.collection('bookings').where('schooluid', '==', firebase.auth().currentUser.uid).get().then(snapshot => {
+        this.dataDisplay.length = 0
+        snapshot.forEach(bDoc => {
+          if (bDoc.data().confirmed == 'accepted') {
+
+            this.db.collection('users').doc(bDoc.data().uid).get().then(res=> {
+              obj = {
+                image : res.data().image,
+                name : res.data().name,
+                phone : res.data().phone,
+                datein : bDoc.data().datein,
+                dateout : bDoc.data().dateout,
+                book :  bDoc.data().book,
+                location :  bDoc.data().location.address,
+                route: bDoc.data().location,
+                time : bDoc.data().time,
+                packageName : bDoc.data().package.name,
+                package: bDoc.data().package,
+                docid : bDoc.id,
+                placeid : bDoc.data().location.placeid,
+                notified: res.data().notified
+              }
+               
+             this.dataDisplay.push(obj);
+             obj = {
+              image : null,
+              name : null,
+              phone : null,
+              datein : null,
+              dateout :null,
+              book :  null,
+              location : null,
+              route: null,
+              time : null,
+              packageName : null,
+              package: null,
+              docid : null,
+              placeid : null,
+              notified: null
+            }
+            })
+
+          }
+            
+            
+        });
+       
+      });
+    })
+    
+  
+    }
+
+    async DeleteItem(i){
+
+
+      this.zone.run(async ()=>{
+        let toaster = await this.alertController.create({
+      header: 'Remove Booking',
+      message: "Delete only if you're done with teaching this person. Continue?",
+      buttons: [{
+        text: 'No',
+        role: 'cancel'
+      },
+      {
+        text:"Yes",
+        handler: ()=>{
+          this.db.collection('bookings').doc(i.docid).delete().then(async res=>{
+            let toast = await this.toastCtrl.create({
+              message: 'Booking Removed',
+              duration: 2000
+            })
+            toast.present()
+            this.getBooking()
+          })
+        }
+      }
+    ]
+    })
+    toaster.present()
+      })
+    
+      
+    
+    }
 
   checkBookingProfile(obj, i, docid) {
     this.zone.run(()=>{

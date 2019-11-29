@@ -34,6 +34,18 @@
               </button>
         </ion-item>
       </ion-list>
+
+      <p *ngIf="dataDisplay.length != 0">Accepted Customers</p>
+
+      <ion-list *ngIf="dataDisplay.length != 0">
+          <ion-item *ngFor="let obj of dataDisplay; let i = index" >
+              <p style="font-size: 3vw; width: 100%;">{{obj.location}}</p>
+              <!-- <img src="{{obj.image}}" alt="No Image"> -->
+            {{obj.name}} <br />
+            {{obj.package.name}}<br />
+            <button (click)="DeleteItem(obj)"> <ion-icon name="trash"></ion-icon> </button>
+          </ion-item>
+        </ion-list>
 <!-- 
       <div class="s-list" padding>
         <p *ngIf="NewRequesteWithPictures.length==0" style="color: gray; text-align: center;">No bookings for you yet.</p>

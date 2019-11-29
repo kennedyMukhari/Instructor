@@ -70,10 +70,11 @@ return window.location.href = `https://www.google.com/maps/dir/?api=1&origin=${s
 
 
  ngOnInit() {
-
 }
 
 async DeleteItem(i){
+
+
   this.zone.run(async ()=>{
     let toaster = await this.alertController.create({
   header: 'Remove Booking',
@@ -99,6 +100,8 @@ async DeleteItem(i){
 })
 toaster.present()
   })
+
+
 
 }
 
