@@ -114,6 +114,7 @@ export class ProfilePage implements OnInit {
   }
 
   ionViewWillEnter() {
+    
     this.zone.run(() => {
       
         this.db.collection('drivingschools').doc(this.user.uid).onSnapshot(res => {
@@ -149,9 +150,6 @@ export class ProfilePage implements OnInit {
   }
 
   async Logout() {
-
-
-
 
 
     const alert = await this.alertController.create({

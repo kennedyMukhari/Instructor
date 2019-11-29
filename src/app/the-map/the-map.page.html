@@ -1,58 +1,40 @@
 
-<!-- <ion-content>
-
-
-  <div #map id="map" (click)="showTab()"></div>
-
-
-  <div #list [ngClass]="{'list': display, 'listinactive': !display}">
-    <div (click)="swipeUp()" class="toggler">
-      <ion-icon *ngIf="display" color="light" class="arrow" name="arrow-dropdown"></ion-icon>
-      <ion-icon *ngIf="!display" class="arrow" name="arrow-dropup"></ion-icon>
-    </div>
-    <div class="s-list">
-      <div class="card" *ngFor="let data of NewRequesteWithPictures; let i = index">
-        <div class="image">
-
-          <img *ngIf="!data.image"
-            src="https://icon-library.net/images/image-placeholder-icon/image-placeholder-icon-3.jpg" alt="">
-
-          <img src="{{data.image}}" alt="No image">
-
-        </div>
-        <div class="details">
-          <p style="color: white">Date In: {{data.datein}}</p>
-          <p style="color: white">Date Out: {{data.dateout}}</p>
-        </div>
-
-
-        <div class="call">
-          <button expand="full" (click)="Decline(data.docid, i)">Decline</button>
-        </div>
-        <div class="request">
-          <button expand="full" (click)="Accept(data, i, data.docid)">Accept</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</ion-content> -->
 <ion-content>
-    <div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
-        <!-- <div class="loader"> -->
+
+    <!-- <div [ngClass]="{'loader': loaderAnimate, 'loader-hide': !loaderAnimate}">
           <div class="load-ctrl">
               <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
               <p style="color: white; font-size: 4vw; text-align: center">Getting Request</p>
               
           </div>
-        </div>
+        </div> -->
 
-    <div #map id="map" (click)="showTab()"></div>
-    <div #list [ngClass]="{'list': display, 'listinactive': !display}">
-      <div (click)="swipeUp()" class="toggler">
+    <!-- <div #map id="map" (click)="showTab()"></div> -->
+
+    <!-- <div #list [ngClass]="{'list': display, 'listinactive': !display}"> -->
+
+
+      <!-- <div (click)="swipeUp()" class="toggler">
         <ion-icon *ngIf="display" color="dark" class="arrow" name="arrow-dropdown"></ion-icon>
         <ion-icon *ngIf="!display" class="arrow" name="arrow-dropup"></ion-icon>
         <p *ngIf="!display" color="dark" style="font-size: 3vw;">REQUESTS</p>
-      </div>
+      </div> -->
+
+      <p *ngIf="NewRequesteWithPictures.length==0" style="color: gray; text-align: center;">No bookings for you yet.</p>
+
+      <ion-list >
+        <ion-item *ngFor="let  obj of NewRequesteWithPictures" >
+            <p style="font-size: 3vw; width: 100%;">{{obj.location}}</p>
+            <!-- <img src="{{obj.image}}" alt="No Image"> -->
+          {{obj.name}} <button class="bt1" (click)="Accept(obj, i, obj.docid)">
+              Accept
+            </button>
+            <button class="bt2" (click)="Decline(obj.docid, i)">
+                Decline
+              </button>
+        </ion-item>
+      </ion-list>
+<!-- 
       <div class="s-list" padding>
         <p *ngIf="NewRequesteWithPictures.length==0" style="color: gray; text-align: center;">No bookings for you yet.</p>
         <div class="card" *ngFor = "let obj of NewRequesteWithPictures; let i = index" >
@@ -83,6 +65,8 @@
           </div>
   
         </div>
-      </div>
-    </div>
+      </div> -->
+
+
+    <!-- </div> -->
   </ion-content>

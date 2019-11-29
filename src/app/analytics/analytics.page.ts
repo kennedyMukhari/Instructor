@@ -286,6 +286,8 @@ charts: any;
 //       }
 //     });
 // }
+
+
 createBarChart() {
   
   this.charts = new Chart(this.barChart.nativeElement,  {
